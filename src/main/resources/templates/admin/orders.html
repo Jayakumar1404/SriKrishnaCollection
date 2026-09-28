@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Orders | Sri Krishna Collection
+    </title>
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+
+    <!-- =====================================================
+         ADMIN ORDERS CSS
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/admin-orders.css}">
+
+<link rel="stylesheet" th:href="@{/css/admin-back.css}"></head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================== -->
+
+<header class="admin-header">
+
+    <div class="container">
+
+        <div class="header-inner">
+
+
+            <!-- BRAND -->
+
+            <a href="#"
+               class="brand">
+
+                <small>
+                    SRI KRISHNA
+                </small>
+
+                <strong>
+                    COLLECTION
+                </strong>
+
+            </a>
+
+
+            <!-- ADMIN LABEL -->
+
+            <div class="admin-label">
+
+                <i class="fa-solid fa-user-shield"></i>
+
+                ADMIN PANEL
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+========================================================== -->
+
+<main class="admin-page">
+
+    <div class="container">
+
+
+        <!-- =================================================
+             PAGE HEADER
+        ================================================== -->
+
+        <div class="page-header">
+
+            <span class="page-label">
+                ADMIN PANEL
+            </span>
+
+            <h1>
+                Order Management
+            </h1>
+
+            <p>
+                View and manage all customer orders.
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SUCCESS MESSAGE
+        ================================================== -->
+
+        <div
+            th:if="${success}"
+            class="alert-message success-message">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span th:text="${success}">
+                Operation completed successfully.
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ERROR MESSAGE
+        ================================================== -->
+
+        <div
+            th:if="${error}"
+            class="alert-message error-message">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span th:text="${error}">
+                Something went wrong.
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ORDER DASHBOARD
+
+             IMPORTANT:
+             NO Bootstrap row/col classes here.
+        ================================================== -->
+
+        <div class="dashboard-grid">
+
+
+            <!-- TOTAL ORDERS -->
+
+            <div class="dashboard-card total-card">
+
+                <div class="dashboard-icon">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                </div>
+
+                <div class="dashboard-content">
+
+                    <span>
+                        TOTAL ORDERS
+                    </span>
+
+                    <strong
+                        th:text="${totalOrders != null ? totalOrders : 0}">
+                        0
+                    </strong>
+
+                    <small>
+                        All customer orders
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TODAY'S ORDERS -->
+
+            <div class="dashboard-card today-card">
+
+                <div class="dashboard-icon">
+
+                    <i class="fa-solid fa-calendar-day"></i>
+
+                </div>
+
+                <div class="dashboard-content">
+
+                    <span>
+                        TODAY'S ORDERS
+                    </span>
+
+                    <strong
+                        th:text="${todayOrders != null ? todayOrders : 0}">
+                        0
+                    </strong>
+
+                    <small>
+                        Orders placed today
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PENDING -->
+
+            <div class="dashboard-card pending-card">
+
+                <div class="dashboard-icon">
+
+                    <i class="fa-solid fa-clock"></i>
+
+                </div>
+
+                <div class="dashboard-content">
+
+                    <span>
+                        PENDING
+                    </span>
+
+                    <strong
+                        th:text="${pendingOrders != null ? pendingOrders : 0}">
+                        0
+                    </strong>
+
+                    <small>
+                        Awaiting processing
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SHIPPED -->
+
+            <div class="dashboard-card shipped-card">
+
+                <div class="dashboard-icon">
+
+                    <i class="fa-solid fa-truck-fast"></i>
+
+                </div>
+
+                <div class="dashboard-content">
+
+                    <span>
+                        SHIPPED
+                    </span>
+
+                    <strong
+                        th:text="${shippedOrders != null ? shippedOrders : 0}">
+                        0
+                    </strong>
+
+                    <small>
+                        Orders in transit
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- DELIVERED -->
+
+            <div class="dashboard-card delivered-card">
+
+                <div class="dashboard-icon">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <div class="dashboard-content">
+
+                    <span>
+                        DELIVERED
+                    </span>
+
+                    <strong
+                        th:text="${deliveredOrders != null ? deliveredOrders : 0}">
+                        0
+                    </strong>
+
+                    <small>
+                        Successfully delivered
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CANCELLED -->
+
+            <div class="dashboard-card cancelled-card">
+
+                <div class="dashboard-icon">
+
+                    <i class="fa-solid fa-circle-xmark"></i>
+
+                </div>
+
+                <div class="dashboard-content">
+
+                    <span>
+                        CANCELLED
+                    </span>
+
+                    <strong
+                        th:text="${cancelledOrders != null ? cancelledOrders : 0}">
+                        0
+                    </strong>
+
+                    <small>
+                        Cancelled orders
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TOTAL REVENUE -->
+
+            <div class="dashboard-card revenue-card">
+
+                <div class="dashboard-icon">
+
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                </div>
+
+                <div class="dashboard-content">
+
+                    <span>
+                        TOTAL REVENUE
+                    </span>
+
+                    <strong>
+
+                        ₹<span
+                            th:text="${totalRevenue != null
+                                ? #numbers.formatDecimal(
+                                    totalRevenue,
+                                    1,
+                                    2
+                                )
+                                : '0.00'}">
+
+                            0.00
+
+                        </span>
+
+                    </strong>
+
+                    <small>
+                        Excluding cancelled orders
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TODAY REVENUE -->
+
+            <div class="dashboard-card today-revenue-card">
+
+                <div class="dashboard-icon">
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                </div>
+
+                <div class="dashboard-content">
+
+                    <span>
+                        TODAY'S REVENUE
+                    </span>
+
+                    <strong>
+
+                        ₹<span
+                            th:text="${todayRevenue != null
+                                ? #numbers.formatDecimal(
+                                    todayRevenue,
+                                    1,
+                                    2
+                                )
+                                : '0.00'}">
+
+                            0.00
+
+                        </span>
+
+                    </strong>
+
+                    <small>
+                        Revenue generated today
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SEARCH + FILTER
+        ================================================== -->
+
+        <div class="filter-card">
+
+            <form
+                id="orderFilterForm"
+                th:action="@{/admin/orders}"
+                method="get">
+
+
+                <!-- SEARCH ROW -->
+
+                <div class="filter-top-row">
+
+
+                    <!-- SEARCH -->
+
+                    <div class="search-area">
+
+                        <label class="filter-label">
+                            SEARCH ORDERS
+                        </label>
+
+                        <div class="search-box">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                            <input
+                                type="text"
+                                name="keyword"
+                                id="orderSearch"
+                                th:value="${keyword}"
+                                placeholder="Search customer name, email or order ID..."
+                                autocomplete="off">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CLEAR -->
+
+                    <div class="clear-area">
+
+                        <a
+                            th:href="@{/admin/orders}"
+                            class="clear-button">
+
+                            <i class="fa-solid fa-rotate-left"></i>
+
+                            Clear
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- STATUS FILTER -->
+
+                <div class="status-filter-section">
+
+
+                    <div class="status-filter-header">
+
+                        <span class="filter-label">
+                            ORDER STATUS
+                        </span>
+
+                        <small>
+                            Click a status to automatically filter orders
+                        </small>
+
+                    </div>
+
+
+                    <div class="status-pills">
+
+
+                        <!-- ALL -->
+
+                        <button
+                            type="button"
+                            class="status-pill"
+                            data-status="ALL"
+                            th:classappend="${
+                                selectedStatus == null
+                                or selectedStatus == 'ALL'
+                                ? ' active'
+                                : ''
+                            }">
+
+                            <span class="status-dot all-dot"></span>
+
+                            All
+
+                        </button>
+
+
+
+                        <!-- PLACED -->
+
+                        <button
+                            type="button"
+                            class="status-pill"
+                            data-status="PLACED"
+                            th:classappend="${
+                                selectedStatus == 'PLACED'
+                                ? ' active'
+                                : ''
+                            }">
+
+                            <span class="status-dot placed-dot"></span>
+
+                            Placed
+
+                        </button>
+
+
+
+                        <!-- CONFIRMED -->
+
+                        <button
+                            type="button"
+                            class="status-pill"
+                            data-status="CONFIRMED"
+                            th:classappend="${
+                                selectedStatus == 'CONFIRMED'
+                                ? ' active'
+                                : ''
+                            }">
+
+                            <span class="status-dot confirmed-dot"></span>
+
+                            Confirmed
+
+                        </button>
+
+
+
+                        <!-- PACKED -->
+
+                        <button
+                            type="button"
+                            class="status-pill"
+                            data-status="PACKED"
+                            th:classappend="${
+                                selectedStatus == 'PACKED'
+                                ? ' active'
+                                : ''
+                            }">
+
+                            <span class="status-dot packed-dot"></span>
+
+                            Packed
+
+                        </button>
+
+
+
+                        <!-- SHIPPED -->
+
+                        <button
+                            type="button"
+                            class="status-pill"
+                            data-status="SHIPPED"
+                            th:classappend="${
+                                selectedStatus == 'SHIPPED'
+                                ? ' active'
+                                : ''
+                            }">
+
+                            <span class="status-dot shipped-dot"></span>
+
+                            Shipped
+
+                        </button>
+
+
+
+                        <!-- DELIVERED -->
+
+                        <button
+                            type="button"
+                            class="status-pill"
+                            data-status="DELIVERED"
+                            th:classappend="${
+                                selectedStatus == 'DELIVERED'
+                                ? ' active'
+                                : ''
+                            }">
+
+                            <span class="status-dot delivered-dot"></span>
+
+                            Delivered
+
+                        </button>
+
+
+
+                        <!-- CANCELLED -->
+
+                        <button
+                            type="button"
+                            class="status-pill"
+                            data-status="CANCELLED"
+                            th:classappend="${
+                                selectedStatus == 'CANCELLED'
+                                ? ' active'
+                                : ''
+                            }">
+
+                            <span class="status-dot cancelled-dot"></span>
+
+                            Cancelled
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- HIDDEN STATUS -->
+
+                    <input
+                        type="hidden"
+                        name="status"
+                        id="selectedStatus"
+                        th:value="${selectedStatus != null
+                            ? selectedStatus
+                            : 'ALL'}">
+
+                </div>
+
+            </form>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ORDERS TABLE
+        ================================================== -->
+
+        <div class="orders-card">
+
+
+            <!-- TABLE HEADER -->
+
+            <div class="orders-card-header">
+
+                <div>
+
+                    <h2>
+                        Customer Orders
+                    </h2>
+
+                    <span class="orders-subtitle">
+                        Manage and track every order
+                    </span>
+
+                </div>
+
+
+                <div class="orders-count">
+
+                    <strong
+                        th:text="${orders != null
+                            ? #lists.size(orders)
+                            : 0}">
+                        0
+                    </strong>
+
+                    orders found
+
+                </div>
+
+            </div>
+
+
+
+            <!-- TABLE -->
+
+            <div
+                th:if="${orders != null and !orders.isEmpty()}"
+                class="table-wrapper">
+
+                <table class="orders-table">
+
+
+                    <thead>
+
+                    <tr>
+
+                        <th>
+                            ORDER
+                        </th>
+
+                        <th>
+                            CUSTOMER
+                        </th>
+
+                        <th>
+                            DATE
+                        </th>
+
+                        <th>
+                            TOTAL
+                        </th>
+
+                        <th>
+                            PAYMENT
+                        </th>
+
+                        <th>
+                            STATUS
+                        </th>
+
+                        <th>
+                            ACTION
+                        </th>
+
+                    </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                    <tr
+                        th:each="order : ${orders}">
+
+
+                        <!-- ORDER -->
+
+                        <td>
+
+                            <span class="order-number">
+
+                                #
+
+                                <span
+                                    th:text="${order.id}">
+                                    1
+                                </span>
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- CUSTOMER -->
+
+                        <td>
+
+                            <div class="customer-info">
+
+                                <strong
+                                    th:text="${
+                                        order.customer != null
+                                        ? order.customer.firstName
+                                            + ' '
+                                            + (
+                                                order.customer.lastName != null
+                                                ? order.customer.lastName
+                                                : ''
+                                            )
+                                        : 'N/A'
+                                    }">
+
+                                    Customer Name
+
+                                </strong>
+
+
+                                <span
+                                    th:text="${
+                                        order.customer != null
+                                        ? order.customer.email
+                                        : 'N/A'
+                                    }">
+
+                                    customer@email.com
+
+                                </span>
+
+                            </div>
+
+                        </td>
+
+
+
+                        <!-- DATE -->
+
+                        <td>
+
+                            <div class="order-date">
+
+                                <span
+                                    th:if="${order.orderDate != null}"
+                                    th:text="${#temporals.format(
+                                        order.orderDate,
+                                        'dd MMM yyyy'
+                                    )}">
+
+                                    18 Aug 2026
+
+                                </span>
+
+                                <span
+                                    th:if="${order.orderDate == null}">
+
+                                    N/A
+
+                                </span>
+
+
+                                <span
+                                    class="order-time"
+                                    th:if="${order.orderDate != null}"
+                                    th:text="${#temporals.format(
+                                        order.orderDate,
+                                        'hh:mm a'
+                                    )}">
+
+                                    10:30 AM
+
+                                </span>
+
+                            </div>
+
+                        </td>
+
+
+
+                        <!-- TOTAL -->
+
+                        <td>
+
+                            <span class="amount">
+
+                                ₹<span
+                                    th:text="${order.totalAmount != null
+                                        ? #numbers.formatDecimal(
+                                            order.totalAmount,
+                                            1,
+                                            2
+                                        )
+                                        : '0.00'}">
+
+                                    0.00
+
+                                </span>
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- PAYMENT -->
+
+                        <td>
+
+                            <span
+                                class="payment-method"
+                                th:text="${
+                                    order.paymentMethod != null
+                                    ? order.paymentMethod
+                                    : 'N/A'
+                                }">
+
+                                COD
+
+                            </span>
+
+
+                            <span
+                                class="payment-status"
+                                th:text="${
+                                    order.paymentStatus != null
+                                    ? order.paymentStatus
+                                    : 'N/A'
+                                }">
+
+                                PAID
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <span
+                                class="status-badge"
+
+                                th:classappend="${
+                                    order.orderStatus == 'PLACED'
+                                    ? ' status-placed' :
+
+                                    order.orderStatus == 'CONFIRMED'
+                                    ? ' status-confirmed' :
+
+                                    order.orderStatus == 'PACKED'
+                                    ? ' status-packed' :
+
+                                    order.orderStatus == 'SHIPPED'
+                                    ? ' status-shipped' :
+
+                                    order.orderStatus == 'DELIVERED'
+                                    ? ' status-delivered' :
+
+                                    order.orderStatus == 'CANCELLED'
+                                    ? ' status-cancelled' :
+
+                                    ''
+                                }"
+
+                                th:text="${
+                                    order.orderStatus != null
+                                    ? order.orderStatus
+                                    : 'PENDING'
+                                }">
+
+                                PLACED
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- ACTION -->
+
+                        <td>
+
+                            <a
+                                th:href="@{/admin/orders/{id}(id=${order.id})}"
+                                class="view-button">
+
+                                <i class="fa-solid fa-eye"></i>
+
+                                View
+
+                            </a>
+
+                        </td>
+
+
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 EMPTY
+            ================================================== -->
+
+            <div
+                th:if="${orders == null or orders.isEmpty()}"
+                class="empty-orders">
+
+                <i class="fa-solid fa-box-open"></i>
+
+                <h3>
+                    No Orders Found
+                </h3>
+
+                <p>
+                    No orders match your current search or filter.
+                </p>
+
+                <a
+                    th:href="@{/admin/orders}"
+                    class="empty-clear-button">
+
+                    View All Orders
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================== -->
+
+<footer class="admin-footer">
+
+    <div class="container">
+
+        <div class="footer-inner">
+
+            <span>
+                © 2026 Sri Krishna Collection
+            </span>
+
+            <span>
+                Admin Order Management
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================== -->
+
+<script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const form =
+                document.getElementById(
+                    "orderFilterForm"
+                );
+
+            const statusInput =
+                document.getElementById(
+                    "selectedStatus"
+                );
+
+            const statusButtons =
+                document.querySelectorAll(
+                    ".status-pill"
+                );
+
+
+            statusButtons.forEach(
+                function (button) {
+
+                    button.addEventListener(
+                        "click",
+                        function () {
+
+                            const status =
+                                button.getAttribute(
+                                    "data-status"
+                                );
+
+
+                            statusInput.value =
+                                status;
+
+
+                            form.submit();
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+    );
+
+</script>
+
+
+<script th:src="@{/js/admin-back.js}"></script></body>
+
+</html>

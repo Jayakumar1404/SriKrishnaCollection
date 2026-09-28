@@ -1,0 +1,788 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background: #f7f7f5;
+
+    color: #293333;
+}
+
+.profile-page {
+    width: min(950px, 94%);
+
+    margin: 45px auto 70px;
+}
+
+/* =====================================================
+   HEADER
+   ===================================================== */
+
+.profile-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+}
+
+.avatar {
+    width: 70px;
+    height: 70px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #176f6c;
+
+    color: white;
+
+    font-size: 25px;
+
+    box-shadow:
+        0 8px 22px
+        rgba(23, 111, 108, .18);
+}
+
+.profile-header h1 {
+    margin: 0;
+
+    font-family: Georgia, serif;
+
+    color: #183b3b;
+
+    font-size: 32px;
+}
+
+.profile-header p {
+    margin: 5px 0 0;
+
+    color: #777;
+}
+
+/* =====================================================
+   ALERT
+   ===================================================== */
+
+.alert {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 13px 16px;
+
+    margin-bottom: 18px;
+
+    border-radius: 10px;
+
+    font-size: 14px;
+}
+
+.alert.success {
+    background: #eaf7f2;
+
+    color: #166b4d;
+
+    border: 1px solid #c9eadc;
+}
+
+.alert.error {
+    background: #fff0f0;
+
+    color: #9c3030;
+
+    border: 1px solid #f0cccc;
+}
+
+/* =====================================================
+   CARD
+   ===================================================== */
+
+.profile-card {
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 32px;
+
+    border: 1px solid #ebe7df;
+
+    box-shadow:
+        0 10px 35px
+        rgba(0, 0, 0, .06);
+}
+
+/* =====================================================
+   SECTION TITLE
+   ===================================================== */
+
+.section-title {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding-bottom: 22px;
+
+    margin-bottom: 25px;
+
+    border-bottom: 1px solid #eeeeea;
+}
+
+.section-title h2 {
+    margin: 0;
+
+    color: #263d3d;
+
+    font-size: 20px;
+}
+
+.edit-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 10px 15px;
+
+    border-radius: 9px;
+
+    background: #176f6c;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 650;
+
+    transition: .2s;
+}
+
+.edit-button:hover {
+    background: #125b58;
+
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   PROFILE GRID
+   ===================================================== */
+
+.profile-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 20px;
+}
+
+.profile-field {
+    padding: 17px;
+
+    border-radius: 11px;
+
+    background: #fafaf8;
+
+    border: 1px solid #eeeeea;
+}
+
+.field-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #888;
+
+    font-size: 12px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .8px;
+}
+
+.profile-field strong {
+    color: #333;
+
+    font-size: 15px;
+
+    word-break: break-word;
+}
+
+/* =====================================================
+   STATUS
+   ===================================================== */
+
+.status.active {
+    color: #16805b;
+}
+
+.status.inactive {
+    color: #a83232;
+}
+
+/* =====================================================
+   ADDRESS
+   ===================================================== */
+
+.address-section {
+    margin-top: 30px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #eeeeea;
+}
+
+.address-section h2 {
+    margin: 0 0 15px;
+
+    font-size: 19px;
+
+    color: #263d3d;
+}
+
+.address-section h2 i {
+    color: #176f6c;
+
+    margin-right: 7px;
+}
+
+.address-card {
+    padding: 20px;
+
+    border-radius: 12px;
+
+    background: #f4f8f7;
+
+    border: 1px solid #dce9e6;
+
+    line-height: 1.7;
+
+    color: #555;
+}
+
+.address-card p {
+    margin: 3px 0;
+}
+
+/* =====================================================
+   FORM
+   ===================================================== */
+
+.form-group {
+    margin-bottom: 21px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-weight: 650;
+
+    font-size: 14px;
+
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border: 1px solid #d8d8d8;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    background: white;
+
+    transition: .2s;
+}
+
+.form-group textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+
+    border-color: #176f6c;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(23, 111, 108, .09);
+}
+
+.form-group input[readonly] {
+    background: #f2f2ef;
+
+    color: #777;
+
+    cursor: not-allowed;
+}
+
+.form-group small {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #888;
+
+    font-size: 12px;
+}
+
+/* =====================================================
+   TWO COLUMNS
+   ===================================================== */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+}
+
+/* =====================================================
+   FORM ACTIONS
+   ===================================================== */
+
+.form-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 28px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #eeeeea;
+}
+
+.btn {
+    min-height: 46px;
+
+    padding: 0 20px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    font-weight: 650;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.back-btn {
+    background: #eeeeeb;
+
+    color: #444;
+}
+
+.back-btn:hover {
+    background: #e1e1dd;
+}
+
+.save-btn {
+    background: #176f6c;
+
+    color: white;
+}
+
+.save-btn:hover {
+    background: #125b58;
+
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   QUICK LINKS
+   ===================================================== */
+
+.quick-links {
+    display: flex;
+
+    gap: 15px;
+
+    margin-top: 20px;
+}
+
+.quick-links a {
+    flex: 1;
+
+    padding: 15px;
+
+    background: white;
+
+    border: 1px solid #ebe7df;
+
+    border-radius: 11px;
+
+    color: #176f6c;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-weight: 600;
+
+    transition: .2s;
+}
+
+.quick-links a:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 20px
+        rgba(0,0,0,.06);
+}
+
+.quick-links i {
+    margin-right: 7px;
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .profile-page {
+        width: 94%;
+
+        margin-top: 25px;
+    }
+
+    .profile-card {
+        padding: 22px;
+    }
+
+    .profile-grid,
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .edit-button {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .quick-links {
+        flex-direction: column;
+    }
+
+    .profile-header h1 {
+        font-size: 26px;
+    }
+}
+/* =====================================================
+   GENDER SELECTOR
+   ===================================================== */
+
+.gender-group {
+    margin-top: 5px;
+}
+
+.gender-options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 14px;
+
+    margin-top: 10px;
+}
+
+.gender-option {
+    position: relative;
+
+    display: block;
+
+    cursor: pointer;
+}
+
+.gender-option input {
+    position: absolute;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   GENDER CARD
+   ===================================================== */
+
+.gender-card {
+    position: relative;
+
+    min-height: 82px;
+
+    padding: 15px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    border: 1.5px solid #deded9;
+
+    border-radius: 13px;
+
+    background: #ffffff;
+
+    transition:
+        border-color .25s ease,
+        background .25s ease,
+        box-shadow .25s ease,
+        transform .2s ease;
+}
+
+
+/* =====================================================
+   ICON
+   ===================================================== */
+
+.gender-icon {
+    width: 45px;
+    height: 45px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    font-size: 20px;
+
+    transition: .25s;
+}
+
+
+/* Male */
+
+.male-icon {
+    background: #edf5f7;
+
+    color: #267080;
+}
+
+
+/* Female */
+
+.female-icon {
+    background: #f9eef4;
+
+    color: #a74c78;
+}
+
+
+/* Other */
+
+.other-icon {
+    background: #f1f0f7;
+
+    color: #655c8d;
+}
+
+
+/* =====================================================
+   TEXT
+   ===================================================== */
+
+.gender-text {
+    font-size: 14px;
+
+    font-weight: 650;
+
+    color: #343b3b;
+}
+
+
+/* =====================================================
+   CHECK ICON
+   ===================================================== */
+
+.gender-check {
+    position: absolute;
+
+    top: 10px;
+
+    right: 10px;
+
+    width: 20px;
+    height: 20px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #176f6c;
+
+    color: white;
+
+    font-size: 10px;
+
+    opacity: 0;
+
+    transform: scale(.6);
+
+    transition: .2s;
+}
+
+
+/* =====================================================
+   HOVER
+   ===================================================== */
+
+.gender-option:hover .gender-card {
+
+    border-color: #176f6c;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px
+        rgba(23, 111, 108, .08);
+}
+
+
+/* =====================================================
+   SELECTED
+   ===================================================== */
+
+.gender-option input:checked + .gender-card {
+
+    border-color: #176f6c;
+
+    background: #f2f9f8;
+
+    box-shadow:
+        0 6px 18px
+        rgba(23, 111, 108, .10);
+}
+
+
+.gender-option input:checked
++ .gender-card
+.gender-check {
+
+    opacity: 1;
+
+    transform: scale(1);
+}
+
+
+/* Selected icon */
+
+.gender-option input:checked
++ .gender-card
+.gender-icon {
+
+    transform: scale(1.05);
+}
+
+
+/* =====================================================
+   KEYBOARD ACCESSIBILITY
+   ===================================================== */
+
+.gender-option input:focus-visible
++ .gender-card {
+
+    outline: 3px solid
+        rgba(23, 111, 108, .18);
+
+    outline-offset: 2px;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 650px) {
+
+    .gender-options {
+
+        grid-template-columns: 1fr;
+
+    }
+
+    .gender-card {
+
+        min-height: 68px;
+
+    }
+
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Cancel Order | Sri Krishna Collection</title>
+   <link rel="stylesheet" href="@{/css/customer-cancellation.css}">
+
+</head>
+
+<body>
+
+<div class="cancel-container">
+
+    <div class="cancel-card">
+
+        <h1>
+            Cancel Order
+        </h1>
+
+        <div class="order-id">
+
+            Order ID:
+            <strong
+                th:text="'#' + ${orderId}">
+                #1001
+            </strong>
+
+        </div>
+
+        <form
+            th:action="@{/Krishna/orders/cancel/{id}(id=${orderId})}"
+            method="post">
+
+            <label for="reason">
+                Why do you want to cancel?
+            </label>
+
+            <textarea
+                id="reason"
+                name="reason"
+                required
+                maxlength="500"
+                placeholder="Please tell us the reason for cancellation...">
+            </textarea>
+
+            <div class="warning">
+
+                <strong>Important:</strong>
+
+                Once the cancellation is submitted,
+                the order will be cancelled.
+
+                For online payments, the payment will be
+                marked as <strong>Refund Pending</strong>.
+                The refund is not processed immediately.
+
+            </div>
+
+            <div class="actions">
+
+                <a
+                    href="/Krishna/orders"
+                    class="btn back-btn">
+                    Go Back
+                </a>
+
+                <button
+                    type="submit"
+                    class="btn cancel-btn">
+                    Cancel Order
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script
+    th:src="@{/js/customer/cancellation.js}">
+</script>
+</body>
+
+
+</html>

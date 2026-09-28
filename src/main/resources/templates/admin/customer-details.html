@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Customer Details | Sri Krishna Collection</title>
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          th:href="@{/css/admin-customers.css}">
+
+<link rel="stylesheet" th:href="@{/css/admin-back.css}"></head>
+
+
+<body>
+
+<header class="admin-header">
+
+    <div class="page-container">
+
+        <div class="header-inner">
+
+            <a th:href="@{/admin/customers}"
+               class="brand">
+
+                <small>SRI KRISHNA</small>
+
+                <strong>COLLECTION</strong>
+
+            </a>
+
+            <a th:href="@{/admin/customers}"
+               class="back-link">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Customers
+
+            </a>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="customer-page">
+
+    <div class="page-container">
+
+
+        <!-- HEADER -->
+
+        <div class="details-header">
+
+            <span class="page-label">
+                CUSTOMER DETAILS
+            </span>
+
+            <h1>
+                Customer Profile
+            </h1>
+
+        </div>
+
+
+        <!-- CUSTOMER -->
+
+        <div class="profile-layout">
+
+
+            <!-- =================================================
+                 PROFILE CARD
+            ================================================== -->
+
+            <div class="profile-card">
+
+                <div class="large-avatar">
+
+                    <!-- Image -->
+
+                    <img
+                        th:if="${customer.image != null and customer.image != ''}"
+                        th:src="@{'/customer-images/' + ${customer.image}}"
+                        alt="Customer Image">
+
+
+                    <!-- Initial -->
+
+                    <span
+                        th:if="${customer.image == null or customer.image == ''}"
+                        th:text="${customer.firstName != null and customer.firstName != '' ? customer.firstName.substring(0,1).toUpperCase() : 'C'}">
+
+                        C
+
+                    </span>
+
+                </div>
+
+
+                <!-- NAME -->
+
+                <h2>
+
+                    <span
+                        th:text="${customer.firstName != null ? customer.firstName : ''}">
+                        First
+                    </span>
+
+                    <span
+                        th:text="${customer.lastName != null ? ' ' + customer.lastName : ''}">
+                        Last
+                    </span>
+
+                </h2>
+
+
+                <!-- EMAIL -->
+
+                <p
+                    th:text="${customer.email != null ? customer.email : 'N/A'}">
+
+                    customer@email.com
+
+                </p>
+
+
+                <!-- STATUS -->
+
+                <span
+                    class="customer-status"
+                    th:classappend="${customer.status == true ? ' status-active' : ' status-inactive'}"
+                    th:text="${customer.status == true ? 'ACTIVE' : 'INACTIVE'}">
+
+                    ACTIVE
+
+                </span>
+
+
+                <!-- ACTIONS -->
+
+                <div class="profile-actions">
+
+
+                    <!-- DEACTIVATE -->
+
+                    <form
+                        th:if="${customer.status == true}"
+                        th:action="@{/admin/customers/{id}/deactivate(id=${customer.id})}"
+                        method="post">
+
+                        <button
+                            type="submit"
+                            class="action-button deactivate-button"
+                            onclick="return confirm('Deactivate this customer?');">
+
+                            <i class="fa-solid fa-user-slash"></i>
+
+                            Deactivate
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- ACTIVATE -->
+
+                    <form
+                        th:if="${customer.status == false}"
+                        th:action="@{/admin/customers/{id}/activate(id=${customer.id})}"
+                        method="post">
+
+                        <button
+                            type="submit"
+                            class="action-button activate-button">
+
+                            <i class="fa-solid fa-user-check"></i>
+
+                            Activate
+
+                        </button>
+
+                    </form>
+
+
+                    <!-- DELETE -->
+
+                    <form
+                        th:action="@{/admin/customers/{id}/delete(id=${customer.id})}"
+                        method="post">
+
+                        <button
+                            type="submit"
+                            class="action-button delete-button"
+                            onclick="return confirm('Delete this customer permanently?');">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                            Delete
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 INFORMATION CARD
+            ================================================== -->
+
+            <div class="details-card">
+
+                <div class="details-card-header">
+
+                    <h2>
+                        Personal Information
+                    </h2>
+
+                </div>
+
+
+                <div class="details-grid">
+
+
+                    <!-- FIRST NAME -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            FIRST NAME
+                        </span>
+
+                        <strong
+                            th:text="${customer.firstName != null ? customer.firstName : 'N/A'}">
+
+                            N/A
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- LAST NAME -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            LAST NAME
+                        </span>
+
+                        <strong
+                            th:text="${customer.lastName != null ? customer.lastName : 'N/A'}">
+
+                            N/A
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            EMAIL
+                        </span>
+
+                        <strong
+                            th:text="${customer.email != null ? customer.email : 'N/A'}">
+
+                            N/A
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- MOBILE -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            MOBILE
+                        </span>
+
+                        <strong
+                            th:text="${customer.mobile != null ? customer.mobile : 'N/A'}">
+
+                            N/A
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- GENDER -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            GENDER
+                        </span>
+
+                        <strong
+                            th:text="${customer.gender != null ? customer.gender : 'N/A'}">
+
+                            N/A
+
+                        </strong>
+
+                    </div>
+
+
+                    <!-- CUSTOMER ID -->
+
+                    <div class="detail-item">
+
+                        <span>
+                            CUSTOMER ID
+                        </span>
+
+                        <strong
+                            th:text="${customer.id}">
+
+                            0
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ADDRESS
+                ================================================== -->
+
+                <div class="address-section">
+
+                    <span>
+                        ADDRESS
+                    </span>
+
+                    <strong
+                        th:text="${customer.address != null ? customer.address : 'N/A'}">
+
+                        N/A
+
+                    </strong>
+
+                </div>
+
+
+                <!-- =================================================
+                     LOCATION
+                ================================================== -->
+
+                <div class="details-grid">
+
+
+                    <div class="detail-item">
+
+                        <span>
+                            CITY
+                        </span>
+
+                        <strong
+                            th:text="${customer.city != null ? customer.city : 'N/A'}">
+
+                            N/A
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>
+                            STATE
+                        </span>
+
+                        <strong
+                            th:text="${customer.state != null ? customer.state : 'N/A'}">
+
+                            N/A
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>
+                            PINCODE
+                        </span>
+
+                        <strong
+                            th:text="${customer.pincode != null ? customer.pincode : 'N/A'}">
+
+                            N/A
+
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>
+                            REGISTERED
+                        </span>
+
+                        <strong
+                            th:if="${customer.createdAt != null}"
+                            th:text="${#temporals.format(customer.createdAt, 'dd MMM yyyy, hh:mm a')}">
+
+                            N/A
+
+                        </strong>
+
+                        <strong
+                            th:if="${customer.createdAt == null}">
+
+                            N/A
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+<script th:src="@{/js/admin-back.js}"></script></body>
+
+</html>

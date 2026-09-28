@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Product Management | Sri Krishna Collection</title>
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!-- Bootstrap -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+          rel="stylesheet">
+
+
+    <!-- Product CSS -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/admin-product.css}">
+
+<link rel="stylesheet" th:href="@{/css/admin-back.css}"></head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<nav class="navbar admin-navbar">
+
+    <div class="container">
+
+        <a class="admin-brand"
+           th:href="@{/admin/dashboard}">
+
+            <span class="admin-brand-icon">
+
+                <i class="fa-solid fa-crown"></i>
+
+            </span>
+
+            <span>
+
+                <small>SRI KRISHNA</small>
+
+                COLLECTION ADMIN
+
+            </span>
+
+        </a>
+
+
+        <a th:href="@{/admin/dashboard}"
+           class="btn btn-sm text-white">
+
+            <i class="fa-solid fa-house"></i>
+
+            Dashboard
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="container admin-page">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+
+                <i class="fa-solid fa-box-open page-title-icon"></i>
+
+                Product Management
+
+            </h1>
+
+            <p class="page-subtitle">
+
+                Manage products, inventory and collections
+
+            </p>
+
+        </div>
+
+
+        <button type="button"
+                class="btn-add-product"
+                data-bs-toggle="modal"
+                data-bs-target="#productModal">
+
+            <i class="fa-solid fa-plus"></i>
+
+            Add Product
+
+        </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         MESSAGES
+    ================================================== -->
+
+    <div th:if="${success}"
+         class="alert alert-success alert-dismissible fade show">
+
+        <i class="fa-solid fa-circle-check me-2"></i>
+
+        <span th:text="${success}"></span>
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+
+
+    <div th:if="${error}"
+         class="alert alert-danger alert-dismissible fade show">
+
+        <i class="fa-solid fa-circle-exclamation me-2"></i>
+
+        <span th:text="${error}"></span>
+
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+        </button>
+
+    </div>
+
+
+
+    <!-- =================================================
+         SEARCH
+    ================================================== -->
+
+    <div class="product-search">
+
+        <div class="product-search-icon">
+
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+        </div>
+
+        <input type="text"
+               id="searchProduct"
+               autocomplete="off"
+               placeholder="Search products...">
+
+    </div>
+
+
+
+    <!-- =================================================
+         PRODUCT TABLE
+    ================================================== -->
+
+    <div class="product-table-card">
+
+        <div class="table-responsive">
+
+            <table class="table product-table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>S.No</th>
+
+                        <th>Image</th>
+
+                        <th>Category</th>
+
+                        <th>Product</th>
+
+                        <th>Price</th>
+
+                        <th>Stock</th>
+
+                        <th>Status</th>
+
+                        <th>Actions</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    <!-- =================================================
+                         PRODUCT ROW
+                    ================================================== -->
+
+                   <tr th:each="product, stat : ${products}">
+
+
+                        <!-- S.NO -->
+
+                        <td>
+
+                            <span class="product-number"
+                                  th:text="${stat.count}">
+
+                                1
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- IMAGE -->
+
+                        <td>
+
+                            <img th:if="${product.image != null}"
+                                 th:src="@{'/products/' + ${product.image}}"
+                                 class="product-image"
+                                 alt="Product Image">
+
+
+                            <div th:unless="${product.image != null}"
+                                 class="product-no-image">
+
+                                <i class="fa-solid fa-image"></i>
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- CATEGORY -->
+
+                        <td>
+
+                            <span class="product-category"
+                                  th:text="${product.category != null
+                                  ? product.category.name
+                                  : 'No Category'}">
+
+                                Category
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- PRODUCT NAME -->
+
+                        <td>
+
+                            <span class="product-name"
+                                  th:text="${product.name}">
+
+                                Product Name
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- PRICE -->
+
+                        <td>
+
+                            <div class="product-price">
+
+                                ₹ <span th:text="${product.price}">
+                                    0.00
+                                </span>
+
+                            </div>
+
+
+                            <div th:if="${product.discount != null
+                                and product.discount > 0}"
+                                 class="product-discount">
+
+                                <i class="fa-solid fa-tag"></i>
+
+                                <span th:text="${product.discount}">
+                                    0
+                                </span>% OFF
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- STOCK -->
+
+                        <td>
+
+                            <span class="stock-value"
+                                  th:classappend="${product.stock != null
+                                  and product.stock <= 5}
+                                  ? 'stock-low'
+                                  : (${product.stock != null
+                                  and product.stock <= 15}
+                                  ? 'stock-medium'
+                                  : 'stock-good')"
+                                  th:text="${product.stock != null
+                                  ? product.stock
+                                  : 0}">
+
+                                0
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            <span th:if="${product.status}"
+                                  class="product-status product-status-active">
+
+                                <i class="fa-solid fa-circle"
+                                   style="font-size:6px;">
+                                </i>
+
+                                Active
+
+                            </span>
+
+
+                            <span th:unless="${product.status}"
+                                  class="product-status product-status-inactive">
+
+                                <i class="fa-solid fa-circle"
+                                   style="font-size:6px;">
+                                </i>
+
+                                Inactive
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- ACTIONS -->
+
+                        <td>
+
+                            <div class="product-actions">
+
+
+                                <!-- EDIT -->
+
+                                <a th:href="@{/admin/products/edit/{id}(id=${product.id})}"
+                                   class="btn-edit-product"
+                                   title="Edit Product">
+
+                                    <i class="fa-solid fa-pen"></i>
+
+                                </a>
+
+
+                                <!-- DELETE -->
+
+                                <a th:href="@{/admin/products/delete/{id}(id=${product.id})}"
+                                   class="btn-delete-product deleteProduct"
+                                   title="Delete Product">
+
+                                    <i class="fa-solid fa-trash"></i>
+
+                                </a>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    <!-- =================================================
+                         EMPTY STATE
+                    ================================================== -->
+
+                    <tr th:if="${#lists.isEmpty(products)}">
+
+                        <td colspan="8">
+
+                            <div class="empty-product">
+
+                                <i class="fa-solid fa-box-open"></i>
+
+                                <h5>
+
+                                    No Products Found
+
+                                </h5>
+
+                                <p>
+
+                                    Start by adding your first product.
+
+                                </p>
+
+
+                                <button type="button"
+                                        class="btn-add-product"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#productModal">
+
+                                    <i class="fa-solid fa-plus"></i>
+
+                                    Add Product
+
+                                </button>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     PRODUCT MODAL
+===================================================== -->
+
+<div class="modal fade"
+     id="productModal"
+     tabindex="-1"
+     aria-labelledby="productModalTitle"
+     aria-hidden="true">
+
+
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+
+        <div class="modal-content">
+
+
+            <!-- HEADER -->
+
+            <div class="modal-header">
+
+                <h5 class="modal-title"
+                    id="productModalTitle"
+                    th:text="${product.id == null
+                    ? 'Add Product'
+                    : 'Edit Product'}">
+
+                    Add Product
+
+                </h5>
+
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+
+            </div>
+
+
+
+            <!-- BODY -->
+
+            <div class="modal-body">
+
+
+                <form th:action="${product.id == null}
+                    ? @{/admin/products/save}
+                    : @{/admin/products/update}"
+
+                      th:object="${product}"
+
+                      method="post"
+
+                      enctype="multipart/form-data">
+
+
+                    <!-- ID -->
+
+                    <input type="hidden"
+                           th:field="*{id}">
+
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="mb-3">
+
+                        <label for="categoryId"
+                               class="form-label">
+
+                            Category
+
+                        </label>
+
+
+                        <select id="categoryId"
+                                class="form-select"
+                                name="categoryId"
+                                required>
+
+                            <option value="">
+
+                                Select Category
+
+                            </option>
+
+
+                            <option th:each="category : ${categories}"
+
+                                    th:value="${category.id}"
+
+                                    th:text="${category.name}"
+
+                                    th:selected="${product.category != null
+                                    and product.category.id == category.id}">
+
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+
+                    <!-- PRODUCT NAME -->
+
+                    <div class="mb-3">
+
+                        <label for="productName"
+                               class="form-label">
+
+                            Product Name
+
+                        </label>
+
+
+                        <input type="text"
+                               id="productName"
+                               class="form-control"
+                               th:field="*{name}"
+                               autocomplete="off"
+                               placeholder="Enter product name"
+                               required>
+
+                    </div>
+
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="mb-3">
+
+                        <label for="description"
+                               class="form-label">
+
+                            Description
+
+                        </label>
+
+
+                        <textarea id="description"
+                                  class="form-control"
+                                  rows="4"
+                                  th:field="*{description}"
+                                  placeholder="Enter product description">
+                        </textarea>
+
+                    </div>
+
+
+
+                    <!-- PRICE + DISCOUNT -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="price"
+                                   class="form-label">
+
+                                Price
+
+                            </label>
+
+
+                            <input type="number"
+                                   id="price"
+                                   class="form-control"
+                                   step="0.01"
+                                   min="0"
+                                   th:field="*{price}"
+                                   placeholder="0.00"
+                                   required>
+
+                        </div>
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="discount"
+                                   class="form-label">
+
+                                Discount (%)
+
+                            </label>
+
+
+                            <input type="number"
+                                   id="discount"
+                                   class="form-control"
+                                   step="0.01"
+                                   min="0"
+                                   max="100"
+                                   th:field="*{discount}"
+                                   placeholder="0">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STOCK + BRAND + COLOR -->
+
+                    <div class="row">
+
+                        <div class="col-md-4 mb-3">
+
+                            <label for="stock"
+                                   class="form-label">
+
+                                Stock
+
+                            </label>
+
+
+                            <input type="number"
+                                   id="stock"
+                                   class="form-control"
+                                   min="0"
+                                   th:field="*{stock}"
+                                   placeholder="0">
+
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+
+                            <label for="brand"
+                                   class="form-label">
+
+                                Brand
+
+                            </label>
+
+
+                            <input type="text"
+                                   id="brand"
+                                   class="form-control"
+                                   th:field="*{brand}"
+                                   autocomplete="off"
+                                   placeholder="Brand">
+
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+
+                            <label for="color"
+                                   class="form-label">
+
+                                Color
+
+                            </label>
+
+
+                            <input type="text"
+                                   id="color"
+                                   class="form-control"
+                                   th:field="*{color}"
+                                   autocomplete="off"
+                                   placeholder="Color">
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- SIZE + STATUS -->
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="size"
+                                   class="form-label">
+
+                                Size
+
+                            </label>
+
+
+                            <input type="text"
+                                   id="size"
+                                   class="form-control"
+                                   th:field="*{size}"
+                                   autocomplete="off"
+                                   placeholder="S / M / L / XL">
+
+                        </div>
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label for="status"
+                                   class="form-label">
+
+                                Status
+
+                            </label>
+
+
+                            <select id="status"
+                                    class="form-select"
+                                    th:field="*{status}">
+
+                                <option value="true">
+                                    Active
+                                </option>
+
+                                <option value="false">
+                                    Inactive
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- IMAGE -->
+
+                    <div class="mb-3">
+
+                        <label for="imageFiles"
+                               class="form-label">
+
+                            Product Images (Maximum 5)
+
+                        </label>
+
+
+                        <input type="file"
+                               id="imageFiles"
+                               name="imageFiles"
+                               class="form-control"
+                               accept="image/*"
+                               multiple
+                               max="5">
+
+
+                        <div class="form-text">
+
+                            Select up to 5 images. The first selected image becomes the primary image.
+
+                        </div>
+
+                        <div id="selectedImagePreview" class="d-flex flex-wrap gap-2 mt-3"></div>
+
+                    </div>
+
+
+
+                    <!-- IMAGE PREVIEW -->
+
+                    <div class="text-center mb-4">
+
+
+                        <img th:if="${product.image != null}"
+                             id="previewImage"
+                             th:src="@{'/products/' + ${product.image}}"
+                             width="180"
+                             height="180"
+                             class="img-thumbnail"
+                             alt="Product Preview">
+
+
+                        <img th:if="${product.image == null}"
+                             id="previewImage"
+                             src="https://placehold.co/180x180?text=Product+Preview"
+                             width="180"
+                             height="180"
+                             class="img-thumbnail"
+                             alt="Product Preview">
+
+                    </div>
+
+
+
+                    <!-- EXISTING PRODUCT IMAGES -->
+
+                    <div th:if="${product.id != null and productImages != null and !productImages.isEmpty()}"
+                         class="mb-4">
+
+                        <label class="form-label">
+                            Product Images — choose which image comes first
+                        </label>
+
+                        <div class="d-flex flex-wrap gap-3">
+
+                            <div th:each="productImage : ${productImages}"
+                                 class="text-center border rounded p-2 bg-light">
+
+                                <img th:src="@{'/products/' + ${productImage.imageName}}"
+                                     width="100"
+                                     height="100"
+                                     style="object-fit:cover;border-radius:8px;"
+                                     alt="Product Image">
+
+                                <div class="mt-2 small"
+                                     th:text="${productImage.primaryImage} ? 'Primary' : 'Image'">
+                                    Image
+                                </div>
+
+                                <a th:if="${!productImage.primaryImage}"
+                                   th:href="@{/admin/products/image/primary/{id}(id=${productImage.id})}"
+                                   class="btn btn-sm btn-outline-dark mt-1">
+                                    Make First
+                                </a>
+
+                                <a th:href="@{/admin/products/image/delete/{id}(id=${productImage.id})}"
+                                   class="btn btn-sm btn-outline-danger mt-1">
+                                    Delete
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- SAVE / UPDATE -->
+
+                    <button type="submit"
+                            class="btn btn-success w-100">
+
+                        <i th:class="${product.id == null}
+                            ? 'fa-solid fa-floppy-disk'
+                            : 'fa-solid fa-pen-to-square'">
+                        </i>
+
+
+                        <span th:text="${product.id == null}
+                            ? 'Save Product'
+                            : 'Update Product'">
+
+                            Save Product
+
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     BOOTSTRAP JS
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- =====================================================
+     SWEET ALERT
+===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+</script>
+
+
+<!-- =====================================================
+     PRODUCT JS
+===================================================== -->
+
+<script th:src="@{/js/admin-product.js}">
+</script>
+
+
+
+<!-- =====================================================
+     DELETE CONFIRMATION
+===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    document.querySelectorAll(".deleteProduct")
+        .forEach(function (button) {
+
+            button.addEventListener("click", function (event) {
+
+                event.preventDefault();
+
+                const deleteUrl =
+                    this.getAttribute("href");
+
+
+                Swal.fire({
+
+                    title: "Delete Product?",
+
+                    text: "This action cannot be undone.",
+
+                    icon: "warning",
+
+                    showCancelButton: true,
+
+                    confirmButtonText: "Yes, Delete",
+
+                    cancelButtonText: "Cancel",
+
+                    confirmButtonColor: "#c9a227",
+
+                    cancelButtonColor: "#111111"
+
+                }).then(function (result) {
+
+                    if (result.isConfirmed) {
+
+                        window.location.href =
+                            deleteUrl;
+
+                    }
+
+                });
+
+            });
+
+        });
+
+});
+
+</script>
+
+
+
+<!-- =====================================================
+     AUTO OPEN MODAL FOR EDIT
+===================================================== -->
+
+<script th:inline="javascript">
+
+/*<![CDATA[*/
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const productId =
+        /*[[${product.id}]]*/ null;
+
+
+    if (productId !== null) {
+
+        const modalElement =
+            document.getElementById("productModal");
+
+
+        if (modalElement) {
+
+            const modal =
+                new bootstrap.Modal(modalElement);
+
+            modal.show();
+
+        }
+
+    }
+
+});
+
+
+/*]]>*/
+
+</script>
+
+
+<script th:src="@{/js/admin-back.js}"></script></body>
+
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Inventory History</title>
+
+    <style>
+
+        body {
+            margin: 0;
+            padding: 30px;
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background: #f6f7fb;
+        }
+
+        .history-container {
+            max-width: 1300px;
+            margin: auto;
+        }
+
+        .header {
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: #111827;
+        }
+
+        .header p {
+            color: #6b7280;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+
+            background: #f8fafc;
+
+            padding: 14px;
+
+            font-size: 12px;
+
+            color: #64748b;
+        }
+
+        td {
+            padding: 15px;
+
+            border-bottom:
+                1px solid #eef0f4;
+
+            font-size: 13px;
+        }
+
+        .in {
+            color: #15803d;
+            font-weight: 700;
+        }
+
+        .out {
+            color: #dc2626;
+            font-weight: 700;
+        }
+
+        .type {
+            padding: 6px 10px;
+
+            border-radius: 20px;
+
+            background: #f3f4f6;
+
+            font-size: 11px;
+
+            font-weight: 700;
+        }
+
+    </style>
+
+<link rel="stylesheet" th:href="@{/css/admin-back.css}"></head>
+
+<body>
+
+<div class="history-container">
+
+    <div class="header">
+
+        <h1>
+            Inventory History
+        </h1>
+
+        <p>
+            Stock movement history
+        </p>
+
+    </div>
+
+    <div class="card">
+
+        <table>
+
+            <thead>
+
+            <tr>
+
+                <th>ID</th>
+
+                <th>Product</th>
+
+                <th>Change</th>
+
+                <th>Before</th>
+
+                <th>After</th>
+
+                <th>Type</th>
+
+                <th>Reason</th>
+
+                <th>Date</th>
+
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr
+                th:each="item : ${history}">
+
+                <td
+                    th:text="${item.id}">
+                    1
+                </td>
+
+                <td
+                    th:text="${item.product.name}">
+                    Product
+                </td>
+
+                <td>
+
+                    <span
+                        th:if="${item.quantityChange > 0}"
+                        class="in"
+                        th:text="'+' + ${item.quantityChange}">
+                        +10
+                    </span>
+
+                    <span
+                        th:if="${item.quantityChange < 0}"
+                        class="out"
+                        th:text="${item.quantityChange}">
+                        -2
+                    </span>
+
+                </td>
+
+                <td
+                    th:text="${item.stockBefore}">
+                    10
+                </td>
+
+                <td
+                    th:text="${item.stockAfter}">
+                    20
+                </td>
+
+                <td>
+
+                    <span
+                        class="type"
+                        th:text="${item.changeType}">
+                        STOCK_IN
+                    </span>
+
+                </td>
+
+                <td
+                    th:text="${item.reason}">
+                    Admin update
+                </td>
+
+                <td
+                    th:text="${item.createdAt != null
+                              ? #temporals.format(
+                                  item.createdAt,
+                                  'dd-MM-yyyy HH:mm'
+                                )
+                              : '-'}">
+                    -
+                </td>
+
+            </tr>
+
+            <tr
+                th:if="${#lists.isEmpty(history)}">
+
+                <td
+                    colspan="8"
+                    style="text-align:center;padding:50px;">
+
+                    No inventory history available.
+
+                </td>
+
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script th:src="@{/js/admin-back.js}"></script></body>
+
+</html>

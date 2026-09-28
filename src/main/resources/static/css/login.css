@@ -1,0 +1,329 @@
+/* ===========================
+   Sri Krishna Collection
+   Login Page CSS
+=========================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Jost:wght@300;400;500;600&display=swap');
+
+:root{
+
+    --royal-blue:#0B1F4E;
+    --peacock:#045D56;
+    --gold:#D4AF37;
+    --gold-light:#F4E4A6;
+    --white:#ffffff;
+    --ivory:#FFFBEF;
+    --text:#1c1c1c;
+    --shadow:0 15px 35px rgba(0,0,0,.18);
+
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:'Jost',sans-serif;
+    background:linear-gradient(135deg,#0B1F4E,#045D56);
+    min-height:100vh;
+    overflow-x:hidden;
+
+}
+
+/* Background Animation */
+
+body::before{
+
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background:
+        radial-gradient(circle at 20% 20%,rgba(212,175,55,.25),transparent 30%),
+        radial-gradient(circle at 80% 60%,rgba(255,255,255,.08),transparent 40%);
+
+    animation:bgMove 12s linear infinite alternate;
+
+}
+
+@keyframes bgMove{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(-40px);
+    }
+
+}
+
+/* Login Section */
+
+.login-section{
+
+    min-height:100vh;
+
+}
+
+/* Card */
+
+.login-card{
+
+    background:rgba(255,255,255,.18);
+
+    backdrop-filter:blur(15px);
+
+    border-radius:25px;
+
+    padding:45px;
+
+    box-shadow:var(--shadow);
+
+    border:1px solid rgba(255,255,255,.25);
+
+    animation:fadeUp 1s;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(50px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Logo */
+
+.login-card img{
+
+    width:90px;
+
+    height:90px;
+
+    border-radius:50%;
+
+    border:3px solid var(--gold);
+
+    box-shadow:0 0 20px rgba(212,175,55,.6);
+
+}
+
+/* Title */
+
+.brand-title{
+
+    margin-top:20px;
+
+    font-family:'Cinzel',serif;
+
+    color:var(--gold-light);
+
+    font-weight:bold;
+
+    letter-spacing:2px;
+
+}
+
+.text-muted{
+
+    color:#f2f2f2 !important;
+
+}
+
+/* Labels */
+
+.form-label{
+
+    color:white;
+
+    font-weight:500;
+
+}
+
+/* Input */
+
+.input-group{
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.input-group-text{
+
+    background:var(--gold);
+
+    color:var(--royal-blue);
+
+    border:none;
+
+}
+
+.form-control{
+
+    border:none;
+
+    padding:13px;
+
+    background:#fff;
+
+}
+
+.form-control:focus{
+
+    box-shadow:none;
+
+    border:2px solid var(--gold);
+
+}
+
+/* Password Button */
+
+#togglePassword{
+
+    border:none;
+
+}
+
+/* Links */
+
+a{
+
+    color:var(--gold-light);
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+a:hover{
+
+    color:white;
+
+}
+
+/* Login Button */
+
+.login-btn{
+
+    background:linear-gradient(90deg,#D4AF37,#F4E4A6);
+
+    border:none;
+
+    color:#0B1F4E;
+
+    font-weight:bold;
+
+    border-radius:30px;
+
+    transition:.4s;
+
+}
+
+.login-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 30px rgba(212,175,55,.45);
+
+}
+
+/* Google Button */
+
+.btn-light{
+
+    transition:.3s;
+
+}
+
+.btn-light:hover{
+
+    transform:translateY(-3px);
+
+}
+
+/* Checkbox */
+
+input[type=checkbox]{
+
+    accent-color:var(--gold);
+
+}
+
+/* Divider */
+
+hr{
+
+    border-color:rgba(255,255,255,.4);
+
+}
+
+/* Responsive */
+
+@media(max-width:992px){
+
+.login-card{
+
+padding:35px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.login-card{
+
+padding:25px;
+
+}
+
+.brand-title{
+
+font-size:25px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.login-card{
+
+padding:20px;
+
+}
+
+.login-card img{
+
+width:75px;
+height:75px;
+
+}
+
+.form-control{
+
+padding:10px;
+
+}
+
+}

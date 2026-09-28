@@ -1,0 +1,923 @@
+/* =========================================================
+   SRI KRISHNA COLLECTION
+   MY ORDERS PAGE
+   ========================================================= */
+
+:root {
+    --primary: #176b68;
+    --primary-dark: #0e4d4b;
+
+    --gold: #c89b3c;
+    --gold-dark: #a97e2d;
+
+    --cream: #faf8f2;
+    --white: #ffffff;
+
+    --text: #292929;
+    --muted: #777777;
+
+    --border: #e7e2d8;
+
+    --success: #26755e;
+    --danger: #a33a3a;
+
+    --shadow:
+        0 12px 35px rgba(0, 0, 0, 0.05);
+
+    --transition:
+        all 0.3s ease;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    font-family: 'Jost', sans-serif;
+
+    color: var(--text);
+
+    background: var(--cream);
+
+    line-height: 1.6;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.orders-header {
+    padding: 20px 0;
+
+    background: var(--white);
+
+    border-bottom: 1px solid var(--border);
+}
+
+.header-inner {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+}
+
+
+/* =========================================================
+   BRAND
+========================================================= */
+
+.brand {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: var(--primary);
+}
+
+.brand:hover {
+    color: var(--primary);
+}
+
+.brand-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(23, 107, 104, 0.08);
+
+    border: 1px solid rgba(200, 155, 60, 0.35);
+
+    color: var(--gold);
+
+    font-size: 19px;
+}
+
+.brand small {
+    display: block;
+
+    font-family: 'Cinzel', serif;
+
+    color: var(--primary);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+}
+
+.brand strong {
+    display: block;
+
+    font-family: 'Cinzel', serif;
+
+    color: var(--text);
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+}
+
+
+/* =========================================================
+   HEADER ACTIONS
+========================================================= */
+
+.header-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+.header-link {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    min-height: 38px;
+
+    padding: 0 14px;
+
+    color: var(--primary);
+
+    border: 1px solid var(--border);
+
+    background: var(--white);
+
+    font-size: 12px;
+
+    transition: var(--transition);
+}
+
+.header-link:hover {
+    color: var(--white);
+
+    background: var(--primary);
+
+    border-color: var(--primary);
+
+    transform: translateY(-1px);
+}
+
+.header-link i {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
+
+.breadcrumb-section {
+    padding: 13px 0;
+
+    background: #f4f1e9;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.breadcrumb-custom {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.breadcrumb-custom a {
+    color: var(--primary);
+
+    transition: var(--transition);
+}
+
+.breadcrumb-custom a:hover {
+    color: var(--gold-dark);
+}
+
+.breadcrumb-custom i {
+    color: #aaa;
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.orders-section {
+    min-height: calc(100vh - 180px);
+
+    padding: 65px 0 90px;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.orders-title {
+    margin-bottom: 42px;
+
+    text-align: center;
+}
+
+.orders-title > span {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--gold-dark);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 3px;
+}
+
+.orders-title h1 {
+    margin: 0 0 8px;
+
+    font-family: 'Cinzel', serif;
+
+    color: var(--primary);
+
+    font-size: clamp(34px, 5vw, 45px);
+
+    font-weight: 600;
+}
+
+.orders-title p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.custom-alert {
+    max-width: 900px;
+
+    margin: 0 auto 25px;
+
+    border: 0;
+
+    border-radius: 4px;
+
+    font-size: 13px;
+}
+
+.custom-alert i {
+    margin-right: 7px;
+}
+
+.alert-success {
+    color: var(--success);
+
+    background: rgba(38, 117, 94, 0.08);
+
+    border-left: 3px solid var(--success);
+}
+
+.alert-danger {
+    color: var(--danger);
+
+    background: rgba(163, 58, 58, 0.08);
+
+    border-left: 3px solid var(--danger);
+}
+
+
+/* =========================================================
+   EMPTY ORDERS
+========================================================= */
+
+.empty-orders {
+    max-width: 650px;
+
+    margin: 20px auto 0;
+
+    padding: 65px 30px;
+
+    text-align: center;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+}
+
+.empty-icon {
+    width: 78px;
+    height: 78px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 20px;
+
+    border-radius: 50%;
+
+    background: rgba(200, 155, 60, 0.08);
+
+    color: var(--gold);
+
+    font-size: 27px;
+}
+
+.empty-orders h2 {
+    margin: 0 0 9px;
+
+    font-family: 'Cinzel', serif;
+
+    color: var(--primary);
+
+    font-size: 23px;
+}
+
+.empty-orders p {
+    max-width: 430px;
+
+    margin: 0 auto 25px;
+
+    color: var(--muted);
+
+    font-size: 13px;
+}
+
+.shop-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    min-height: 44px;
+
+    padding: 0 20px;
+
+    background: var(--primary);
+
+    color: var(--white);
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    letter-spacing: .7px;
+
+    transition: var(--transition);
+}
+
+.shop-button:hover {
+    color: var(--white);
+
+    background: var(--primary-dark);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(23, 107, 104, 0.15);
+}
+
+.shop-button i {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   ORDERS CONTAINER
+========================================================= */
+
+.orders-container {
+    max-width: 1000px;
+
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.orders-topbar {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+
+    padding: 17px 20px;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+}
+
+.orders-topbar span {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: var(--gold-dark);
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: 2px;
+}
+
+.orders-topbar strong {
+    color: var(--primary);
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 16px;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   ORDER CARD
+========================================================= */
+
+.order-card {
+    margin-bottom: 18px;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    box-shadow: var(--shadow);
+
+    transition: var(--transition);
+}
+
+.order-card:hover {
+    border-color: rgba(200, 155, 60, 0.45);
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.07);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   ORDER HEADER
+========================================================= */
+
+.order-card-header {
+    display: grid;
+
+    grid-template-columns: 1fr 1.4fr 1fr;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 20px 24px;
+
+    background: #fbfaf7;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.order-number span,
+.order-date span {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    letter-spacing: 1.5px;
+}
+
+.order-number strong {
+    color: var(--primary);
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 17px;
+}
+
+.order-date {
+    text-align: center;
+}
+
+.order-date strong {
+    color: var(--text);
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+.order-status {
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+
+/* =========================================================
+   ORDER STATUS
+========================================================= */
+
+.order-status-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 28px;
+
+    padding: 0 12px;
+
+    border-radius: 30px;
+
+    background: rgba(23, 107, 104, 0.09);
+
+    color: var(--primary);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: .6px;
+}
+
+
+/* =========================================================
+   ORDER BODY
+========================================================= */
+
+.order-card-body {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr
+        1fr
+        auto;
+
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 22px 24px;
+}
+
+
+/* =========================================================
+   ORDER INFO
+========================================================= */
+
+.order-info {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+.info-icon {
+    flex: 0 0 38px;
+
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: rgba(23, 107, 104, 0.07);
+
+    color: var(--primary);
+
+    font-size: 13px;
+}
+
+.order-info > div:last-child {
+    min-width: 0;
+}
+
+.order-info span {
+    display: block;
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    letter-spacing: 1.2px;
+}
+
+.order-info strong {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+.order-info small {
+    display: block;
+
+    margin-top: 1px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   VIEW ORDER BUTTON
+========================================================= */
+
+.order-action {
+    display: flex;
+
+    justify-content: flex-end;
+}
+
+.view-order-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    min-height: 40px;
+
+    padding: 0 16px;
+
+    border: 1px solid var(--primary);
+
+    color: var(--primary);
+
+    background: var(--white);
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: .7px;
+
+    transition: var(--transition);
+}
+
+.view-order-button:hover {
+    color: var(--white);
+
+    background: var(--primary);
+
+    transform: translateX(2px);
+}
+
+.view-order-button i {
+    font-size: 9px;
+
+    transition: var(--transition);
+}
+
+.view-order-button:hover i {
+    transform: translateX(3px);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.orders-footer {
+    padding: 22px 0;
+
+    background: var(--white);
+
+    border-top: 1px solid var(--border);
+}
+
+.footer-inner {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .orders-section {
+        padding: 55px 0 70px;
+    }
+
+    .order-card-body {
+        grid-template-columns:
+            1fr 1fr;
+
+        row-gap: 20px;
+    }
+
+    .order-action {
+        justify-content: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .orders-header {
+        padding: 16px 0;
+    }
+
+    .header-inner {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .header-actions {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .orders-section {
+        padding: 45px 0 60px;
+    }
+
+    .orders-title {
+        margin-bottom: 30px;
+    }
+
+    .orders-title h1 {
+        font-size: 34px;
+    }
+
+    .order-card-header {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+
+        padding: 18px;
+    }
+
+    .order-date {
+        text-align: left;
+    }
+
+    .order-status {
+        justify-content: flex-start;
+    }
+
+    .order-card-body {
+        grid-template-columns: 1fr;
+
+        padding: 20px 18px;
+    }
+
+    .order-action {
+        justify-content: stretch;
+    }
+
+    .view-order-button {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL MOBILE
+========================================================= */
+
+@media (max-width: 575px) {
+
+    .brand-icon {
+        width: 42px;
+        height: 42px;
+
+        font-size: 17px;
+    }
+
+    .brand small {
+        font-size: 9px;
+    }
+
+    .brand strong {
+        font-size: 14px;
+    }
+
+    .header-link {
+        flex: 1;
+
+        justify-content: center;
+
+        padding: 0 8px;
+    }
+
+    .breadcrumb-custom {
+        font-size: 11px;
+    }
+
+    .empty-orders {
+        padding: 45px 20px;
+    }
+
+    .orders-topbar {
+        padding: 15px;
+    }
+
+    .order-card {
+        margin-bottom: 14px;
+    }
+
+    .order-number strong {
+        font-size: 15px;
+    }
+
+}

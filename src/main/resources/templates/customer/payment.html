@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Secure Payment | Sri Krishna Collection</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONT
+         ===================================================== -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <!-- =====================================================
+         FONT AWESOME
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <!-- =====================================================
+         PAYMENT CSS
+         ===================================================== -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/customer-payment.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TEST MODE BANNER
+     ========================================================= -->
+
+<div class="test-mode-banner">
+
+    <i class="fa-solid fa-flask"></i>
+
+    <span>TEST MODE</span>
+
+</div>
+
+
+<!-- =========================================================
+     HEADER
+     ========================================================= -->
+
+<header class="payment-header">
+
+    <div class="header-inner">
+
+
+        <!-- LOGO -->
+
+        <a href="/Krishna/product"
+           class="brand">
+
+            <span class="brand-small">
+                SRI KRISHNA
+            </span>
+
+            <span class="brand-large">
+                COLLECTION
+            </span>
+
+        </a>
+
+
+        <!-- SECURE PAYMENT -->
+
+        <div class="secure-label">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <span>
+                SECURE PAYMENT
+            </span>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     MAIN
+     ========================================================= -->
+
+<main class="payment-page">
+
+
+    <!-- =====================================================
+         PAYMENT CARD
+         ===================================================== -->
+
+    <section class="payment-card">
+
+
+        <!-- =================================================
+             TOP BRAND
+             ================================================= -->
+
+        <div class="payment-brand">
+
+            <div class="razorpay-label">
+                RAZORPAY
+            </div>
+
+            <h1>
+                Complete Your Payment
+            </h1>
+
+            <p>
+                Your payment is securely processed by Razorpay.
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             CUSTOMER DETAILS
+             ================================================= -->
+
+        <div class="customer-box">
+
+            <div class="customer-avatar">
+
+                <i class="fa-solid fa-user"></i>
+
+            </div>
+
+
+            <div class="customer-information">
+
+                <span class="customer-label">
+                    PAYING AS
+                </span>
+
+               <strong
+            th:text="${customer.firstName + ' ' + customer.lastName}">
+            Customer
+        </strong>
+
+                <span
+                    class="customer-email"
+                    th:text="${customer.email}">
+                    customer@example.com
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PAYMENT ICON
+             ================================================= -->
+
+        <div class="payment-icon-box">
+
+            <div class="payment-icon">
+
+                <i class="fa-solid fa-credit-card"></i>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PAYMENT INFORMATION
+             ================================================= -->
+
+        <div class="payment-info">
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Secure Razorpay Payment
+                    </strong>
+
+                    <span>
+                        Your payment information is protected.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Encrypted Transaction
+                    </strong>
+
+                    <span>
+                        Your payment details are securely encrypted.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="info-item">
+
+                <div class="info-icon">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <div>
+
+                    <strong>
+                        Multiple Payment Options
+                    </strong>
+
+                    <span>
+                        UPI, Cards, Net Banking and more.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             ERROR
+             ================================================= -->
+
+        <div id="paymentError"
+             class="payment-error">
+
+        </div>
+
+
+
+        <!-- =================================================
+             PAY BUTTON
+             ================================================= -->
+
+        <button id="payNow"
+                type="button"
+                class="pay-button">
+
+            <i class="fa-solid fa-lock"></i>
+
+            Continue to Razorpay
+
+        </button>
+
+
+
+        <!-- =================================================
+             SECURITY NOTE
+             ================================================= -->
+
+        <div class="security-note">
+
+            <i class="fa-solid fa-shield-halved"></i>
+
+            <span>
+                Payments are securely processed by Razorpay.
+            </span>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PAYMENT METHODS
+             ================================================= -->
+
+        <div class="payment-methods">
+
+
+            <span class="method-title">
+                PAYMENT METHODS
+            </span>
+
+
+            <div class="method-list">
+
+
+                <div class="method">
+
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+
+                    <span>
+                        UPI
+                    </span>
+
+                </div>
+
+
+                <div class="method">
+
+                    <i class="fa-solid fa-credit-card"></i>
+
+                    <span>
+                        Cards
+                    </span>
+
+                </div>
+
+
+                <div class="method">
+
+                    <i class="fa-solid fa-building-columns"></i>
+
+                    <span>
+                        Net Banking
+                    </span>
+
+                </div>
+
+
+                <div class="method">
+
+                    <i class="fa-solid fa-wallet"></i>
+
+                    <span>
+                        Wallets
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="payment-footer">
+
+    <div>
+
+        <i class="fa-solid fa-lock"></i>
+
+        Secure payment powered by Razorpay
+
+    </div>
+
+    <span>
+        © Sri Krishna Collection
+    </span>
+
+</footer>
+
+
+
+<!-- =========================================================
+     RAZORPAY CHECKOUT
+     ========================================================= -->
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
+<!-- =========================================================
+     PAYMENT JS
+     ========================================================= -->
+
+<script th:src="@{/js/customer-payment.js}"></script>
+
+
+</body>
+
+</html>

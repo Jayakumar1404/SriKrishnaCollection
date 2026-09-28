@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Sri Krishna Collection</title>
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        rel="stylesheet">
+
+
+    <!-- Admin Login CSS -->
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/admin-login.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     PAGE
+===================================================== -->
+
+<div class="login-page">
+
+
+    <!-- =================================================
+         LEFT BRANDING
+    ================================================== -->
+
+    <section class="brand-section">
+
+
+        <div class="brand-overlay"></div>
+
+
+        <div class="brand-content">
+
+
+            <!-- BRAND -->
+
+            <div class="brand">
+
+                <div class="brand-symbol">
+                    SK
+                </div>
+
+
+                <div class="brand-divider"></div>
+
+
+                <h1>
+                    SRI KRISHNA
+                </h1>
+
+                <span>
+                    COLLECTION
+                </span>
+
+            </div>
+
+
+
+            <!-- CENTER MESSAGE -->
+
+            <div class="brand-message">
+
+                <div class="small-title">
+                    ADMINISTRATIVE PORTAL
+                </div>
+
+
+                <h2>
+
+                    Manage Your
+                    <br>
+
+                    <span>Collection.</span>
+
+                </h2>
+
+
+                <p>
+
+                    A powerful workspace to manage
+                    products, categories, customers
+                    and your entire collection.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- FOOTER -->
+
+            <div class="brand-footer">
+
+                <span>
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    Secure Administration
+
+                </span>
+
+
+                <span>
+
+                    <i class="fa-solid fa-crown"></i>
+
+                    Sri Krishna Collection
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         RIGHT LOGIN
+    ================================================== -->
+
+    <section class="login-section">
+
+
+        <div class="login-container">
+
+
+            <!-- MOBILE BRAND -->
+
+            <div class="mobile-brand">
+
+                <div class="mobile-symbol">
+                    SK
+                </div>
+
+
+                <div>
+
+                    <h3>
+                        SRI KRISHNA
+                    </h3>
+
+                    <span>
+                        COLLECTION
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LOGIN ICON -->
+
+            <div class="login-icon">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+            </div>
+
+
+
+            <!-- HEADER -->
+
+            <div class="login-header">
+
+                <div class="eyebrow">
+                    ADMINISTRATOR ACCESS
+                </div>
+
+
+                <h2>
+                    Welcome Back
+                </h2>
+
+
+                <p>
+                    Sign in to access your administration
+                    dashboard.
+                </p>
+
+            </div>
+
+
+
+            <!-- ERROR -->
+
+            <div
+                th:if="${error}"
+                class="login-error">
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+                <span th:text="${error}">
+                    Invalid username or password
+                </span>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 LOGIN FORM
+            ================================================== -->
+
+            <form
+                th:action="@{/admin/login}"
+                method="post"
+                id="adminLoginForm">
+
+
+                <!-- USERNAME -->
+
+                <div class="form-group">
+
+                    <label for="username">
+
+                        Username
+
+                    </label>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-regular fa-user input-icon"></i>
+
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter admin username"
+                            autocomplete="username"
+                            required>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PASSWORD -->
+
+                <div class="form-group">
+
+                    <div class="password-label">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                    </div>
+
+
+                    <div class="input-wrapper">
+
+                        <i class="fa-solid fa-lock input-icon"></i>
+
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required>
+
+
+                        <button
+                            type="button"
+                            id="togglePassword"
+                            class="password-toggle"
+                            aria-label="Show password">
+
+                            <i class="fa-regular fa-eye"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SECURITY -->
+
+                <div class="security-row">
+
+                    <span>
+
+                        <i class="fa-solid fa-lock"></i>
+
+                        Secure Login
+
+                    </span>
+
+
+                    <span>
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        Protected
+
+                    </span>
+
+                </div>
+
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginButton">
+
+
+                    <span id="loginButtonText">
+                        SIGN IN TO ADMIN
+                    </span>
+
+
+                    <i
+                        class="fa-solid fa-arrow-right"
+                        id="loginArrow">
+                    </i>
+
+                </button>
+
+
+            </form>
+
+
+
+            <!-- BACK TO STORE -->
+
+            <div class="back-store">
+
+                <a th:href="@{/}">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Back to Store
+
+                </a>
+
+            </div>
+
+
+
+            <!-- SECURITY MESSAGE -->
+
+            <div class="security-message">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Your administrative session is protected.
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- FOOTER -->
+
+        <div class="login-footer">
+
+            © 2026 Sri Krishna Collection
+
+            <span>•</span>
+
+            Administrative Portal
+
+        </div>
+
+
+    </section>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* ==========================================
+           PASSWORD SHOW / HIDE
+        ========================================== */
+
+        const password =
+            document.getElementById("password");
+
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+
+        togglePassword.addEventListener(
+            "click",
+            function () {
+
+
+                const icon =
+                    togglePassword.querySelector("i");
+
+
+                if (password.type === "password") {
+
+                    password.type = "text";
+
+
+                    icon.classList.remove(
+                        "fa-eye"
+                    );
+
+                    icon.classList.add(
+                        "fa-eye-slash"
+                    );
+
+
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Hide password"
+                    );
+
+                } else {
+
+                    password.type = "password";
+
+
+                    icon.classList.remove(
+                        "fa-eye-slash"
+                    );
+
+                    icon.classList.add(
+                        "fa-eye"
+                    );
+
+
+                    togglePassword.setAttribute(
+                        "aria-label",
+                        "Show password"
+                    );
+
+                }
+
+            }
+        );
+
+
+
+        /* ==========================================
+           LOGIN LOADING
+        ========================================== */
+
+        const form =
+            document.getElementById(
+                "adminLoginForm"
+            );
+
+
+        const button =
+            document.getElementById(
+                "loginButton"
+            );
+
+
+        const buttonText =
+            document.getElementById(
+                "loginButtonText"
+            );
+
+
+        const arrow =
+            document.getElementById(
+                "loginArrow"
+            );
+
+
+        form.addEventListener(
+            "submit",
+            function () {
+
+
+                button.disabled = true;
+
+
+                buttonText.innerText =
+                    "AUTHENTICATING";
+
+
+                arrow.classList.remove(
+                    "fa-arrow-right"
+                );
+
+
+                arrow.classList.add(
+                    "fa-spinner",
+                    "fa-spin"
+                );
+
+            }
+        );
+
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

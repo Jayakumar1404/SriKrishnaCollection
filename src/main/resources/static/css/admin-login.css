@@ -1,0 +1,933 @@
+/* =====================================================
+   SRI KRISHNA COLLECTION
+   PREMIUM ADMIN LOGIN
+===================================================== */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+:root {
+
+    --gold: #c9a227;
+
+    --gold-light: #dfc35b;
+
+    --black: #111111;
+
+    --dark: #181818;
+
+    --ivory: #f8f5ef;
+
+    --text: #272727;
+
+    --muted: #8b8b8b;
+
+    --border: #e3ded4;
+
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+
+    min-height: 100vh;
+
+    font-family: 'Jost', sans-serif;
+
+    background: var(--ivory);
+
+    color: var(--text);
+
+}
+
+
+/* =====================================================
+   MAIN PAGE
+===================================================== */
+
+.login-page {
+
+    min-height: 100vh;
+
+    display: flex;
+
+}
+
+
+/* =====================================================
+   LEFT BRAND SECTION
+===================================================== */
+
+.brand-section {
+
+    width: 55%;
+
+    min-height: 100vh;
+
+    position: relative;
+
+    overflow: hidden;
+
+
+    background-image:
+
+        linear-gradient(
+            90deg,
+            rgba(0,0,0,.82),
+            rgba(0,0,0,.48),
+            rgba(0,0,0,.76)
+        ),
+
+        url("https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1600&q=85");
+
+
+    background-size: cover;
+
+    background-position: center;
+
+}
+
+
+.brand-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+
+        radial-gradient(
+            circle at 70% 40%,
+            rgba(201,162,39,.12),
+            transparent 40%
+        );
+
+}
+
+
+.brand-content {
+
+    position: relative;
+
+    z-index: 2;
+
+    width: 78%;
+
+    max-width: 650px;
+
+    min-height: 100vh;
+
+    margin: auto;
+
+    padding: 65px 0;
+
+    color: white;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.brand-symbol {
+
+    width: 66px;
+
+    height: 66px;
+
+    border: 1px solid var(--gold);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    color: var(--gold);
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 25px;
+
+    font-weight: 600;
+
+}
+
+
+.brand-divider {
+
+    width: 42px;
+
+    height: 1px;
+
+    background: var(--gold);
+
+    margin: 15px 0;
+
+}
+
+
+.brand h1 {
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 32px;
+
+    font-weight: 600;
+
+    letter-spacing: 7px;
+
+}
+
+
+.brand span {
+
+    display: block;
+
+    margin-top: 4px;
+
+    color: var(--gold-light);
+
+    font-size: 9px;
+
+    letter-spacing: 8px;
+
+}
+
+
+/* =====================================================
+   BRAND MESSAGE
+===================================================== */
+
+.small-title {
+
+    color: var(--gold-light);
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    margin-bottom: 24px;
+
+}
+
+
+.brand-message h2 {
+
+    font-family: 'Cinzel', serif;
+
+    font-size: clamp(45px, 5vw, 75px);
+
+    font-weight: 500;
+
+    line-height: 1.02;
+
+    margin-bottom: 28px;
+
+}
+
+
+.brand-message h2 span {
+
+    color: var(--gold-light);
+
+}
+
+
+.brand-message p {
+
+    max-width: 430px;
+
+    color: #d0d0d0;
+
+    font-size: 13px;
+
+    line-height: 1.9;
+
+}
+
+
+/* =====================================================
+   BRAND FOOTER
+===================================================== */
+
+.brand-footer {
+
+    display: flex;
+
+    gap: 30px;
+
+    color: #c8c8c8;
+
+    font-size: 10px;
+
+}
+
+
+.brand-footer i {
+
+    color: var(--gold);
+
+    margin-right: 7px;
+
+}
+
+
+/* =====================================================
+   RIGHT LOGIN SECTION
+===================================================== */
+
+.login-section {
+
+    width: 45%;
+
+    min-height: 100vh;
+
+    padding: 45px 55px;
+
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.login-container {
+
+    width: 100%;
+
+    max-width: 430px;
+
+}
+
+
+/* =====================================================
+   LOGIN ICON
+===================================================== */
+
+.login-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    border-radius: 50%;
+
+    background: #eee7d5;
+
+    color: #9b7b18;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+
+    font-size: 20px;
+
+    margin-bottom: 22px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.eyebrow {
+
+    color: #9b7b18;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+}
+
+
+.login-header h2 {
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 42px;
+
+    font-weight: 600;
+
+    line-height: 1.1;
+
+    margin-bottom: 12px;
+
+}
+
+
+.login-header p {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    line-height: 1.8;
+
+    margin-bottom: 28px;
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.login-error {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 12px 14px;
+
+    margin-bottom: 20px;
+
+
+    border-radius: 7px;
+
+    background: #fff0f0;
+
+    border: 1px solid #f1caca;
+
+    color: #b42318;
+
+    font-size: 11px;
+
+}
+
+
+.login-error i {
+
+    font-size: 14px;
+
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.form-group {
+
+    margin-bottom: 20px;
+
+}
+
+
+.form-group label {
+
+    display: block;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    margin-bottom: 8px;
+
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.input-wrapper {
+
+    position: relative;
+
+}
+
+
+.input-icon {
+
+    position: absolute;
+
+    left: 17px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #999;
+
+    font-size: 14px;
+
+    z-index: 2;
+
+}
+
+
+.input-wrapper input {
+
+    width: 100%;
+
+    height: 54px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 8px;
+
+    background: #fff;
+
+    outline: none;
+
+
+    padding-left: 48px;
+
+    padding-right: 48px;
+
+
+    color: #333;
+
+    font-family: 'Jost', sans-serif;
+
+    font-size: 12px;
+
+
+    transition: all .25s ease;
+
+}
+
+
+.input-wrapper input::placeholder {
+
+    color: #aaa;
+
+}
+
+
+.input-wrapper input:focus {
+
+    border-color: var(--gold);
+
+    box-shadow:
+
+        0 0 0 3px
+        rgba(201,162,39,.10);
+
+}
+
+
+/* =====================================================
+   PASSWORD TOGGLE
+===================================================== */
+
+.password-toggle {
+
+    position: absolute;
+
+    right: 8px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+
+    width: 38px;
+
+    height: 38px;
+
+    border: none;
+
+    background: transparent;
+
+    color: #999;
+
+    cursor: pointer;
+
+}
+
+
+.password-toggle:hover {
+
+    color: #9b7b18;
+
+}
+
+
+/* =====================================================
+   SECURITY ROW
+===================================================== */
+
+.security-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: -4px;
+
+    margin-bottom: 20px;
+
+
+    color: #999;
+
+    font-size: 9px;
+
+}
+
+
+.security-row i {
+
+    color: #b18d20;
+
+    margin-right: 5px;
+
+}
+
+
+/* =====================================================
+   LOGIN BUTTON
+===================================================== */
+
+.login-button {
+
+    position: relative;
+
+    width: 100%;
+
+    height: 55px;
+
+
+    border: none;
+
+    border-radius: 8px;
+
+
+    background: #171717;
+
+    color: white;
+
+
+    font-family: 'Jost', sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 3px;
+
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+
+    transition: all .3s ease;
+
+}
+
+
+.login-button::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background: var(--gold);
+
+
+    transform: translateX(-100%);
+
+    transition: transform .35s ease;
+
+}
+
+
+.login-button:hover::before {
+
+    transform: translateX(0);
+
+}
+
+
+.login-button span,
+
+.login-button i {
+
+    position: relative;
+
+    z-index: 2;
+
+}
+
+
+.login-button:hover {
+
+    color: #111;
+
+}
+
+
+.login-button:disabled {
+
+    opacity: .75;
+
+    cursor: wait;
+
+}
+
+
+/* =====================================================
+   BACK TO STORE
+===================================================== */
+
+.back-store {
+
+    text-align: center;
+
+    margin-top: 24px;
+
+}
+
+
+.back-store a {
+
+    color: #9b7b18;
+
+    font-size: 10px;
+
+    text-decoration: none;
+
+}
+
+
+.back-store a:hover {
+
+    text-decoration: underline;
+
+}
+
+
+.back-store i {
+
+    margin-right: 7px;
+
+}
+
+
+/* =====================================================
+   SECURITY MESSAGE
+===================================================== */
+
+.security-message {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 22px;
+
+    color: #999;
+
+    font-size: 8px;
+
+}
+
+
+.security-message i {
+
+    color: #9b7b18;
+
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.login-footer {
+
+    margin-top: 32px;
+
+    color: #aaa;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+    text-align: center;
+
+}
+
+
+.login-footer span {
+
+    color: var(--gold);
+
+    margin: 0 7px;
+
+}
+
+
+/* =====================================================
+   MOBILE BRAND
+===================================================== */
+
+.mobile-brand {
+
+    display: none;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 950px) {
+
+    .brand-section {
+
+        display: none;
+
+    }
+
+
+    .login-section {
+
+        width: 100%;
+
+        padding: 35px 25px;
+
+    }
+
+
+    .mobile-brand {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin-bottom: 35px;
+
+    }
+
+
+    .mobile-symbol {
+
+        width: 48px;
+
+        height: 48px;
+
+        border: 1px solid var(--gold);
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+
+        font-family: 'Cinzel', serif;
+
+        color: #9b7b18;
+
+        font-size: 19px;
+
+        font-weight: 600;
+
+    }
+
+
+    .mobile-brand h3 {
+
+        font-family: 'Cinzel', serif;
+
+        font-size: 19px;
+
+        letter-spacing: 3px;
+
+        margin: 0;
+
+    }
+
+
+    .mobile-brand span {
+
+        color: #9b7b18;
+
+        font-size: 7px;
+
+        letter-spacing: 4px;
+
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .login-section {
+
+        padding: 25px 18px;
+
+    }
+
+
+    .login-header h2 {
+
+        font-size: 36px;
+
+    }
+
+
+    .login-footer {
+
+        margin-top: 25px;
+
+    }
+
+}

@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>My Wishlist | Sri Krishna Collection</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         WISHLIST CSS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        th:href="@{/css/wishlist.css}">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     TOP PROMO BAR
+========================================================= -->
+
+<div class="top-promo">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+        <div class="promo-content">
+
+            <span>
+
+                <i class="fa-solid fa-truck-fast"></i>
+
+                Free Delivery Above ₹999
+
+            </span>
+
+
+            <span>|</span>
+
+
+            <span>
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                Secure Shopping
+
+            </span>
+
+
+            <span>|</span>
+
+
+            <span>
+
+                <i class="fa-solid fa-headset"></i>
+
+                Customer Support
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="main-header">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+        <div class="row align-items-center g-3">
+
+
+            <!-- BRAND -->
+
+            <div class="col-12 col-lg-3">
+
+                <a
+                    th:href="@{/Krishna}"
+                    class="brand">
+
+                    <div class="brand-icon">
+
+                        <i class="fa-solid fa-crown"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <small>
+                            SRI KRISHNA
+                        </small>
+
+                        <strong>
+                            COLLECTION
+                        </strong>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- SEARCH -->
+
+            <div class="col-12 col-md-7 col-lg-5">
+
+                <div class="search-box">
+
+                    <input
+                        type="text"
+                        placeholder="Search products...">
+
+                    <button type="button">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- HEADER ACTIONS -->
+
+            <div class="col-12 col-md-5 col-lg-4">
+
+                <div class="header-actions">
+
+
+                    <!-- ACCOUNT -->
+
+                    <a th:href="@{/Krishna}">
+
+                        <i class="fa-regular fa-user"></i>
+
+                        <span>
+                            Account
+                        </span>
+
+                    </a>
+
+
+                    <!-- WISHLIST -->
+
+                    <a
+                        th:href="@{/Krishna/wishlist}"
+                        class="active">
+
+                        <i class="fa-solid fa-heart"></i>
+
+                        <span>
+                            Wishlist
+                        </span>
+
+                    </a>
+
+
+                    <!-- CART -->
+
+                    <a th:href="@{/Krishna/cart}">
+
+                        <i class="fa-solid fa-bag-shopping"></i>
+
+                        <span>
+                            Cart
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="navbar navbar-expand-lg main-navbar">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavigation">
+
+            <i class="fa-solid fa-bars"></i>
+
+        </button>
+
+
+        <div
+            class="collapse navbar-collapse"
+            id="mainNavigation">
+
+
+            <ul class="navbar-nav mx-auto">
+
+
+                <!-- HOME -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        th:href="@{/Krishna}">
+
+                        <i class="fa-solid fa-house"></i>
+
+                        Home
+
+                    </a>
+
+                </li>
+
+
+                <!-- CATEGORIES -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        th:href="@{/Krishna/categories}">
+
+                        Categories
+
+                    </a>
+
+                </li>
+
+
+                <!-- PRODUCTS -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        th:href="@{/Krishna/product}">
+
+                        Products
+
+                    </a>
+
+                </li>
+
+
+                <!-- SAREES -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        th:href="@{/Krishna/product}">
+
+                        Sarees
+
+                    </a>
+
+                </li>
+
+
+                <!-- CHUDIDARS -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        th:href="@{/Krishna/product}">
+
+                        Chudidars
+
+                    </a>
+
+                </li>
+
+
+                <!-- KURTIS -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        th:href="@{/Krishna/product}">
+
+                        Kurtis
+
+                    </a>
+
+                </li>
+
+
+                <!-- WISHLIST -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link active"
+                        th:href="@{/Krishna/wishlist}">
+
+                        <i class="fa-solid fa-heart"></i>
+
+                        Wishlist
+
+                    </a>
+
+                </li>
+
+
+                <!-- CART -->
+
+                <li class="nav-item">
+
+                    <a
+                        class="nav-link"
+                        th:href="@{/Krishna/cart}">
+
+                        <i class="fa-solid fa-cart-shopping"></i>
+
+                        Cart
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+
+<!-- =========================================================
+     BREADCRUMB
+========================================================= -->
+
+<section class="breadcrumb-section">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+        <div class="breadcrumb-custom">
+
+
+            <a th:href="@{/Krishna}">
+
+                Home
+
+            </a>
+
+
+            <i class="fa-solid fa-chevron-right"></i>
+
+
+            <span>
+
+                Wishlist
+
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     WISHLIST HERO
+========================================================= -->
+
+<section class="wishlist-hero">
+
+    <div class="container">
+
+        <div class="wishlist-hero-content">
+
+
+            <span class="hero-label">
+
+                YOUR FAVOURITES
+
+            </span>
+
+
+            <h1>
+
+                My Wishlist
+
+            </h1>
+
+
+            <p>
+
+                Keep the styles you love
+                close to your heart.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FLASH MESSAGES
+========================================================= -->
+
+<div class="container mt-4">
+
+
+    <!-- SUCCESS -->
+
+    <div
+        th:if="${success}"
+        class="alert alert-success alert-dismissible fade show">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <span th:text="${success}">
+            Success
+        </span>
+
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert">
+        </button>
+
+    </div>
+
+
+    <!-- ERROR -->
+
+    <div
+        th:if="${error}"
+        class="alert alert-danger alert-dismissible fade show">
+
+        <i class="fa-solid fa-circle-exclamation"></i>
+
+        <span th:text="${error}">
+            Error
+        </span>
+
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert">
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================================
+     WISHLIST CONTENT
+========================================================= -->
+
+<main class="wishlist-section">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+
+        <!-- =================================================
+             EMPTY WISHLIST
+        ================================================== -->
+
+        <div
+            th:if="${wishlistItems == null or wishlistItems.isEmpty()}"
+            class="empty-wishlist">
+
+
+            <div class="empty-wishlist-icon">
+
+                <i class="fa-regular fa-heart"></i>
+
+            </div>
+
+
+            <span class="section-label">
+
+                YOUR WISHLIST
+
+            </span>
+
+
+            <h2>
+
+                Your Wishlist is Empty
+
+            </h2>
+
+
+            <p>
+
+                Save your favourite products here
+                and come back to them anytime.
+
+            </p>
+
+
+            <a
+                th:href="@{/Krishna/product}"
+                class="gold-button">
+
+                <span>
+                    Explore Products
+                </span>
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             WISHLIST WITH PRODUCTS
+        ================================================== -->
+
+        <div
+            th:if="${wishlistItems != null and !wishlistItems.isEmpty()}"
+            class="wishlist-content">
+
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+
+            <div class="wishlist-heading">
+
+
+                <div>
+
+                    <span class="section-label">
+
+                        SAVED FOR YOU
+
+                    </span>
+
+
+                    <h2>
+
+                        Your Favourite Pieces
+
+                    </h2>
+
+                </div>
+
+
+                <div class="wishlist-count">
+
+                    <strong
+                        th:text="${#lists.size(wishlistItems)}">
+
+                        0
+
+                    </strong>
+
+                    <span>
+
+                        Item(s)
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CLEAR WISHLIST
+            ================================================== -->
+
+            <div class="wishlist-actions-top">
+
+                <a
+                    th:href="@{/Krishna/wishlist/clear}"
+                    class="clear-wishlist"
+                    onclick="return confirm('Are you sure you want to clear your wishlist?');">
+
+                    <i class="fa-regular fa-trash-can"></i>
+
+                    Clear Wishlist
+
+                </a>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PRODUCTS GRID
+            ================================================== -->
+
+            <div class="row g-4">
+
+
+                <div
+                    class="col-12 col-sm-6 col-lg-4 col-xl-3"
+                    th:each="item : ${wishlistItems}">
+
+
+                    <article class="wishlist-card">
+
+
+                        <!-- =================================================
+                             PRODUCT IMAGE
+                        ================================================== -->
+
+                        <div class="wishlist-image">
+
+
+                            <!-- IMAGE -->
+
+                            <img
+                                th:if="${item.product != null and item.product.image != null and !item.product.image.isEmpty()}"
+
+                                th:src="@{/products/{image}(image=${item.product.image})}"
+
+                                th:alt="${item.product.name}">
+
+
+                            <!-- FALLBACK -->
+
+                            <div
+                                th:unless="${item.product != null and item.product.image != null and !item.product.image.isEmpty()}"
+                                class="image-placeholder">
+
+                                <i class="fa-solid fa-image"></i>
+
+                            </div>
+
+
+
+                            <!-- WISHLIST HEART -->
+
+                            <div class="wishlist-heart">
+
+                                <i class="fa-solid fa-heart"></i>
+
+                            </div>
+
+
+                            <!-- REMOVE -->
+
+                            <a
+                                th:if="${item.product != null}"
+                                th:href="@{/Krishna/wishlist/remove/{productId}(productId=${item.product.id})}"
+                                class="remove-wishlist"
+                                title="Remove from wishlist"
+                                onclick="return confirm('Remove this product from your wishlist?');">
+
+                                <i class="fa-solid fa-xmark"></i>
+
+                            </a>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             PRODUCT DETAILS
+                        ================================================== -->
+
+                        <div class="wishlist-details">
+
+
+                            <!-- CATEGORY -->
+
+                            <span class="product-category"
+                                  th:if="${item.product != null and item.product.category != null}"
+                                  th:text="${item.product.category.name}">
+
+                                Category
+
+                            </span>
+
+
+                            <!-- PRODUCT NAME -->
+
+                            <h3
+                                th:if="${item.product != null}"
+                                th:text="${item.product.name}">
+
+                                Product Name
+
+                            </h3>
+
+
+                            <!-- BRAND -->
+
+                            <p
+                                class="product-brand"
+                                th:if="${item.product != null and item.product.brand != null}">
+
+                                <i class="fa-solid fa-tag"></i>
+
+                                <span
+                                    th:text="${item.product.brand}">
+
+                                    Brand
+
+                                </span>
+
+                            </p>
+
+
+                            <!-- PRICE -->
+
+                            <div
+                                class="wishlist-price"
+                                th:if="${item.product != null}">
+
+                                ₹
+
+                                <span
+                                    th:text="${#numbers.formatDecimal(item.product.price, 1, 2)}">
+
+                                    0.00
+
+                                </span>
+
+                            </div>
+
+
+
+                            <!-- =================================================
+                                 ACTIONS
+                            ================================================== -->
+
+                            <div class="wishlist-card-actions">
+
+
+                                <!-- VIEW PRODUCT -->
+
+                                <a
+                                    th:if="${item.product != null}"
+                                    th:href="@{/Krishna/product/{id}(id=${item.product.id})}"
+                                    class="view-product-btn">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                    View
+
+                                </a>
+
+
+                                <!-- ADD TO CART -->
+
+                                <form
+                                    th:if="${item.product != null}"
+                                    th:action="@{/Krishna/cart/add}"
+                                    method="post"
+                                    class="add-cart-form">
+
+
+                                    <input
+                                        type="hidden"
+                                        name="productId"
+                                        th:value="${item.product.id}">
+
+
+                                    <input
+                                        type="hidden"
+                                        name="quantity"
+                                        value="1">
+
+
+                                    <button
+                                        type="submit"
+                                        class="add-cart-btn">
+
+                                        <i class="fa-solid fa-bag-shopping"></i>
+
+                                        Add to Cart
+
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+
+<!-- =========================================================
+     WISHLIST PROMO
+========================================================= -->
+
+<section class="wishlist-promo">
+
+    <div class="container">
+
+        <div class="promo-content">
+
+
+            <span>
+
+                SRI KRISHNA COLLECTION
+
+            </span>
+
+
+            <h2>
+
+                Your Style.
+                <em>Your Choice.</em>
+
+            </h2>
+
+
+            <p>
+
+                Discover more beautiful pieces
+                from our curated collection.
+
+            </p>
+
+
+            <a
+                th:href="@{/Krishna/product}"
+                class="promo-button">
+
+                Continue Shopping
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="main-footer">
+
+    <div class="container-fluid px-4 px-lg-5">
+
+        <div class="row g-5">
+
+
+            <!-- BRAND -->
+
+            <div class="col-12 col-lg-4">
+
+                <h4>
+
+                    <i class="fa-solid fa-crown"></i>
+
+                    Sri Krishna Collection
+
+                </h4>
+
+
+                <p>
+
+                    Tradition, elegance and timeless
+                    Indian fashion.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- QUICK LINKS -->
+
+            <div class="col-6 col-md-4 col-lg-2">
+
+                <h5>
+
+                    Quick Links
+
+                </h5>
+
+
+                <a th:href="@{/Krishna}">
+
+                    Home
+
+                </a>
+
+
+                <a th:href="@{/Krishna/product}">
+
+                    Products
+
+                </a>
+
+
+                <a th:href="@{/Krishna/wishlist}">
+
+                    Wishlist
+
+                </a>
+
+
+                <a th:href="@{/Krishna/cart}">
+
+                    Cart
+
+                </a>
+
+            </div>
+
+
+
+            <!-- CUSTOMER CARE -->
+
+            <div class="col-6 col-md-4 col-lg-3">
+
+                <h5>
+
+                    Customer Care
+
+                </h5>
+
+
+                <a th:href="@{/Krishna}">
+
+                    Shipping
+
+                </a>
+
+
+                <a th:href="@{/Krishna}">
+
+                    Returns
+
+                </a>
+
+
+                <a th:href="@{/Krishna}">
+
+                    Contact Us
+
+                </a>
+
+            </div>
+
+
+
+            <!-- CONTACT -->
+
+            <div class="col-12 col-md-4 col-lg-3">
+
+                <h5>
+
+                    Contact
+
+                </h5>
+
+
+                <p>
+
+                    <i class="fa-solid fa-location-dot"></i>
+
+                    Tamil Nadu, India
+
+                </p>
+
+
+                <p>
+
+                    <i class="fa-solid fa-headset"></i>
+
+                    Customer Support
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <hr>
+
+
+        <div class="footer-bottom">
+
+            © 2026 Sri Krishna Collection.
+            All Rights Reserved.
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+
+<!-- =========================================================
+     WISHLIST JS
+========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        /*
+         * Prevent accidental double submission
+         * when adding wishlist products to cart.
+         */
+
+        const forms =
+            document.querySelectorAll(
+                ".add-cart-form"
+            );
+
+
+        forms.forEach(function (form) {
+
+            form.addEventListener(
+                "submit",
+                function () {
+
+                    const button =
+                        form.querySelector(
+                            ".add-cart-btn"
+                        );
+
+
+                    if (button) {
+
+                        button.disabled =
+                            true;
+
+                        button.innerHTML =
+                            '<i class="fa-solid fa-spinner fa-spin"></i> Adding...';
+
+                    }
+
+                }
+            );
+
+        });
+
+    }
+);
+
+</script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,513 @@
+package com.example.srikrishna.Controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.UUID;
+
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.srikrishna.Entity.Category;
+import com.example.srikrishna.Service.CategoryService;
+
+@Controller
+@RequestMapping("/admin/categories")
+public class AdminCategoryController {
+
+
+    private final CategoryService categoryService;
+
+
+    public AdminCategoryController(
+            CategoryService categoryService) {
+
+        this.categoryService =
+                categoryService;
+    }
+
+
+    // =====================================================
+    // CATEGORY LIST
+    // =====================================================
+
+    @GetMapping
+    public String categories(
+
+            @RequestParam(
+                    value = "keyword",
+                    required = false
+            )
+            String keyword,
+
+            @RequestParam(
+                    value = "status",
+                    required = false,
+                    defaultValue = "ALL"
+            )
+            String status,
+
+            Model model) {
+
+
+        List<Category> categories =
+                categoryService
+                        .searchAndFilterCategories(
+                                keyword,
+                                status
+                        );
+
+
+        model.addAttribute(
+                "categories",
+                categories
+        );
+
+
+        model.addAttribute(
+                "keyword",
+                keyword
+        );
+
+
+        model.addAttribute(
+                "selectedStatus",
+                status
+        );
+
+
+        model.addAttribute(
+                "totalCategories",
+                categoryService
+                        .getTotalCategories()
+        );
+
+
+        model.addAttribute(
+                "activeCategories",
+                categoryService
+                        .getActiveCategories()
+        );
+
+
+        model.addAttribute(
+                "inactiveCategories",
+                categoryService
+                        .getInactiveCategories()
+        );
+
+
+        return "admin/categories";
+    }
+
+
+    // =====================================================
+    // ADD FORM
+    // =====================================================
+
+    @GetMapping("/new")
+    public String newCategory(
+            Model model) {
+
+        model.addAttribute(
+                "category",
+                new Category()
+        );
+
+        model.addAttribute(
+                "pageTitle",
+                "Add Category"
+        );
+
+        return "admin/category-form";
+    }
+
+
+    // =====================================================
+    // SAVE
+    // =====================================================
+
+    @PostMapping("/save")
+public String saveCategory(
+
+        Category category,
+
+        @RequestParam("imageFile")
+        MultipartFile imageFile,
+
+        RedirectAttributes redirectAttributes) {
+
+    try {
+
+        // ================================
+        // CHECK DUPLICATE NAME
+        // ================================
+
+        if (categoryService.categoryNameExists(
+                category.getName(),
+                category.getId())) {
+
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "Category name already exists."
+            );
+
+            if (category.getId() == null) {
+                return "redirect:/admin/categories/new";
+            }
+
+            return "redirect:/admin/categories/edit/"
+                    + category.getId();
+        }
+
+
+        // ================================
+        // DEFAULT STATUS
+        // ================================
+
+        if (category.getStatus() == null) {
+            category.setStatus(true);
+        }
+
+
+        // ================================
+        // IMAGE UPLOAD
+        // ================================
+
+        if (imageFile != null &&
+                !imageFile.isEmpty()) {
+
+            String uploadDirectory =
+                    "uploads/categories/";
+
+            Path uploadPath =
+                    Paths.get(uploadDirectory);
+
+            if (!Files.exists(uploadPath)) {
+
+                Files.createDirectories(uploadPath);
+            }
+
+
+            String originalName =
+                    imageFile.getOriginalFilename();
+
+            String extension = "";
+
+            if (originalName != null &&
+                    originalName.contains(".")) {
+
+                extension =
+                        originalName.substring(
+                                originalName.lastIndexOf(".")
+                        );
+            }
+
+
+            String fileName =
+                    UUID.randomUUID()
+                            + extension;
+
+
+            Path filePath =
+                    uploadPath.resolve(fileName);
+
+
+            Files.copy(
+                    imageFile.getInputStream(),
+                    filePath,
+                    StandardCopyOption.REPLACE_EXISTING
+            );
+
+
+            category.setImage(fileName);
+        }
+
+
+        // ================================
+        // SAVE
+        // ================================
+
+       // ================================
+// SAVE / UPDATE
+// ================================
+
+if (category.getId() == null) {
+
+    // NEW CATEGORY
+
+    categoryService.saveCategory(category);
+
+    redirectAttributes.addFlashAttribute(
+            "success",
+            "Category added successfully.");
+
+} else {
+
+    // UPDATE CATEGORY
+
+    Category existingCategory =
+            categoryService.getCategoryById(
+                    category.getId());
+
+    if (existingCategory == null) {
+
+        redirectAttributes.addFlashAttribute(
+                "error",
+                "Category not found.");
+
+        return "redirect:/admin/categories";
+    }
+
+    // If no new image is uploaded,
+    // keep the old image
+    if (imageFile == null || imageFile.isEmpty()) {
+
+        category.setImage(
+                existingCategory.getImage());
+    }
+
+    categoryService.updateCategory(category);
+
+    redirectAttributes.addFlashAttribute(
+            "success",
+            "Category updated successfully.");
+}
+
+
+    } catch (IOException e) {
+
+        redirectAttributes.addFlashAttribute(
+                "error",
+                "Image upload failed: "
+                        + e.getMessage()
+        );
+
+    } catch (Exception e) {
+
+        redirectAttributes.addFlashAttribute(
+                "error",
+                "Unable to save category: "
+                        + e.getMessage()
+        );
+    }
+
+
+    return "redirect:/admin/categories";
+}
+
+    // =====================================================
+    // EDIT FORM
+    // =====================================================
+
+    @GetMapping("/edit/{id}")
+    public String editCategory(
+
+            @PathVariable Long id,
+
+            Model model,
+
+            RedirectAttributes redirectAttributes) {
+
+
+        Category category =
+                categoryService
+                        .getCategoryById(id);
+
+
+        if (category == null) {
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "error",
+                            "Category not found."
+                    );
+
+            return "redirect:/admin/categories";
+        }
+
+
+        model.addAttribute(
+                "category",
+                category
+        );
+
+
+        model.addAttribute(
+                "pageTitle",
+                "Edit Category"
+        );
+
+
+        return "admin/category-form";
+    }
+
+
+    // =====================================================
+    // DETAILS
+    // =====================================================
+
+    @GetMapping("/{id}")
+    public String categoryDetails(
+
+            @PathVariable Long id,
+
+            Model model,
+
+            RedirectAttributes redirectAttributes) {
+
+
+        Category category =
+                categoryService
+                        .getCategoryById(id);
+
+
+        if (category == null) {
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "error",
+                            "Category not found."
+                    );
+
+            return "redirect:/admin/categories";
+        }
+
+
+        model.addAttribute(
+                "category",
+                category
+        );
+
+
+        return "admin/category-details";
+    }
+
+
+    // =====================================================
+    // ACTIVATE
+    // =====================================================
+
+    @PostMapping("/{id}/activate")
+    public String activateCategory(
+
+            @PathVariable Long id,
+
+            RedirectAttributes redirectAttributes) {
+
+
+        try {
+
+            categoryService
+                    .activateCategory(id);
+
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "success",
+                            "Category activated successfully."
+                    );
+
+        } catch (Exception e) {
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "error",
+                            e.getMessage()
+                    );
+        }
+
+
+        return "redirect:/admin/categories";
+    }
+
+
+    // =====================================================
+    // DEACTIVATE
+    // =====================================================
+
+    @PostMapping("/{id}/deactivate")
+    public String deactivateCategory(
+
+            @PathVariable Long id,
+
+            RedirectAttributes redirectAttributes) {
+
+
+        try {
+
+            categoryService
+                    .deactivateCategory(id);
+
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "success",
+                            "Category deactivated successfully."
+                    );
+
+        } catch (Exception e) {
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "error",
+                            e.getMessage()
+                    );
+        }
+
+
+        return "redirect:/admin/categories";
+    }
+
+
+    // =====================================================
+    // DELETE
+    // =====================================================
+
+    @PostMapping("/{id}/delete")
+    public String deleteCategory(
+
+            @PathVariable Long id,
+
+            RedirectAttributes redirectAttributes) {
+
+
+        try {
+
+            categoryService
+                    .deleteCategory(id);
+
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "success",
+                            "Category deleted successfully."
+                    );
+
+        } catch (Exception e) {
+
+            redirectAttributes
+                    .addFlashAttribute(
+                            "error",
+                            "Unable to delete category: "
+                                    + e.getMessage()
+                    );
+        }
+
+
+        return "redirect:/admin/categories";
+    }
+
+}

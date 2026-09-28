@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sri Krishna Collection</title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP 5
+    ====================================================== -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         CUSTOMER HOME CSS
+    ====================================================== -->
+
+    <link rel="stylesheet" th:href="@{/css/customer-home.css}">
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+     TOP PROMOTION BAR
+========================================================= -->
+
+    <div class="top-promo">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-12">
+
+                    <div class="promo-content">
+
+                        <span>
+                            <i class="fa-solid fa-truck-fast"></i>
+                            Free Delivery Above ₹999
+                        </span>
+
+                        <span class="promo-separator">
+                            |
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-tags"></i>
+                            Festival Offers Available
+                        </span>
+
+                        <span class="promo-separator">
+                            |
+                        </span>
+
+                        <span>
+                            <i class="fa-solid fa-headset"></i>
+                            Customer Support
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+     MAIN HEADER
+========================================================= -->
+
+    <header class="main-header">
+
+        <div class="container">
+
+            <div class="row align-items-center g-3">
+
+
+                <!-- =================================================
+                 LOGO
+            ================================================== -->
+
+                <div class="col-12 col-lg-3">
+
+                    <div class="brand-wrapper">
+
+                        <a th:href="@{/Krishna}" class="brand-link">
+
+                            <div class="brand-icon">
+
+                                <i class="fa-solid fa-crown"></i>
+
+                            </div>
+
+                            <div class="brand-name">
+
+                                <small>
+                                    SRI KRISHNA
+                                </small>
+
+                                <strong>
+                                    COLLECTION
+                                </strong>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                 SEARCH
+            ================================================== -->
+
+                <div class="col-12 col-md-7 col-lg-5">
+
+                    <div class="search-box">
+
+                        <input type="text" class="form-control" placeholder="Search sarees, kurtis, chudidars...">
+
+                        <button type="button" class="search-btn">
+
+                            <i class="fa-solid fa-magnifying-glass"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                 HEADER ACTIONS
+            ================================================== -->
+
+                <div class="col-12 col-md-5 col-lg-4">
+
+                    <div class="navbar-icons">
+
+
+                        <!-- ACCOUNT -->
+
+                        <a th:href="@{/Krishna/profile}" title="My Account">
+
+                            <i class="fa-regular fa-user"></i>
+
+                        </a>
+
+
+                        <!-- WISHLIST -->
+
+                        <a href="/Krishna/wishlist" title="Wishlist">
+
+                            <i class="fa-regular fa-heart"></i>
+
+                        </a>
+
+
+                        <!-- CART -->
+
+                        <a th:href="@{/Krishna/cart}" class="cart-icon" title="Shopping Cart">
+
+                            <i class="fa-solid fa-bag-shopping"></i>
+
+                            <span class="cart-badge">
+                                0
+                            </span>
+
+                        </a>
+
+
+                        <!-- LOGOUT -->
+
+                        <a th:href="@{/logout}" class="logout-icon" title="Logout">
+
+                            <i class="fa-solid fa-right-from-bracket"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================================================
+     NAVIGATION BAR
+========================================================= -->
+
+    <nav class="navbar navbar-expand-lg main-navbar">
+
+        <div class="container-fluid px-4 px-lg-5">
+
+
+            <!-- BRAND -->
+
+            <a th:href="@{/Krishna}" class="navbar-brand">
+
+                Sri Krishna Collection
+
+            </a>
+
+
+            <!-- MOBILE MENU -->
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+
+                <i class="fa-solid fa-bars"></i>
+
+            </button>
+
+
+            <!-- NAVIGATION -->
+
+            <div class="collapse navbar-collapse" id="mainNav">
+
+
+                <ul class="navbar-nav mx-auto">
+
+
+                    <!-- HOME -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" th:href="@{/Krishna}">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- CATEGORIES -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" th:href="@{/Krishna/categories}">
+
+                            Categories
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- PRODUCTS -->
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" th:href="@{/Krishna/product}">
+
+                            Products
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+
+
+                <!-- NAV ACTIONS -->
+
+                <div class="d-flex align-items-center gap-3">
+
+
+                    <a th:href="@{/Krishna/profile}" title="Account">
+
+                        <i class="fa-regular fa-user"></i>
+
+                    </a>
+
+
+                    <a href="#" title="Wishlist">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                    </a>
+
+
+                    <a th:href="@{/Krishna/cart}" title="Cart">
+
+                        <i class="fa-solid fa-bag-shopping"></i>
+
+                    </a>
+
+
+                    <a th:href="@{/logout}" title="Logout">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================================================
+     HERO / WELCOME BANNER
+========================================================= -->
+
+    <section class="hero-section">
+
+        <!--
+        Hero background image is handled by CSS.
+
+        Put your generated banner here:
+
+        /static/images/sri-krishna-home-banner.png
+
+        CSS:
+        background-image:
+        url("/images/sri-krishna-home-banner.png");
+    -->
+
+    </section>
+
+
+
+    <!-- =========================================================
+     FEATURES SECTION
+========================================================= -->
+
+    <section class="feature-section">
+
+        <div class="container">
+
+            <div class="row g-0">
+
+
+                <!-- FREE DELIVERY -->
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="feature-item">
+
+                        <i class="fa-solid fa-truck-fast"></i>
+
+                        <div>
+
+                            <h6>
+                                Free Delivery
+                            </h6>
+
+                            <p>
+                                Orders above ₹999
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SECURE PAYMENT -->
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="feature-item">
+
+                        <i class="fa-solid fa-shield-halved"></i>
+
+                        <div>
+
+                            <h6>
+                                Secure Payment
+                            </h6>
+
+                            <p>
+                                100% secure checkout
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- EASY RETURNS -->
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="feature-item">
+
+                        <i class="fa-solid fa-rotate-left"></i>
+
+                        <div>
+
+                            <h6>
+                                Easy Returns
+                            </h6>
+
+                            <p>
+                                Hassle-free returns
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- CUSTOMER SUPPORT -->
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="feature-item">
+
+                        <i class="fa-solid fa-headset"></i>
+
+                        <div>
+
+                            <h6>
+                                Customer Support
+                            </h6>
+
+                            <p>
+                                We are here to help
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+     CATEGORY SECTION
+========================================================= -->
+
+    <section class="category-section">
+
+        <div class="container-fluid px-4 px-lg-5">
+
+            <div class="container">
+
+
+                <!-- SECTION TITLE -->
+
+                <div class="section-title">
+
+                    <span>
+                        EXPLORE COLLECTIONS
+                    </span>
+
+                    <h2>
+                        Shop By Category
+                    </h2>
+
+                    <p>
+                        Find your perfect style from our
+                        carefully selected collections.
+                    </p>
+
+                </div>
+
+
+
+                <!-- CATEGORY GRID -->
+
+                <!-- =========================================================
+     DYNAMIC CATEGORY GRID
+========================================================= -->
+
+                <div class="row g-4">
+
+                    <!--
+        categories comes from the database.
+
+        Admin Category:
+        name  -> category.name
+        image -> category.image
+    -->
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3" th:each="category : ${categories}">
+
+                        <a th:href="@{/Krishna/product(category=${category.name})}" class="category-link">
+
+                            <div class="category-card">
+
+                                <div class="category-image-wrapper"
+                                    th:if="${category.image != null and !#strings.isEmpty(category.image)}">
+
+                                    <img th:src="@{'/category-images/' + ${category.image}}" th:alt="${category.name}"
+                                        class="category-image">
+
+                                </div>
+
+                                <div class="category-info">
+
+                                    <span>
+                                        SRI KRISHNA COLLECTION
+                                    </span>
+
+                                    <h4 th:text="${category.name}">
+                                        Category Name
+                                    </h4>
+
+                                    <p th:if="${category.description != null and !#strings.isEmpty(category.description)}"
+                                        th:text="${category.description}">
+                                        Description
+                                    </p>
+
+                                    <div class="category-arrow">
+
+                                        Explore
+
+                                        <i class="fa-solid fa-arrow-right"></i>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- =========================================
+         NO CATEGORIES
+    ========================================== -->
+
+                    <div class="col-12" th:if="${#lists.isEmpty(categories)}">
+
+                        <div class="text-center py-5">
+
+                            <i class="fa-solid fa-layer-group" style="font-size:45px;color:#c9963e;">
+                            </i>
+
+                            <h4 class="mt-3">
+                                No Categories Available
+                            </h4>
+
+                            <p>
+                                Categories will appear here once
+                                they are added from the admin panel.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+     NEW ARRIVALS
+========================================================= -->
+
+    <!-- =========================================================
+     NEW ARRIVALS
+========================================================= -->
+
+    <section class="arrival-section">
+
+        <div class="container-fluid px-4 px-lg-5">
+
+            <div class="container">
+
+                <!-- SECTION TITLE -->
+
+                <div class="section-title">
+
+                    <span>
+                        JUST ARRIVED
+                    </span>
+
+                    <h2>
+                        New Arrivals
+                    </h2>
+
+                    <p>
+                        Fresh styles. New trends. Made for you.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================================
+                 DYNAMIC PRODUCTS
+            ================================================== -->
+
+               <div class="arrival-slider">
+
+    <div class="arrival-track">
+
+        <!-- EACH ENTIRE CARD MOVES -->
+
+        <div
+            class="arrival-item"
+            th:each="product : ${products}">
+
+            <div class="product-card">
+
+                <!-- IMAGE -->
+
+                <div class="product-image">
+
+                    <span class="product-badge">
+                        NEW
+                    </span>
+
+                    <img
+                        th:if="${product.image != null and !#strings.isEmpty(product.image)}"
+                        th:src="@{'/products/' + ${product.image}}"
+                        th:alt="${product.name}"
+                        class="home-product-image">
+
+                    <div
+                        class="product-placeholder"
+                        th:unless="${product.image != null and !#strings.isEmpty(product.image)}">
+
+                        <i class="fa-solid fa-image"></i>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="wishlist-btn">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                    </button>
+
+                </div>
+
+
+                <!-- ALL PRODUCT DATA -->
+
+                <div class="product-content">
+
+                    <small
+                        th:if="${product.category != null}"
+                        th:text="${product.category.name}">
+                        CATEGORY
+                    </small>
+
+                    <small
+                        th:unless="${product.category != null}">
+                        COLLECTION
+                    </small>
+
+                    <h5 th:text="${product.name}">
+                        Product Name
+                    </h5>
+
+                    <div class="rating">
+                        ★★★★★
+                    </div>
+
+                    <div class="price">
+
+                        <strong
+                            th:text="${'₹' + product.price}">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+                    <a
+                        th:href="@{/Krishna/product/{id}(id=${product.id})}"
+                        class="btn btn-dark w-100">
+
+                        View Product
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- NO PRODUCTS -->
+
+<div
+    class="col-12"
+    th:if="${products == null or #lists.isEmpty(products)}">
+
+    <div class="text-center py-5">
+
+        <i
+            class="fa-solid fa-box-open"
+            style="font-size:50px;color:#c9963e;">
+        </i>
+
+        <h4 class="mt-3">
+            No Products Available
+        </h4>
+
+        <p>
+            Products added from the admin panel
+            will appear here.
+        </p>
+
+    </div>
+
+</div>
+
+
+                    <!-- =================================================
+                     NO PRODUCTS
+                ================================================== -->
+
+                    <div class="col-12" th:if="${#lists.isEmpty(products)}">
+
+                        <div class="text-center py-5">
+
+                            <i class="fa-solid fa-box-open" style="font-size:50px;color:#c9963e;">
+                            </i>
+
+                            <h4 class="mt-3">
+                                No Products Available
+                            </h4>
+
+                            <p>
+                                Products added from the admin panel
+                                will appear here.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                 VIEW ALL PRODUCTS
+            ================================================== -->
+
+                <div class="text-center mt-5">
+
+                    <a th:href="@{/Krishna/product}" class="btn btn-gold-dark">
+
+                        View All Products
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+     OFFER SECTION
+========================================================= -->
+
+    <section class="offer-section">
+
+        <div class="container">
+
+            <div class="offer-box">
+
+
+                <div class="offer-decoration left">
+                    ✦
+                </div>
+
+
+                <div class="offer-content">
+
+                    <span>
+                        LIMITED TIME OFFER
+                    </span>
+
+                    <h2>
+                        Festival Sale
+                    </h2>
+
+                    <h3>
+                        Up To
+                        <strong>
+                            50% OFF
+                        </strong>
+                    </h3>
+
+                    <p>
+                        On selected women's collections
+                    </p>
+
+
+                    <a th:href="@{/Krishna/product}" class="btn btn-light">
+
+                        Shop Offers
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
+
+
+                <div class="offer-decoration right">
+                    ✦
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+     WHY CHOOSE US
+========================================================= -->
+
+    <section class="why-section">
+
+        <div class="container">
+
+
+            <div class="section-title">
+
+                <span>
+                    WHY SRI KRISHNA COLLECTION
+                </span>
+
+                <h2>
+                    Shopping Made Special
+                </h2>
+
+            </div>
+
+
+
+            <div class="row g-4">
+
+
+                <!-- PREMIUM -->
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="why-card">
+
+                        <div class="why-icon">
+
+                            <i class="fa-solid fa-gem"></i>
+
+                        </div>
+
+                        <h5>
+                            Premium Quality
+                        </h5>
+
+                        <p>
+                            Carefully selected products
+                            made for lasting elegance.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- SECURE -->
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="why-card">
+
+                        <div class="why-icon">
+
+                            <i class="fa-solid fa-shield-halved"></i>
+
+                        </div>
+
+                        <h5>
+                            Secure Shopping
+                        </h5>
+
+                        <p>
+                            Your information and payments
+                            are protected.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- DELIVERY -->
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="why-card">
+
+                        <div class="why-icon">
+
+                            <i class="fa-solid fa-truck-fast"></i>
+
+                        </div>
+
+                        <h5>
+                            Fast Delivery
+                        </h5>
+
+                        <p>
+                            Get your favourite products
+                            delivered safely.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- LOVE -->
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="why-card">
+
+                        <div class="why-icon">
+
+                            <i class="fa-solid fa-heart"></i>
+
+                        </div>
+
+                        <h5>
+                            Made With Love
+                        </h5>
+
+                        <p>
+                            Fashion selected specially
+                            for your beautiful moments.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+     NEWSLETTER
+========================================================= -->
+
+    <section class="newsletter-section">
+
+        <div class="container">
+
+            <div class="newsletter-box">
+
+
+                <div class="newsletter-content">
+
+                    <span>
+                        STAY UPDATED
+                    </span>
+
+                    <h2>
+                        Join Our Fashion Family
+                    </h2>
+
+                    <p>
+                        Get exclusive offers and new
+                        collection updates.
+                    </p>
+
+                </div>
+
+
+                <div class="newsletter-form">
+
+                    <input type="email" placeholder="Enter your email">
+
+                    <button type="button" class="btn btn-gold">
+
+                        Subscribe
+
+                        <i class="fa-solid fa-paper-plane"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================================================
+     FOOTER
+========================================================= -->
+
+    <footer class="main-footer">
+
+        <div class="container">
+
+            <div class="row g-5">
+
+
+                <!-- =================================================
+                 BRAND
+            ================================================== -->
+
+                <div class="col-12 col-lg-4">
+
+                    <div class="footer-brand">
+
+                        <i class="fa-solid fa-crown"></i>
+
+                        Sri Krishna Collection
+
+                    </div>
+
+                    <p>
+                        Discover premium women's fashion
+                        designed to make every moment
+                        beautiful.
+                    </p>
+
+
+                    <div class="social-links">
+
+                        <a href="#">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+
+                        <a href="https://www.instagram.com/srikrishna_collection31/"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="instagram-icon"
+   title="Follow us on Instagram">
+
+    <i class="fa-brands fa-instagram"></i>
+
+</a>
+
+                       <a href="https://wa.me/919876543210?text=Hello%20Sri%20Krishna%20Collection,%20I%20need%20some%20information%20about%20your%20products."
+   target="_blank"
+   class="whatsapp-icon"
+   title="Chat on WhatsApp">
+
+    <i class="fa-brands fa-whatsapp"></i>
+
+</a>
+
+                        <a href="#">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- =================================================
+                 QUICK LINKS
+            ================================================== -->
+
+                <div class="col-6 col-md-4 col-lg-2">
+
+                    <h5>
+                        Quick Links
+                    </h5>
+
+                    <ul>
+
+                        <li>
+
+                            <a th:href="@{/}">
+                                Home
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a th:href="@{/Krishna/product}">
+                                Products
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a th:href="@{/Krishna/categories}">
+                                Categories
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a th:href="@{/Krishna/cart}">
+                                Cart
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+
+                <!-- =================================================
+                 CUSTOMER CARE
+            ================================================== -->
+
+                <div class="col-6 col-md-4 col-lg-3">
+
+                    <h5>
+                        Customer Care
+                    </h5>
+
+                    <ul>
+
+                        <li>
+
+                            <a href="#">
+                                Help Center
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+                                Shipping
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+                                Returns
+                            </a>
+
+                        </li>
+
+                        <li>
+
+                            <a href="#">
+                                Contact Us
+                            </a>
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+
+
+                <!-- =================================================
+                 CONTACT
+            ================================================== -->
+
+                <div class="col-12 col-md-4 col-lg-3">
+
+                    <h5>
+                        Contact
+                    </h5>
+
+                    <p>
+
+                        <i class="fa-solid fa-phone"></i>
+
+                        Customer Support
+
+                    </p>
+
+                    <p>
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        support@srikrishnacollection.com
+
+                    </p>
+
+                    <p>
+
+                        <i class="fa-solid fa-location-dot"></i>
+
+                        Tamil Nadu, India
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <hr>
+
+
+            <!-- =================================================
+             FOOTER BOTTOM
+        ================================================== -->
+
+            <div class="footer-bottom">
+
+                <p>
+                    © 2026 Sri Krishna Collection.
+                    All Rights Reserved.
+                </p>
+
+                <p>
+
+                    Made with
+
+                    <i class="fa-solid fa-heart"></i>
+
+                    for fashion lovers.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+     SCROLL TO TOP
+========================================================= -->
+
+    <button id="scrollTop" class="scroll-top" type="button">
+
+        <i class="fa-solid fa-arrow-up"></i>
+
+    </button>
+
+
+
+    <!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+
+    <!-- =========================================================
+     SWEETALERT
+========================================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    </script>
+
+
+
+    <!-- =========================================================
+     CUSTOMER HOME JS
+========================================================= -->
+
+    <script th:src="@{/js/customer-home.js}">
+    </script>
+
+
+</body>
+
+</html>

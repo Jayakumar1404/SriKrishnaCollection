@@ -1,0 +1,1793 @@
+You are a senior Software QA Architect, Test Management System Designer,
+Full-Stack Developer, UI/UX Designer, and Project Management Dashboard expert.
+
+I have developed a full-stack e-commerce project called:
+
+==================================================
+        SRI KRISHNA COLLECTION
+        E-COMMERCE PROJECT
+==================================================
+
+Technology used in the actual project:
+
+Backend:
+- Java
+- Spring Boot
+- Spring MVC
+- Spring Data JPA
+- Hibernate
+- Spring Security
+- MySQL
+
+Frontend:
+- HTML
+- CSS
+- JavaScript
+- Thymeleaf
+- Bootstrap
+- Font Awesome
+
+The actual e-commerce project contains:
+
+ADMIN SIDE
+- Admin Dashboard
+- Category Management
+- Product Management
+- Customer Management
+- Order Management
+
+CUSTOMER SIDE
+- Customer Home
+- Customer Registration
+- Customer Login
+- Category Browsing
+- Product Listing
+- Product Details
+- Product Search
+- Product Filtering
+- Cart
+- Wishlist
+- Checkout
+- Order Creation
+- Customer Order History
+- Order Tracking
+
+==================================================
+IMPORTANT
+==================================================
+
+I DO NOT want you to modify or rebuild my e-commerce application.
+
+I want you to create a SEPARATE WEBSITE:
+
+        SRI KRISHNA COLLECTION
+        PROJECT QA & TESTING TRACKER
+
+This website will be used to track the complete development,
+testing, bugs, phases, test cases, and final completion of my
+e-commerce project.
+
+The tracker should work independently from the actual e-commerce
+application.
+
+==================================================
+MAIN PURPOSE
+==================================================
+
+Create a professional Test Management + Project Progress website
+where I can track:
+
+- Development phases
+- Sub-phases
+- Features
+- Test cases
+- Test execution
+- Passed tests
+- Failed tests
+- Blocked tests
+- Pending tests
+- Bugs
+- Bug severity
+- Bug priority
+- Bug status
+- Regression testing
+- End-to-end testing
+- UI testing
+- Security testing
+- Database testing
+- Release readiness
+- Overall project completion
+
+The website should make it extremely easy to understand:
+
+WHAT IS COMPLETED?
+WHAT IS BEING TESTED?
+WHAT FAILED?
+WHAT NEEDS TO BE FIXED?
+WHAT IS STILL PENDING?
+IS THE PROJECT READY FOR RELEASE?
+
+==================================================
+DESIGN
+==================================================
+
+Create a premium, modern, professional QA dashboard.
+
+Brand:
+
+SRI KRISHNA COLLECTION
+
+Design theme:
+
+Luxury fashion + modern software QA dashboard.
+
+Color palette:
+
+Black:
+#111111
+
+Dark:
+#1A1A1A
+
+Gold:
+#C9A227
+
+Light Gold:
+#E6C75C
+
+Cream:
+#FAF7EF
+
+White:
+#FFFFFF
+
+Use:
+
+- Premium cards
+- Glass effects where appropriate
+- Soft shadows
+- Rounded corners
+- Gold borders
+- Elegant typography
+- Modern tables
+- Status badges
+- Progress bars
+- Circular progress
+- Timeline
+- Charts
+- Animated counters
+- Hover effects
+- Smooth transitions
+- Professional empty states
+- Professional error states
+
+Use fonts:
+
+Cinzel
+
+for major headings.
+
+Jost
+
+for normal UI.
+
+Use Font Awesome icons.
+
+==================================================
+ANIMATION
+==================================================
+
+Use attractive but professional animations.
+
+Include:
+
+- Page fade-in
+- Card slide-up
+- Counter animation
+- Progress bar animation
+- Circular progress animation
+- Chart animation
+- Hover effects
+- Button hover
+- Status badge transitions
+- Timeline animation
+- Modal animation
+
+Do NOT overuse animation.
+
+Support:
+
+prefers-reduced-motion
+
+for accessibility.
+
+==================================================
+MAIN DASHBOARD
+==================================================
+
+Create:
+
+Dashboard
+
+Route:
+
+/dashboard
+
+The dashboard must show:
+
+PROJECT OVERVIEW
+
+Project:
+
+Sri Krishna Collection
+
+Overall Completion:
+
+DYNAMIC %
+
+Do NOT hardcode this value.
+
+==================================================
+STATISTICS
+==================================================
+
+Create animated statistic cards:
+
+1. Total Phases
+2. Completed Phases
+3. In Progress Phases
+4. Total Features
+5. Completed Features
+6. Total Test Cases
+7. Passed
+8. Failed
+9. Blocked
+10. Not Tested
+11. Open Bugs
+12. Critical Bugs
+
+Each card should contain:
+
+- Icon
+- Number
+- Label
+- Short description
+- Hover animation
+
+==================================================
+OVERALL PROJECT PROGRESS
+==================================================
+
+Create a large project progress section.
+
+Display:
+
+Overall Progress
+
+Development Progress
+
+Testing Progress
+
+Bug Resolution Progress
+
+UI/UX Progress
+
+Security Progress
+
+Database Progress
+
+Release Readiness
+
+Use animated progress bars.
+
+Example:
+
+Development
+██████████████████░░ 90%
+
+Testing
+██████████████░░░░░░ 72%
+
+Do not hardcode values.
+
+Calculate dynamically.
+
+==================================================
+PHASE MANAGEMENT
+==================================================
+
+Create a Phase Management page.
+
+Route:
+
+/phases
+
+Display all project phases.
+
+Each phase should have:
+
+- Phase ID
+- Phase Name
+- Description
+- Status
+- Completion %
+- Total Features
+- Completed Features
+- Total Tests
+- Passed Tests
+- Failed Tests
+- Pending Tests
+- Open Bugs
+- Actions
+
+Status:
+
+NOT STARTED
+
+IN PROGRESS
+
+COMPLETED
+
+BLOCKED
+
+==================================================
+PROJECT PHASES
+==================================================
+
+Create these phases.
+
+----------------------------------------
+PHASE 1 — ADMIN FOUNDATION
+----------------------------------------
+
+Sub-phases:
+
+1.1 Admin Dashboard
+
+1.2 Category Management
+
+1.3 Product Management
+
+1.4 Customer Management
+
+1.5 Admin UI
+
+1.6 Admin Testing
+
+----------------------------------------
+PHASE 2 — CUSTOMER E-COMMERCE
+----------------------------------------
+
+Sub-phases:
+
+2.1 Customer Home
+
+2.2 Customer Registration
+
+2.3 Customer Login
+
+2.4 Category Browsing
+
+2.5 Product Listing
+
+2.6 Product Details
+
+2.7 Product Search
+
+2.8 Product Filtering
+
+2.9 Cart
+
+2.10 Wishlist
+
+2.11 Checkout
+
+2.12 Order Creation
+
+2.13 Customer Order History
+
+2.14 Phase 2 Testing
+
+IMPORTANT:
+
+The actual customer home page is:
+
+templates/customer/home.html
+
+This tracker must treat this as the Customer Home feature.
+
+----------------------------------------
+PHASE 3 — ORDER MANAGEMENT
+----------------------------------------
+
+3.1 Admin Order List
+
+3.2 Order Details
+
+3.3 Order Search
+
+3.4 Order Filtering
+
+3.5 Order Status
+
+3.6 Order Update
+
+3.7 Customer Order History
+
+3.8 Customer Order Tracking
+
+3.9 Order Cancellation
+
+3.10 Order Testing
+
+----------------------------------------
+PHASE 4 — PAYMENT
+----------------------------------------
+
+4.1 Payment Integration
+
+4.2 Payment Initiation
+
+4.3 Payment Success
+
+4.4 Payment Failure
+
+4.5 Payment Verification
+
+4.6 Payment Status
+
+4.7 Payment History
+
+4.8 Payment Security
+
+4.9 Payment Testing
+
+----------------------------------------
+PHASE 5 — SECURITY
+----------------------------------------
+
+5.1 Admin Authentication
+
+5.2 Customer Authentication
+
+5.3 Role Authorization
+
+5.4 Password Encryption
+
+5.5 Session Management
+
+5.6 Logout
+
+5.7 Unauthorized Access
+
+5.8 CSRF
+
+5.9 Input Validation
+
+5.10 XSS Protection
+
+5.11 SQL Injection Protection
+
+5.12 File Upload Security
+
+5.13 Security Testing
+
+----------------------------------------
+PHASE 6 — UI/UX
+----------------------------------------
+
+6.1 Admin UI
+
+6.2 Customer UI
+
+6.3 Responsive Design
+
+6.4 Mobile Testing
+
+6.5 Tablet Testing
+
+6.6 Desktop Testing
+
+6.7 Animation Testing
+
+6.8 Loading States
+
+6.9 Empty States
+
+6.10 Error States
+
+6.11 Accessibility
+
+6.12 Browser Compatibility
+
+----------------------------------------
+PHASE 7 — DATABASE
+----------------------------------------
+
+7.1 Database Schema
+
+7.2 Category Table
+
+7.3 Product Table
+
+7.4 Customer Table
+
+7.5 Order Table
+
+7.6 Order Item Table
+
+7.7 Relationships
+
+7.8 Foreign Keys
+
+7.9 Unique Constraints
+
+7.10 Data Integrity
+
+7.11 Transaction Testing
+
+----------------------------------------
+PHASE 8 — COMPLETE QA
+----------------------------------------
+
+8.1 Functional Testing
+
+8.2 Integration Testing
+
+8.3 Regression Testing
+
+8.4 Validation Testing
+
+8.5 UI Testing
+
+8.6 Security Testing
+
+8.7 Database Testing
+
+8.8 Responsive Testing
+
+8.9 Browser Testing
+
+8.10 Error Handling
+
+8.11 End-to-End Testing
+
+8.12 User Acceptance Testing
+
+----------------------------------------
+PHASE 9 — DEPLOYMENT
+----------------------------------------
+
+9.1 Production Configuration
+
+9.2 Environment Variables
+
+9.3 Production Database
+
+9.4 File Upload Configuration
+
+9.5 Static Resources
+
+9.6 Build
+
+9.7 Deployment
+
+9.8 Production Testing
+
+9.9 Backup
+
+9.10 Monitoring
+
+==================================================
+TEST CASE MANAGEMENT
+==================================================
+
+Create:
+
+Test Cases
+
+Route:
+
+/test-cases
+
+Every test case must contain:
+
+Test Case ID
+
+Example:
+
+TC-CUS-001
+
+Fields:
+
+- Test Case ID
+- Phase
+- Sub-phase
+- Module
+- Feature
+- Test Scenario
+- Preconditions
+- Test Steps
+- Test Data
+- Expected Result
+- Actual Result
+- Status
+- Priority
+- Severity
+- Tested By
+- Tested Date
+- Bug ID
+- Notes
+
+==================================================
+TEST STATUS
+==================================================
+
+Use:
+
+NOT TESTED
+
+PASSED
+
+FAILED
+
+BLOCKED
+
+SKIPPED
+
+Colors:
+
+PASSED = Green
+
+FAILED = Red
+
+BLOCKED = Orange
+
+NOT TESTED = Gray
+
+SKIPPED = Blue
+
+==================================================
+PRIORITY
+==================================================
+
+LOW
+
+MEDIUM
+
+HIGH
+
+CRITICAL
+
+==================================================
+SEVERITY
+==================================================
+
+LOW
+
+MEDIUM
+
+HIGH
+
+CRITICAL
+
+==================================================
+TEST CASE EXAMPLES
+==================================================
+
+ADMIN CATEGORY
+
+TC-ADM-CAT-001
+Add Category
+
+TC-ADM-CAT-002
+View Category
+
+TC-ADM-CAT-003
+Edit Category
+
+TC-ADM-CAT-004
+Delete Category
+
+TC-ADM-CAT-005
+Search Category
+
+TC-ADM-CAT-006
+Upload Category Image
+
+TC-ADM-CAT-007
+Empty Category Name
+
+TC-ADM-CAT-008
+Duplicate Category
+
+TC-ADM-CAT-009
+Invalid Image
+
+TC-ADM-CAT-010
+Large Image
+
+
+ADMIN PRODUCT
+
+TC-ADM-PRO-001
+Add Product
+
+TC-ADM-PRO-002
+View Product
+
+TC-ADM-PRO-003
+Edit Product
+
+TC-ADM-PRO-004
+Delete Product
+
+TC-ADM-PRO-005
+Search Product
+
+TC-ADM-PRO-006
+Upload Product Image
+
+TC-ADM-PRO-007
+Price Validation
+
+TC-ADM-PRO-008
+Stock Validation
+
+TC-ADM-PRO-009
+Discount Validation
+
+TC-ADM-PRO-010
+Category Assignment
+
+
+ADMIN CUSTOMER
+
+TC-ADM-CUS-001
+Add Customer
+
+TC-ADM-CUS-002
+View Customer
+
+TC-ADM-CUS-003
+Edit Customer
+
+TC-ADM-CUS-004
+Delete Customer
+
+TC-ADM-CUS-005
+Search Customer
+
+TC-ADM-CUS-006
+Customer Image
+
+TC-ADM-CUS-007
+Email Validation
+
+TC-ADM-CUS-008
+Mobile Validation
+
+TC-ADM-CUS-009
+Password Validation
+
+TC-ADM-CUS-010
+Duplicate Email
+
+TC-ADM-CUS-011
+Duplicate Mobile
+
+
+CUSTOMER
+
+TC-CUS-001
+Customer Home
+
+TC-CUS-002
+Customer Registration
+
+TC-CUS-003
+Customer Login
+
+TC-CUS-004
+Customer Logout
+
+TC-CUS-005
+Category Browsing
+
+TC-CUS-006
+Product Listing
+
+TC-CUS-007
+Product Search
+
+TC-CUS-008
+Product Filtering
+
+TC-CUS-009
+Product Details
+
+TC-CUS-010
+Add To Cart
+
+TC-CUS-011
+Remove From Cart
+
+TC-CUS-012
+Increase Quantity
+
+TC-CUS-013
+Decrease Quantity
+
+TC-CUS-014
+Wishlist
+
+TC-CUS-015
+Checkout
+
+TC-CUS-016
+Order Creation
+
+TC-CUS-017
+Order History
+
+TC-CUS-018
+Order Tracking
+
+
+ORDER MANAGEMENT
+
+TC-ORD-001
+Admin Order List
+
+TC-ORD-002
+Admin Order Details
+
+TC-ORD-003
+Order Search
+
+TC-ORD-004
+Order Filter
+
+TC-ORD-005
+Update Order Status
+
+TC-ORD-006
+Customer Order History
+
+TC-ORD-007
+Customer Order Tracking
+
+TC-ORD-008
+Order Cancellation
+
+
+==================================================
+TEST CASE TABLE
+==================================================
+
+Create a professional test case table.
+
+Columns:
+
+ID
+
+Phase
+
+Module
+
+Feature
+
+Test Case
+
+Priority
+
+Status
+
+Bug
+
+Actions
+
+Actions:
+
+View
+
+Edit
+
+Execute
+
+Mark Passed
+
+Mark Failed
+
+Mark Blocked
+
+Reset
+
+Add Bug
+
+==================================================
+TEST EXECUTION
+==================================================
+
+Create a Test Execution page.
+
+Route:
+
+/test-execution
+
+The tester should be able to:
+
+- Select test case
+- Execute test
+- Enter actual result
+- Mark status
+- Add notes
+- Add bug
+- Save execution
+
+When a test is executed, store:
+
+- Test Case ID
+- Execution Date
+- Tester
+- Actual Result
+- Status
+- Notes
+- Bug ID
+
+Test execution history should be preserved.
+
+==================================================
+BUG MANAGEMENT
+==================================================
+
+Create:
+
+Bugs
+
+Route:
+
+/bugs
+
+Bug fields:
+
+Bug ID
+
+Title
+
+Description
+
+Phase
+
+Sub-phase
+
+Module
+
+Test Case ID
+
+Severity
+
+Priority
+
+Status
+
+Steps To Reproduce
+
+Expected Result
+
+Actual Result
+
+Assigned To
+
+Created Date
+
+Resolved Date
+
+Notes
+
+==================================================
+BUG STATUS
+==================================================
+
+OPEN
+
+IN PROGRESS
+
+FIXED
+
+RETEST
+
+CLOSED
+
+REOPENED
+
+==================================================
+BUG DASHBOARD
+==================================================
+
+Display:
+
+Total Bugs
+
+Open Bugs
+
+Critical Bugs
+
+High Bugs
+
+Medium Bugs
+
+Low Bugs
+
+Fixed Bugs
+
+Retest Required
+
+Closed Bugs
+
+Use charts.
+
+==================================================
+FILTERING
+==================================================
+
+Test Cases must support:
+
+Search
+
+Phase filter
+
+Sub-phase filter
+
+Module filter
+
+Status filter
+
+Priority filter
+
+Severity filter
+
+Tester filter
+
+Date filter
+
+Example:
+
+[ Search Test Case ]
+
+[ Phase ▼ ]
+
+[ Module ▼ ]
+
+[ Status ▼ ]
+
+[ Priority ▼ ]
+
+[ Severity ▼ ]
+
+==================================================
+BUG FILTERING
+==================================================
+
+Search bugs by:
+
+Bug ID
+
+Title
+
+Phase
+
+Module
+
+Status
+
+Severity
+
+Priority
+
+==================================================
+TEST PASS RATE
+==================================================
+
+Calculate:
+
+Executed Tests =
+PASSED + FAILED + BLOCKED + SKIPPED
+
+Pass Rate =
+PASSED / Executed Tests × 100
+
+Failure Rate =
+FAILED / Executed Tests × 100
+
+Blocked Rate =
+BLOCKED / Executed Tests × 100
+
+Do not count NOT TESTED as executed.
+
+==================================================
+PHASE COMPLETION
+==================================================
+
+Calculate phase completion dynamically.
+
+Do NOT allow arbitrary hardcoded percentages.
+
+Use:
+
+Completed Features /
+Total Features × 100
+
+Also show:
+
+Development Completion
+
+Testing Completion
+
+Bug Resolution
+
+==================================================
+RELEASE READINESS
+==================================================
+
+Create:
+
+RELEASE READINESS
+
+Possible states:
+
+NOT READY
+
+IN PROGRESS
+
+READY FOR TESTING
+
+READY FOR RELEASE
+
+Rules:
+
+If Critical bugs > 0:
+
+NOT READY
+
+If High priority required tests are failed:
+
+NOT READY
+
+If required test cases remain NOT TESTED:
+
+NOT READY
+
+If required tests are passed and no blocking bugs remain:
+
+READY FOR RELEASE
+
+==================================================
+PROJECT HEALTH
+==================================================
+
+Calculate:
+
+EXCELLENT
+
+GOOD
+
+NEEDS ATTENTION
+
+CRITICAL
+
+Based on:
+
+- Failed tests
+- Critical bugs
+- High bugs
+- Pending tests
+- Phase completion
+- Security completion
+
+==================================================
+ACTIVITY TIMELINE
+==================================================
+
+Create:
+
+Recent Activity
+
+Examples:
+
+✓ TC-ADM-CAT-001 passed
+
+✓ Customer registration tested
+
+✕ TC-CUS-007 failed
+
+🐛 BUG-014 created
+
+✓ BUG-014 fixed
+
+⚠ Retest required
+
+Activity should show:
+
+Date
+
+Time
+
+Action
+
+User
+
+Module
+
+Status
+
+==================================================
+CHARTS
+==================================================
+
+Use Chart.js.
+
+Create:
+
+1. Phase Completion Chart
+
+2. Test Status Chart
+
+3. Bug Severity Chart
+
+4. Bug Status Chart
+
+5. Module Progress Chart
+
+6. Pass/Fail Trend
+
+Charts must be responsive.
+
+==================================================
+PROJECT SUMMARY
+==================================================
+
+Create a Project Summary page.
+
+Route:
+
+/project-summary
+
+Show:
+
+Project Name
+
+Start Date
+
+Current Phase
+
+Overall Completion
+
+Total Features
+
+Completed Features
+
+Total Tests
+
+Passed
+
+Failed
+
+Blocked
+
+Pending
+
+Total Bugs
+
+Open Bugs
+
+Critical Bugs
+
+Release Readiness
+
+==================================================
+REPORT GENERATION
+==================================================
+
+Allow:
+
+Export Test Cases to CSV
+
+Export Bugs to CSV
+
+Export Project Summary to PDF
+
+Export Phase Report to PDF
+
+Report should contain:
+
+Project Name
+
+Generated Date
+
+Phase
+
+Testing Summary
+
+Pass Rate
+
+Bug Summary
+
+Release Readiness
+
+==================================================
+DASHBOARD NAVIGATION
+==================================================
+
+Create sidebar:
+
+Dashboard
+
+Project Overview
+
+Phases
+
+Features
+
+Test Cases
+
+Test Execution
+
+Bugs
+
+Reports
+
+Project Summary
+
+Settings
+
+Use icons.
+
+==================================================
+SEARCH
+==================================================
+
+Global search should find:
+
+Test Case ID
+
+Bug ID
+
+Feature
+
+Module
+
+Phase
+
+Description
+
+==================================================
+NOTIFICATION SYSTEM
+==================================================
+
+Show notifications for:
+
+Failed Test
+
+Critical Bug
+
+High Priority Bug
+
+Retest Required
+
+Phase Completed
+
+Release Ready
+
+==================================================
+CURRENT KNOWN STATUS
+==================================================
+
+These are features that have already been confirmed working
+in the actual project.
+
+ADMIN CUSTOMER:
+
+Add Customer = WORKING
+
+Edit Customer = WORKING
+
+Delete Customer = WORKING
+
+Search Customer = WORKING
+
+Customer Image = WORKING
+
+Email Validation = WORKING
+
+Mobile Validation = WORKING
+
+Password Validation = WORKING
+
+
+CUSTOMER:
+
+Customer Registration = WORKING
+
+Customer Login = WORKING
+
+Customer Login Redirect = WORKING
+
+Customer Home = WORKING
+
+
+IMPORTANT:
+
+These are only INITIAL known statuses.
+
+Do not automatically mark every other feature as PASSED.
+
+Everything else should begin as:
+
+NOT TESTED
+
+The tester must execute the test before marking PASSED.
+
+==================================================
+PHASE STATUS RULE
+==================================================
+
+A phase can be:
+
+NOT STARTED
+
+IN PROGRESS
+
+COMPLETED
+
+BLOCKED
+
+A phase should NOT automatically become COMPLETED just because
+its code exists.
+
+A phase becomes COMPLETED only when all required test cases
+have passed and no blocking defects remain.
+
+==================================================
+DATA STORAGE
+==================================================
+
+If creating a full-stack tracker:
+
+Use a relational database.
+
+Recommended entities:
+
+ProjectPhase
+
+ProjectSubPhase
+
+ProjectFeature
+
+TestCase
+
+TestExecution
+
+Bug
+
+ProjectActivity
+
+Tester
+
+Use proper relationships.
+
+Example:
+
+ProjectPhase
+    ↓
+ProjectSubPhase
+    ↓
+ProjectFeature
+    ↓
+TestCase
+    ↓
+TestExecution
+    ↓
+Bug
+
+==================================================
+IMPORTANT DATABASE RULE
+==================================================
+
+Do NOT store important tracker information only in:
+
+localStorage
+
+JavaScript variables
+
+sessionStorage
+
+Tracker data must persist in the database.
+
+==================================================
+EMPTY STATES
+==================================================
+
+If there are no bugs:
+
+"No open bugs"
+
+If there are no test cases:
+
+"No test cases available"
+
+If no tests have been executed:
+
+"Testing has not started"
+
+If a phase has no data:
+
+"Phase not started"
+
+==================================================
+ERROR STATES
+==================================================
+
+Use professional error screens.
+
+Example:
+
+Unable to load test cases.
+
+Try Again
+
+Do not show raw exceptions to the user.
+
+==================================================
+RESPONSIVE DESIGN
+==================================================
+
+Support:
+
+Mobile
+
+Tablet
+
+Laptop
+
+Desktop
+
+Tables should become horizontally scrollable.
+
+Cards should stack properly.
+
+Charts should resize.
+
+Sidebar should become a mobile drawer.
+
+==================================================
+ACCESSIBILITY
+==================================================
+
+Implement:
+
+ARIA labels
+
+Keyboard navigation
+
+Focus states
+
+Good contrast
+
+Alt text
+
+Semantic HTML
+
+Reduced motion
+
+==================================================
+SECURITY
+==================================================
+
+If the tracker has authentication:
+
+Admin/User roles.
+
+Only authorized users can:
+
+Create Test Cases
+
+Execute Tests
+
+Create Bugs
+
+Change Status
+
+Delete Records
+
+View Reports
+
+==================================================
+IMPORTANT BUSINESS RULES
+==================================================
+
+1.
+
+NOT TESTED does not mean FAILED.
+
+2.
+
+FAILED test must allow creation of a Bug.
+
+3.
+
+FIXED bug must become RETEST.
+
+4.
+
+RETEST passes:
+
+Bug → CLOSED
+
+5.
+
+RETEST fails:
+
+Bug → REOPENED
+
+6.
+
+Critical bug blocks release.
+
+7.
+
+Required pending tests block release.
+
+8.
+
+Phase completion must be calculated.
+
+9.
+
+Overall completion must be calculated.
+
+10.
+
+No fake statistics.
+
+==================================================
+FINAL DASHBOARD
+==================================================
+
+The dashboard should visually communicate:
+
+        SRI KRISHNA COLLECTION
+
+        PROJECT QA DASHBOARD
+
+Overall Progress
+
+████████████████░░░░ 78%
+
+PHASES
+
+✓ Phase 1     100%
+◉ Phase 2      XX%
+○ Phase 3       0%
+○ Phase 4       0%
+
+TESTING
+
+Total Tests
+Passed
+Failed
+Blocked
+Pending
+
+BUGS
+
+Critical
+High
+Medium
+Low
+Closed
+
+RELEASE
+
+⚠ NOT READY
+
+==================================================
+USER EXPERIENCE
+==================================================
+
+The website should feel like a professional combination of:
+
+Jira
+
+TestRail
+
+Linear
+
+Modern Admin Dashboard
+
+Luxury Fashion Brand
+
+But DO NOT copy their exact UI.
+
+Create an original Sri Krishna Collection design.
+
+==================================================
+MOST IMPORTANT REQUIREMENTS
+==================================================
+
+Do not use fake data for calculated statistics.
+
+Do not hardcode project completion.
+
+Do not automatically mark tests as passed.
+
+Do not mark features as complete merely because code exists.
+
+Every test must have an explicit status.
+
+Every failed test should be traceable to a bug.
+
+Every bug should be traceable to a test case.
+
+Every phase should be traceable to its features.
+
+Every feature should be traceable to its test cases.
+
+The entire project should have complete traceability:
+
+PHASE
+ ↓
+SUB-PHASE
+ ↓
+FEATURE
+ ↓
+TEST CASE
+ ↓
+TEST EXECUTION
+ ↓
+BUG
+ ↓
+RETEST
+ ↓
+CLOSED
+ ↓
+PHASE COMPLETION
+ ↓
+PROJECT COMPLETION
+ ↓
+RELEASE READINESS
+
+==================================================
+FINAL OBJECTIVE
+==================================================
+
+Build a production-quality:
+
+SRI KRISHNA COLLECTION
+PROJECT QA & TEST MANAGEMENT SYSTEM
+
+that allows me to manage the entire testing process from the
+first test case to final release.
+
+The UI must be attractive.
+
+The animations must be smooth.
+
+The dashboard must be easy to understand.
+
+The data must be persistent.
+
+The statistics must be dynamic.
+
+The test cases must be traceable.
+
+The bugs must be traceable.
+
+The phase completion must be automatic.
+
+The release readiness must be calculated.
+
+The system must be responsive.
+
+The system must be professional enough to demonstrate as a
+real software project in a portfolio/interview.

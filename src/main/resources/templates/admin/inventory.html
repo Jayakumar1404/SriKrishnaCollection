@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Inventory | Sri Krishna Collection</title>
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family:
+                "Inter",
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background: #f6f7fb;
+            color: #1f2937;
+        }
+
+        .inventory-container {
+            padding: 30px 35px;
+            max-width: 1600px;
+            margin: auto;
+        }
+
+        /* =============================================
+           HEADER
+           ============================================= */
+
+        .inventory-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .title-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .title-icon {
+            width: 52px;
+            height: 52px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 14px;
+
+            background: #111827;
+            color: white;
+
+            font-size: 21px;
+        }
+
+        .inventory-header h1 {
+            margin: 0;
+
+            font-size: 28px;
+            font-weight: 750;
+        }
+
+        .inventory-header p {
+            margin-top: 5px;
+
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        /* =============================================
+           ALERT
+           ============================================= */
+
+        .alert {
+            padding: 13px 17px;
+            border-radius: 9px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .alert-success {
+            background: #ecfdf3;
+            color: #15803d;
+        }
+
+        .alert-error {
+            background: #fff1f2;
+            color: #dc2626;
+        }
+
+        /* =============================================
+           STATISTICS
+           ============================================= */
+
+        .stats-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .stat-card {
+            background: white;
+
+            padding: 22px;
+
+            border-radius: 15px;
+
+            border: 1px solid #eef0f4;
+
+            box-shadow:
+                0 5px 18px
+                rgba(15, 23, 42, .05);
+        }
+
+        .stat-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-title {
+            color: #6b7280;
+
+            font-size: 13px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+        }
+
+        .stat-icon {
+            width: 43px;
+            height: 43px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: #f3f4f6;
+
+            color: #374151;
+        }
+
+        .stat-value {
+            margin-top: 17px;
+
+            font-size: 28px;
+
+            font-weight: 750;
+
+            color: #111827;
+        }
+
+        /* =============================================
+           TABLE CARD
+           ============================================= */
+
+        .inventory-card {
+            background: white;
+
+            border-radius: 16px;
+
+            border: 1px solid #eef0f4;
+
+            box-shadow:
+                0 5px 20px
+                rgba(15, 23, 42, .05);
+
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 21px 24px;
+
+            border-bottom:
+                1px solid #eef0f4;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h2 {
+            margin: 0;
+
+            font-size: 19px;
+            font-weight: 720;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 900px;
+        }
+
+        th {
+            padding: 14px 18px;
+
+            text-align: left;
+
+            background: #f8fafc;
+
+            color: #64748b;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+        }
+
+        td {
+            padding: 16px 18px;
+
+            border-bottom:
+                1px solid #f0f2f5;
+
+            font-size: 13px;
+        }
+
+        tr:hover {
+            background: #fafbfc;
+        }
+
+        /* =============================================
+           PRODUCT
+           ============================================= */
+
+        .product-name {
+            font-weight: 700;
+            color: #111827;
+        }
+
+        /* =============================================
+           STOCK BADGE
+           ============================================= */
+
+        .stock-badge {
+            display: inline-flex;
+
+            padding: 6px 12px;
+
+            border-radius: 20px;
+
+            font-size: 11px;
+
+            font-weight: 750;
+        }
+
+        .stock-good {
+            background: #ecfdf3;
+            color: #15803d;
+        }
+
+        .stock-low {
+            background: #fff8e6;
+            color: #b45309;
+        }
+
+        .stock-out {
+            background: #fff1f2;
+            color: #dc2626;
+        }
+
+        /* =============================================
+           UPDATE FORM
+           ============================================= */
+
+        .stock-form {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .stock-input {
+            width: 70px;
+
+            padding: 8px 9px;
+
+            border: 1px solid #dfe3e8;
+
+            border-radius: 7px;
+
+            outline: none;
+        }
+
+        .stock-input:focus {
+            border-color: #111827;
+        }
+
+        .stock-select {
+            padding: 8px 9px;
+
+            border: 1px solid #dfe3e8;
+
+            border-radius: 7px;
+
+            background: white;
+
+            outline: none;
+        }
+
+        .update-btn {
+            border: none;
+
+            background: #111827;
+
+            color: white;
+
+            padding: 9px 12px;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+        .update-btn:hover {
+            background: #374151;
+        }
+
+        /* =============================================
+           HISTORY
+           ============================================= */
+
+        .history-btn {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            padding: 8px 11px;
+
+            border-radius: 7px;
+
+            text-decoration: none;
+
+            color: #374151;
+
+            background: #f3f4f6;
+
+            font-size: 12px;
+
+            font-weight: 650;
+        }
+
+        .history-btn:hover {
+            background: #e5e7eb;
+        }
+
+        /* =============================================
+           RESPONSIVE
+           ============================================= */
+
+        @media (max-width: 1000px) {
+
+            .stats-grid {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+
+            .inventory-container {
+                padding: 20px 15px;
+            }
+
+            .inventory-header {
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+    </style>
+
+<link rel="stylesheet" th:href="@{/css/admin-back.css}"></head>
+
+<body>
+
+<div class="inventory-container">
+
+    <!-- =============================================
+         HEADER
+         ============================================= -->
+
+    <div class="inventory-header">
+
+        <div class="title-section">
+
+            <div class="title-icon">
+                <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+
+            <div>
+
+                <h1>Inventory</h1>
+
+                <p>
+                    Manage product stock and inventory
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =============================================
+         MESSAGES
+         ============================================= -->
+
+    <div
+        th:if="${success}"
+        class="alert alert-success"
+        th:text="${success}">
+    </div>
+
+    <div
+        th:if="${error}"
+        class="alert alert-error"
+        th:text="${error}">
+    </div>
+
+
+    <!-- =============================================
+         STATISTICS
+         ============================================= -->
+
+    <div class="stats-grid">
+
+        <div class="stat-card">
+
+            <div class="stat-card-top">
+
+                <span class="stat-title">
+                    Total Products
+                </span>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-box"></i>
+                </div>
+
+            </div>
+
+            <div
+                class="stat-value"
+                th:text="${totalProducts}">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-card-top">
+
+                <span class="stat-title">
+                    In Stock
+                </span>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+
+            </div>
+
+            <div
+                class="stat-value"
+                th:text="${inStockProducts}">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-card-top">
+
+                <span class="stat-title">
+                    Low Stock
+                </span>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+
+            </div>
+
+            <div
+                class="stat-value"
+                th:text="${lowStockProducts}">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-card-top">
+
+                <span class="stat-title">
+                    Out of Stock
+                </span>
+
+                <div class="stat-icon">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+
+            </div>
+
+            <div
+                class="stat-value"
+                th:text="${outOfStockProducts}">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =============================================
+         INVENTORY TABLE
+         ============================================= -->
+
+    <div class="inventory-card">
+
+        <div class="card-header">
+
+            <h2>
+                Product Inventory
+            </h2>
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Product</th>
+
+                    <th>Stock</th>
+
+                    <th>Status</th>
+
+                    <th>Update Stock</th>
+
+                    <th>History</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody>
+
+                <tr
+                    th:each="product : ${products}">
+
+                    <td
+                        th:text="${product.id}">
+                        1
+                    </td>
+
+                    <td>
+
+                        <span
+                            class="product-name"
+                            th:text="${product.name}">
+                            Product
+                        </span>
+
+                    </td>
+
+                    <td
+                        th:text="${product.stock != null ? product.stock : 0}">
+                        0
+                    </td>
+
+                    <td>
+
+                        <span
+                            th:if="${product.stock != null
+                                    and product.stock > 5}"
+                            class="stock-badge stock-good">
+                            IN STOCK
+                        </span>
+
+                        <span
+                            th:if="${product.stock != null
+                                    and product.stock > 0
+                                    and product.stock <= 5}"
+                            class="stock-badge stock-low">
+                            LOW STOCK
+                        </span>
+
+                        <span
+                            th:if="${product.stock == null
+                                    or product.stock <= 0}"
+                            class="stock-badge stock-out">
+                            OUT OF STOCK
+                        </span>
+
+                    </td>
+
+                    <td>
+
+                        <form
+                            class="stock-form"
+                            th:action="@{/admin/inventory/update}"
+                            method="post">
+
+                            <input
+                                type="hidden"
+                                name="productId"
+                                th:value="${product.id}">
+
+                            <input
+                                type="number"
+                                name="quantity"
+                                min="1"
+                                required
+                                class="stock-input"
+                                placeholder="Qty">
+
+                            <select
+                                name="changeType"
+                                class="stock-select">
+
+                                <option value="STOCK_IN">
+                                    + Add
+                                </option>
+
+                                <option value="STOCK_OUT">
+                                    - Remove
+                                </option>
+
+                            </select>
+
+                            <input
+                                type="hidden"
+                                name="reason"
+                                value="Admin stock update">
+
+                            <button
+                                type="submit"
+                                class="update-btn">
+
+                                Update
+
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                    <td>
+
+                        <a
+                            class="history-btn"
+                            th:href="@{/admin/inventory/history/{id}
+                                      (id=${product.id})}">
+
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+
+                            History
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                <tr
+                    th:if="${#lists.isEmpty(products)}">
+
+                    <td
+                        colspan="6"
+                        style="text-align:center;padding:50px;">
+
+                        No products found.
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script th:src="@{/js/admin-back.js}"></script></body>
+
+</html>

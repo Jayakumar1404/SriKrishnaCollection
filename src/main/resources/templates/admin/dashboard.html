@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | Sri Krishna Collection</title>
+
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Font Awesome -->
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+
+    <!-- Dashboard CSS -->
+
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+     ADMIN APPLICATION
+===================================================== -->
+
+    <div class="admin-app">
+
+
+        <!-- =================================================
+         SIDEBAR
+    ================================================== -->
+
+        <div th:replace="~{admin/fragments/sidebar :: adminSidebar}">
+        </div>
+
+
+        <!-- =================================================
+         MAIN AREA
+    ================================================== -->
+
+        <main class="main-area">
+
+
+            <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+            <header class="topbar">
+
+
+                <div class="topbar-left">
+
+                    <button type="button" class="mobile-menu-btn" id="mobileMenuButton" aria-label="Open menu">
+
+                        <i class="fa-solid fa-bars"></i>
+
+                    </button>
+
+
+                    <div class="page-title">
+
+                        <span>
+                            ADMINISTRATION
+                        </span>
+
+                        <h1>
+                            Dashboard
+                        </h1>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="topbar-right">
+
+
+                    <!-- Status -->
+
+                    <div class="system-status">
+
+                        <span class="status-dot"></span>
+
+                        System Online
+
+                    </div>
+
+
+                    <!-- Admin -->
+
+                    <a th:href="@{/admin/profile}" class="admin-profile" style="text-decoration:none;color:inherit;cursor:pointer;">
+
+                        <div class="admin-avatar">
+
+                            <i class="fa-solid fa-user"></i>
+
+                        </div>
+
+
+                        <div class="admin-info">
+
+                            <small>
+                                ADMINISTRATOR
+                            </small>
+
+                            <strong th:text="${adminUsername}">
+                                admin
+                            </strong>
+
+                        </div>
+
+                    </a>
+
+
+                    <!-- Logout -->
+
+                    <a th:href="@{/admin/logout}" class="logout-btn" title="Logout">
+
+                        <i class="fa-solid fa-right-from-bracket"></i>
+
+                    </a>
+
+                </div>
+
+            </header>
+
+
+
+            <!-- =================================================
+             CONTENT
+        ================================================== -->
+
+            <div class="dashboard-content">
+
+
+                <!-- =================================================
+                 WELCOME
+            ================================================== -->
+
+                <section class="welcome-section">
+
+
+                    <div class="welcome-content">
+
+                        <div class="welcome-label">
+
+                            <i class="fa-solid fa-sparkles"></i>
+
+                            SRI KRISHNA COLLECTION
+
+                        </div>
+
+
+                        <h2>
+
+                            Welcome back,
+
+                            <span th:text="${adminUsername}">
+                                Admin
+                            </span>
+
+                        </h2>
+
+
+                        <p>
+
+                            Manage your collection,
+                            customers and business operations
+                            from one powerful workspace.
+
+                        </p>
+
+                    </div>
+
+
+                    <div class="welcome-decoration">
+
+                        <i class="fa-solid fa-crown"></i>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                 STATISTICS
+            ================================================== -->
+
+                <section class="section-block">
+
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <span>
+                                OVERVIEW
+                            </span>
+
+                            <h3>
+                                Business Summary
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="stats-grid">
+
+
+                        <!-- PRODUCTS -->
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+
+                                <div class="stat-icon">
+
+                                    <i class="fa-solid fa-shirt"></i>
+
+                                </div>
+
+                                <span class="stat-label">
+                                    INVENTORY
+                                </span>
+
+                            </div>
+
+
+                            <div class="stat-value">
+                                150
+                            </div>
+
+
+                            <p>
+                                Total Products
+                            </p>
+
+
+                            <div class="stat-footer">
+
+                                <span>
+                                    <i class="fa-solid fa-arrow-up"></i>
+                                    Collection
+                                </span>
+
+                                <a href="/admin/products">
+                                    View
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- CUSTOMERS -->
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+
+                                <div class="stat-icon">
+
+                                    <i class="fa-solid fa-users"></i>
+
+                                </div>
+
+                                <span class="stat-label">
+                                    CUSTOMERS
+                                </span>
+
+                            </div>
+
+
+                            <div class="stat-value" th:text="${customerCount}">
+
+                                0
+
+                            </div>
+
+
+                            <p>
+                                Registered Customers
+                            </p>
+
+
+                            <div class="stat-footer">
+
+                                <span>
+                                    <i class="fa-solid fa-user-check"></i>
+                                    Active
+                                </span>
+
+                                <a href="/admin/customers">
+                                    View
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- ORDERS -->
+
+                        <div class="stat-card">
+
+                            <div class="stat-top">
+
+                                <div class="stat-icon">
+
+                                    <i class="fa-solid fa-box"></i>
+
+                                </div>
+
+                                <span class="stat-label">
+                                    SALES
+                                </span>
+
+                            </div>
+
+
+                            <div class="stat-value">
+                                82
+                            </div>
+
+
+                            <p>
+                                Total Orders
+                            </p>
+
+
+                            <div class="stat-footer">
+
+                                <span>
+                                    <i class="fa-solid fa-chart-line"></i>
+                                    Orders
+                                </span>
+
+                                <a href="/admin/orders">
+                                    View
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- REVENUE -->
+
+                        <div class="stat-card featured-stat">
+
+                            <div class="stat-top">
+
+                                <div class="stat-icon">
+
+                                    <i class="fa-solid fa-indian-rupee-sign"></i>
+
+                                </div>
+
+                                <span class="stat-label">
+                                    REVENUE
+                                </span>
+
+                            </div>
+
+
+                            <div class="stat-value revenue">
+
+                                ₹2,45,000
+
+                            </div>
+
+
+                            <p>
+                                Total Revenue
+                            </p>
+
+
+                            <div class="stat-footer">
+
+                                <span>
+                                    <i class="fa-solid fa-arrow-trend-up"></i>
+                                    Growing
+                                </span>
+
+                                <a href="/admin/reports">
+                                    Reports
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                 QUICK MANAGEMENT
+            ================================================== -->
+
+                <section class="section-block">
+
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <span>
+                                MANAGEMENT
+                            </span>
+
+                            <h3>
+                                Quick Access
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="management-grid">
+
+
+                        <!-- CUSTOMER -->
+
+                        <a href="/admin/customers" class="management-card">
+
+                            <div class="management-icon">
+
+                                <i class="fa-solid fa-users"></i>
+
+                            </div>
+
+
+                            <div class="management-content">
+
+                                <span>
+                                    CUSTOMER MANAGEMENT
+                                </span>
+
+                                <h4>
+                                    Customers
+                                </h4>
+
+
+                                <p>
+                                    Add, edit, search and manage
+                                    customer accounts.
+                                </p>
+
+                            </div>
+
+
+                            <div class="management-arrow">
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </div>
+
+                        </a>
+
+
+
+                        <!-- PRODUCTS -->
+
+                        <a href="/admin/products" class="management-card">
+
+                            <div class="management-icon">
+
+                                <i class="fa-solid fa-shirt"></i>
+
+                            </div>
+
+
+                            <div class="management-content">
+
+                                <span>
+                                    INVENTORY MANAGEMENT
+                                </span>
+
+                                <h4>
+                                    Products
+                                </h4>
+
+
+                                <p>
+                                    Manage products, images,
+                                    categories and inventory.
+                                </p>
+
+                            </div>
+
+
+                            <div class="management-arrow">
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </div>
+
+                        </a>
+
+
+
+                        <!-- ORDERS -->
+
+                        <a href="/admin/orders" class="management-card">
+
+                            <div class="management-icon">
+
+                                <i class="fa-solid fa-box"></i>
+
+                            </div>
+
+
+                            <div class="management-content">
+
+                                <span>
+                                    SALES MANAGEMENT
+                                </span>
+
+                                <h4>
+                                    Orders
+                                </h4>
+
+
+                                <p>
+                                    View and manage customer
+                                    orders and sales.
+                                </p>
+
+                            </div>
+
+
+                            <div class="management-arrow">
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </div>
+
+                        </a>
+
+
+
+                        <!-- CATEGORIES -->
+
+                        <a href="/admin/categories" class="management-card">
+
+                            <div class="management-icon">
+
+                                <i class="fa-solid fa-layer-group"></i>
+
+                            </div>
+
+
+                            <div class="management-content">
+
+                                <span>
+                                    CATALOG MANAGEMENT
+                                </span>
+
+                                <h4>
+                                    Categories
+                                </h4>
+
+
+                                <p>
+                                    Organize and manage your
+                                    product categories.
+                                </p>
+
+                            </div>
+
+
+                            <div class="management-arrow">
+
+                                <i class="fa-solid fa-arrow-right"></i>
+
+                            </div>
+
+                        </a>
+                        <!-- =================================================
+     PRODUCT STOCK OVERVIEW
+================================================== -->
+
+                        <div th:replace="~{admin/fragments/stock-overview :: stockOverview}">
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- =================================================
+                 ADMIN TOOLS
+            ================================================== -->
+
+                <section class="tools-section">
+
+
+                    <div class="tool-item">
+
+                        <div class="tool-icon">
+
+                            <i class="fa-solid fa-credit-card"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                PAYMENTS
+                            </span>
+
+                            <strong>
+                                Payment Management
+                            </strong>
+
+                        </div>
+
+                        <a href="/admin/payments">
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    </div>
+
+
+
+                    <div class="tool-item">
+
+                        <div class="tool-icon">
+
+                            <i class="fa-solid fa-chart-line"></i>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                ANALYTICS
+                            </span>
+
+                            <strong>
+                                Business Reports
+                            </strong>
+
+                        </div>
+
+                        <a href="/admin/reports">
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    </div>
+
+
+                </section>
+
+
+
+                <!-- =================================================
+                 FOOTER
+            ================================================== -->
+
+                <footer class="dashboard-footer">
+
+                    <div>
+
+                        <strong>
+                            SRI KRISHNA COLLECTION
+                        </strong>
+
+                        <span>
+                            ADMINISTRATION PORTAL
+                        </span>
+
+                    </div>
+
+
+                    <p>
+                        © 2026 Sri Krishna Collection
+                    </p>
+
+                </footer>
+
+
+            </div>
+
+        </main>
+
+    </div>
+
+
+    <!-- =====================================================
+     MOBILE OVERLAY
+===================================================== -->
+
+    <div class="sidebar-overlay" id="sidebarOverlay">
+    </div>
+
+
+    <script th:src="@{/js/admin-back.js}"></script>
+
+    <script th:src="@{/js/dashboard.js}">
+    </script>
+
+
+</body>
+
+</html>

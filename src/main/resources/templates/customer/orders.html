@@ -1,0 +1,1831 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        My Orders | Sri Krishna Collection
+    </title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         FONT AWESOME
+    ====================================================== -->
+
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        rel="stylesheet">
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <style>
+
+        /* =====================================================
+           VARIABLES
+        ====================================================== */
+
+        :root {
+
+            --primary: #176b68;
+
+            --primary-dark: #0e4d4b;
+
+            --gold: #c89b3c;
+
+            --gold-dark: #a97e2d;
+
+            --cream: #faf8f2;
+
+            --white: #ffffff;
+
+            --text: #292929;
+
+            --muted: #777777;
+
+            --border: #e7e2d8;
+
+            --danger: #a33a3a;
+
+            --success: #26755e;
+        }
+
+
+        /* =====================================================
+           GLOBAL
+        ====================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            background: var(--cream);
+
+            color: var(--text);
+
+            font-family: 'Jost', sans-serif;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           HEADER
+        ====================================================== */
+
+        .customer-header {
+
+            background: var(--white);
+
+            border-bottom: 1px solid var(--border);
+
+            padding: 18px 0;
+        }
+
+
+        .header-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        /* =====================================================
+           BRAND
+        ====================================================== */
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: var(--primary);
+        }
+
+
+        .brand:hover {
+            color: var(--primary);
+        }
+
+
+        .brand-icon {
+
+            width: 48px;
+
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background:
+                rgba(23, 107, 104, 0.08);
+
+            border:
+                1px solid rgba(200, 155, 60, 0.35);
+
+            color: var(--gold);
+
+            font-size: 19px;
+        }
+
+
+        .brand small {
+
+            display: block;
+
+            color: var(--primary);
+
+            font-family: 'Cinzel', serif;
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            letter-spacing: 2px;
+        }
+
+
+        .brand strong {
+
+            display: block;
+
+            color: var(--text);
+
+            font-family: 'Cinzel', serif;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        /* =====================================================
+           HEADER ACTIONS
+        ====================================================== */
+
+        .header-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+        }
+
+
+        .header-button {
+
+            min-height: 38px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            padding: 0 14px;
+
+            color: var(--primary);
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            transition: all .3s ease;
+        }
+
+
+        .header-button:hover {
+
+            color: var(--white);
+
+            background: var(--primary);
+
+            border-color: var(--primary);
+        }
+
+
+        /* =====================================================
+           PAGE
+        ====================================================== */
+
+        .orders-page {
+
+            min-height: calc(100vh - 140px);
+
+            padding: 50px 0 70px;
+        }
+
+
+        /* =====================================================
+           PAGE HEADER
+        ====================================================== */
+
+        .page-header {
+
+            display: flex;
+
+            align-items: flex-end;
+
+            justify-content: space-between;
+
+            gap: 25px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .page-label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: var(--gold-dark);
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            letter-spacing: 3px;
+        }
+
+
+        .page-header h1 {
+
+            margin: 0 0 8px;
+
+            color: var(--primary);
+
+            font-family: 'Cinzel', serif;
+
+            font-size: 36px;
+
+            font-weight: 600;
+        }
+
+
+        .page-header p {
+
+            margin: 0;
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+
+        .order-count {
+
+            min-width: 150px;
+
+            padding: 15px 20px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            box-shadow:
+                0 10px 30px rgba(0,0,0,.04);
+        }
+
+
+        .order-count i {
+
+            color: var(--gold);
+
+            font-size: 20px;
+        }
+
+
+        .order-count span {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .order-count strong {
+
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--primary);
+
+            font-family: 'Cinzel', serif;
+
+            font-size: 20px;
+        }
+
+
+        /* =====================================================
+           ALERTS
+        ====================================================== */
+
+        .custom-alert {
+
+            margin-bottom: 20px;
+
+            border: 0;
+
+            border-radius: 2px;
+
+            font-size: 12px;
+        }
+
+
+        .custom-alert i {
+
+            margin-right: 7px;
+        }
+
+
+        .alert-success {
+
+            color: var(--success);
+
+            background:
+                rgba(38, 117, 94, .08);
+
+            border-left:
+                3px solid var(--success);
+        }
+
+
+        .alert-danger {
+
+            color: var(--danger);
+
+            background:
+                rgba(163, 58, 58, .08);
+
+            border-left:
+                3px solid var(--danger);
+        }
+
+
+        /* =====================================================
+           EMPTY ORDERS
+        ====================================================== */
+
+        .empty-orders {
+
+            padding: 70px 30px;
+
+            text-align: center;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,.04);
+        }
+
+
+        .empty-icon {
+
+            width: 85px;
+
+            height: 85px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin: 0 auto 20px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(200,155,60,.09);
+
+            color: var(--gold);
+
+            font-size: 30px;
+        }
+
+
+        .empty-orders h2 {
+
+            margin: 0 0 8px;
+
+            color: var(--primary);
+
+            font-family: 'Cinzel', serif;
+
+            font-size: 23px;
+        }
+
+
+        .empty-orders p {
+
+            margin: 0 auto 25px;
+
+            max-width: 450px;
+
+            color: var(--muted);
+
+            font-size: 13px;
+        }
+
+
+        .shop-button {
+
+            min-height: 43px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 0 20px;
+
+            color: var(--white);
+
+            background: var(--primary);
+
+            border: 1px solid var(--primary);
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            letter-spacing: .7px;
+
+            transition: all .3s ease;
+        }
+
+
+        .shop-button:hover {
+
+            color: var(--white);
+
+            background: var(--primary-dark);
+
+            border-color: var(--primary-dark);
+        }
+
+
+        /* =====================================================
+           ORDER CARD
+        ====================================================== */
+
+        .order-card {
+
+            margin-bottom: 22px;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,.04);
+
+            overflow: hidden;
+        }
+
+
+        /* =====================================================
+           ORDER CARD HEADER
+        ====================================================== */
+
+        .order-card-header {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 18px 22px;
+
+            background: #fcfbf8;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+
+        .order-number {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+        }
+
+
+        .order-number i {
+
+            color: var(--gold);
+
+            font-size: 16px;
+        }
+
+
+        .order-number span {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.5px;
+        }
+
+
+        .order-number strong {
+
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--primary);
+
+            font-family: 'Cinzel', serif;
+
+            font-size: 16px;
+        }
+
+
+        .order-date {
+
+            text-align: right;
+        }
+
+
+        .order-date span {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.2px;
+        }
+
+
+        .order-date strong {
+
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--text);
+
+            font-size: 11px;
+
+            font-weight: 500;
+        }
+
+
+        /* =====================================================
+           ORDER BODY
+        ====================================================== */
+
+        .order-card-body {
+
+            padding: 22px;
+        }
+
+
+        .order-summary-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, minmax(0, 1fr));
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+        }
+
+
+        .summary-box {
+
+            padding: 14px;
+
+            background: #fcfbf8;
+
+            border: 1px solid var(--border);
+        }
+
+
+        .summary-box span {
+
+            display: block;
+
+            margin-bottom: 5px;
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.3px;
+        }
+
+
+        .summary-box strong {
+
+            color: var(--primary);
+
+            font-size: 13px;
+
+            font-weight: 600;
+        }
+
+
+        .summary-box small {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--muted);
+
+            font-size: 9px;
+        }
+
+
+        /* =====================================================
+           STATUS
+        ====================================================== */
+
+        .status-section {
+
+            margin-bottom: 25px;
+        }
+
+
+        .section-label {
+
+            display: block;
+
+            margin-bottom: 15px;
+
+            color: var(--gold-dark);
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            letter-spacing: 2px;
+        }
+
+
+        .status-badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-height: 30px;
+
+            padding: 0 14px;
+
+            border-radius: 30px;
+
+            color: var(--primary);
+
+            background:
+                rgba(23,107,104,.09);
+
+            font-size: 9px;
+
+            font-weight: 600;
+
+            letter-spacing: .6px;
+        }
+
+
+        /* =====================================================
+           TIMELINE
+        ====================================================== */
+
+        .order-timeline {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            position: relative;
+
+            margin-top: 10px;
+        }
+
+
+        .order-timeline::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 19px;
+
+            left: 10%;
+
+            right: 10%;
+
+            height: 2px;
+
+            background: var(--border);
+
+            z-index: 0;
+        }
+
+
+        .timeline-step {
+
+            position: relative;
+
+            z-index: 1;
+
+            display: flex;
+
+            align-items: center;
+
+            flex-direction: column;
+
+            text-align: center;
+        }
+
+
+        .timeline-icon {
+
+            width: 39px;
+
+            height: 39px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: var(--white);
+
+            border: 2px solid var(--border);
+
+            color: #aaa;
+
+            font-size: 12px;
+
+            transition: all .3s ease;
+        }
+
+
+        .timeline-step span {
+
+            margin-top: 8px;
+
+            color: #999;
+
+            font-size: 9px;
+
+            font-weight: 500;
+        }
+
+
+        .timeline-step.completed .timeline-icon {
+
+            color: var(--white);
+
+            background: var(--primary);
+
+            border-color: var(--primary);
+        }
+
+
+        .timeline-step.completed span {
+
+            color: var(--primary);
+
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           CANCELLED
+        ====================================================== */
+
+        .cancelled-order {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 15px 17px;
+
+            background:
+                rgba(163,58,58,.06);
+
+            border-left:
+                3px solid var(--danger);
+        }
+
+
+        .cancelled-order > i {
+
+            color: var(--danger);
+
+            font-size: 20px;
+        }
+
+
+        .cancelled-order strong {
+
+            display: block;
+
+            color: var(--danger);
+
+            font-size: 12px;
+        }
+
+
+        .cancelled-order span {
+
+            display: block;
+
+            margin-top: 2px;
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           ORDER FOOTER
+        ====================================================== */
+
+        .order-card-footer {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            padding: 17px 22px;
+
+            border-top: 1px solid var(--border);
+        }
+
+
+        .total-section span {
+
+            display: block;
+
+            color: var(--muted);
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.2px;
+        }
+
+
+        .total-section strong {
+
+            display: block;
+
+            margin-top: 3px;
+
+            color: var(--primary);
+
+            font-family: 'Cinzel', serif;
+
+            font-size: 20px;
+        }
+
+
+        .view-order-button {
+
+            min-height: 40px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            padding: 0 17px;
+
+            color: var(--primary);
+
+            background: var(--white);
+
+            border: 1px solid var(--primary);
+
+            font-size: 10px;
+
+            font-weight: 600;
+
+            transition: all .3s ease;
+        }
+
+
+        .view-order-button:hover {
+
+            color: var(--white);
+
+            background: var(--primary);
+
+            border-color: var(--primary);
+        }
+
+
+        /* =====================================================
+           FOOTER
+        ====================================================== */
+
+        .customer-footer {
+
+            padding: 18px 0;
+
+            background: var(--white);
+
+            border-top: 1px solid var(--border);
+
+            color: var(--muted);
+
+            font-size: 10px;
+        }
+
+
+        .footer-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+        ====================================================== */
+
+        @media (max-width: 767px) {
+
+            .customer-header {
+                padding: 15px 0;
+            }
+
+
+            .header-inner {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+
+                gap: 15px;
+            }
+
+
+            .header-actions {
+                width: 100%;
+            }
+
+
+            .header-button {
+                flex: 1;
+            }
+
+
+            .orders-page {
+                padding: 35px 0 50px;
+            }
+
+
+            .page-header {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .order-count {
+                width: 100%;
+            }
+
+
+            .order-summary-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .order-card-header {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .order-date {
+
+                text-align: left;
+            }
+
+
+            .order-timeline {
+
+                overflow-x: auto;
+
+                min-width: 600px;
+
+                padding-bottom: 10px;
+            }
+
+
+            .timeline-wrapper {
+                overflow-x: auto;
+            }
+
+
+            .order-card-footer {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+
+            .view-order-button {
+                width: 100%;
+            }
+
+
+            .footer-inner {
+
+                align-items: center;
+
+                flex-direction: column;
+
+                gap: 5px;
+
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="customer-header">
+
+    <div class="container">
+
+        <div class="header-inner">
+
+
+            <!-- BRAND -->
+
+            <a
+                th:href="@{/Krishna}"
+                class="brand">
+
+                <div class="brand-icon">
+
+                    <i class="fa-solid fa-crown"></i>
+
+                </div>
+
+                <div>
+
+                    <small>
+                        SRI KRISHNA
+                    </small>
+
+                    <strong>
+                        COLLECTION
+                    </strong>
+
+                </div>
+
+            </a>
+
+
+            <!-- ACTIONS -->
+
+            <div class="header-actions">
+
+                <a
+                    th:href="@{/Krishna/product}"
+                    class="header-button">
+
+                    <i class="fa-solid fa-store"></i>
+
+                    Shop
+
+                </a>
+
+
+                <a
+                    th:href="@{/Krishna/cart}"
+                    class="header-button">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    Cart
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     MAIN
+========================================================= -->
+
+<main class="orders-page">
+
+    <div class="container">
+
+
+        <!-- =====================================================
+             PAGE HEADER
+        ====================================================== -->
+
+        <div class="page-header">
+
+            <div>
+
+                <span class="page-label">
+                    MY ACCOUNT
+                </span>
+
+                <h1>
+                    My Orders
+                </h1>
+
+                <p>
+                    Track your orders and view your purchase history.
+                </p>
+
+            </div>
+
+
+            <div class="order-count">
+
+                <i class="fa-solid fa-box"></i>
+
+                <div>
+
+                    <span>
+                        TOTAL ORDERS
+                    </span>
+
+                    <strong
+                        th:text="${orders != null
+                            ? #lists.size(orders)
+                            : 0}">
+
+                        0
+
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             SUCCESS
+        ====================================================== -->
+
+        <div
+            th:if="${success}"
+            class="alert alert-success custom-alert">
+
+            <i class="fa-solid fa-circle-check"></i>
+
+            <span th:text="${success}">
+                Success
+            </span>
+
+        </div>
+
+
+        <!-- =====================================================
+             ERROR
+        ====================================================== -->
+
+        <div
+            th:if="${error}"
+            class="alert alert-danger custom-alert">
+
+            <i class="fa-solid fa-circle-exclamation"></i>
+
+            <span th:text="${error}">
+                Error
+            </span>
+
+        </div>
+
+
+        <!-- =====================================================
+             EMPTY ORDERS
+        ====================================================== -->
+
+        <div
+            th:if="${orders == null or orders.isEmpty()}"
+            class="empty-orders">
+
+            <div class="empty-icon">
+
+                <i class="fa-solid fa-box-open"></i>
+
+            </div>
+
+            <h2>
+                No Orders Yet
+            </h2>
+
+            <p>
+                You haven't placed any orders yet.
+                Explore our collection and find something
+                you love.
+            </p>
+
+            <a
+                th:href="@{/Krishna/product}"
+                class="shop-button">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                START SHOPPING
+
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             ORDERS
+        ====================================================== -->
+
+        <div
+            th:if="${orders != null and !orders.isEmpty()}">
+
+
+            <!-- =================================================
+                 SINGLE ORDER
+            ================================================== -->
+
+            <div
+                class="order-card"
+                th:each="order : ${orders}">
+
+
+                <!-- =============================================
+                     ORDER HEADER
+                ============================================== -->
+
+                <div class="order-card-header">
+
+
+                    <div class="order-number">
+
+                        <i class="fa-solid fa-box"></i>
+
+                        <div>
+
+                            <span>
+                                ORDER NUMBER
+                            </span>
+
+                            <strong>
+
+                                #
+
+                                <span
+                                    th:text="${order.id}">
+
+                                    1001
+
+                                </span>
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="order-date">
+
+                        <span>
+                            ORDER DATE
+                        </span>
+
+                        <strong
+                            th:text="${order.orderDate != null
+                                ? #temporals.format(
+                                    order.orderDate,
+                                    'dd MMM yyyy, hh:mm a'
+                                  )
+                                : 'Date not available'}">
+
+                            18 Aug 2026, 10:30 AM
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     ORDER BODY
+                ============================================== -->
+
+                <div class="order-card-body">
+
+
+                    <!-- =========================================
+                         SUMMARY
+                    ========================================== -->
+
+                    <div class="order-summary-grid">
+
+
+                        <!-- STATUS -->
+
+                        <div class="summary-box">
+
+                            <span>
+                                ORDER STATUS
+                            </span>
+
+                            <strong
+                                th:text="${order.orderStatus != null
+                                    ? order.orderStatus
+                                    : 'PLACED'}">
+
+                                PLACED
+
+                            </strong>
+
+                        </div>
+
+
+                        <!-- PAYMENT -->
+
+                        <div class="summary-box">
+
+                            <span>
+                                PAYMENT
+                            </span>
+
+                            <strong
+                                th:text="${order.paymentMethod != null
+                                    ? order.paymentMethod
+                                    : 'COD'}">
+
+                                COD
+
+                            </strong>
+
+                            <small
+                                th:text="${order.paymentStatus != null
+                                    ? order.paymentStatus
+                                    : 'PENDING'}">
+
+                                PENDING
+
+                            </small>
+
+                        </div>
+
+
+                        <!-- TOTAL -->
+
+                        <div class="summary-box">
+
+                            <span>
+                                TOTAL AMOUNT
+                            </span>
+
+                            <strong>
+
+                                ₹
+
+                                <span
+                                    th:text="${order.totalAmount != null
+                                        ? #numbers.formatDecimal(
+                                            order.totalAmount,
+                                            1,
+                                            2
+                                          )
+                                        : '0.00'}">
+
+                                    0.00
+
+                                </span>
+
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =========================================
+                         STATUS
+                    ========================================== -->
+
+                    <div class="status-section">
+
+
+                        <!-- NORMAL STATUS -->
+
+                        <div
+                            th:if="${order.orderStatus != 'CANCELLED'}">
+
+                            <span class="section-label">
+                                ORDER PROGRESS
+                            </span>
+
+
+                            <div class="status-badge">
+
+                                <i
+                                    class="fa-solid fa-circle-check me-1">
+                                </i>
+
+                                <span
+                                    th:text="${order.orderStatus != null
+                                        ? order.orderStatus
+                                        : 'PLACED'}">
+
+                                    PLACED
+
+                                </span>
+
+                            </div>
+
+
+                            <!-- TIMELINE -->
+
+                            <div class="timeline-wrapper">
+
+                                <div class="order-timeline">
+
+
+                                    <!-- PLACED -->
+
+                                    <div
+                                        class="timeline-step"
+                                        th:classappend="${order.orderStatus == 'PLACED'
+                                            or order.orderStatus == 'CONFIRMED'
+                                            or order.orderStatus == 'PACKED'
+                                            or order.orderStatus == 'SHIPPED'
+                                            or order.orderStatus == 'DELIVERED'}
+                                            ? ' completed'">
+
+                                        <div class="timeline-icon">
+
+                                            <i
+                                                class="fa-solid fa-receipt">
+                                            </i>
+
+                                        </div>
+
+                                        <span>
+                                            Order Placed
+                                        </span>
+
+                                    </div>
+
+
+                                    <!-- CONFIRMED -->
+
+                                    <div
+                                        class="timeline-step"
+                                        th:classappend="${order.orderStatus == 'CONFIRMED'
+                                            or order.orderStatus == 'PACKED'
+                                            or order.orderStatus == 'SHIPPED'
+                                            or order.orderStatus == 'DELIVERED'}
+                                            ? ' completed'">
+
+                                        <div class="timeline-icon">
+
+                                            <i
+                                                class="fa-solid fa-check">
+                                            </i>
+
+                                        </div>
+
+                                        <span>
+                                            Confirmed
+                                        </span>
+
+                                    </div>
+
+
+                                    <!-- PACKED -->
+
+                                    <div
+                                        class="timeline-step"
+                                        th:classappend="${order.orderStatus == 'PACKED'
+                                            or order.orderStatus == 'SHIPPED'
+                                            or order.orderStatus == 'DELIVERED'}
+                                            ? ' completed'">
+
+                                        <div class="timeline-icon">
+
+                                            <i
+                                                class="fa-solid fa-box">
+                                            </i>
+
+                                        </div>
+
+                                        <span>
+                                            Packed
+                                        </span>
+
+                                    </div>
+
+
+                                    <!-- SHIPPED -->
+
+                                    <div
+                                        class="timeline-step"
+                                        th:classappend="${order.orderStatus == 'SHIPPED'
+                                            or order.orderStatus == 'DELIVERED'}
+                                            ? ' completed'">
+
+                                        <div class="timeline-icon">
+
+                                            <i
+                                                class="fa-solid fa-truck">
+                                            </i>
+
+                                        </div>
+
+                                        <span>
+                                            Shipped
+                                        </span>
+
+                                    </div>
+
+
+                                    <!-- DELIVERED -->
+
+                                    <div
+                                        class="timeline-step"
+                                        th:classappend="${order.orderStatus == 'DELIVERED'}
+                                            ? ' completed'">
+
+                                        <div class="timeline-icon">
+
+                                            <i
+                                                class="fa-solid fa-house">
+                                            </i>
+
+                                        </div>
+
+                                        <span>
+                                            Delivered
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =====================================
+                             CANCELLED
+                        ====================================== -->
+
+                        <div
+                            th:if="${order.orderStatus == 'CANCELLED'}"
+                            class="cancelled-order">
+
+                            <i
+                                class="fa-solid fa-circle-xmark">
+                            </i>
+
+                            <div>
+
+                                <strong>
+                                    Order Cancelled
+                                </strong>
+
+                                <span>
+                                    This order has been cancelled.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     FOOTER
+                ============================================== -->
+
+                <div class="order-card-footer">
+
+
+                    <div class="total-section">
+
+                        <span>
+                            ORDER TOTAL
+                        </span>
+
+                        <strong>
+
+                            ₹
+
+                            <span
+                                th:text="${order.totalAmount != null
+                                    ? #numbers.formatDecimal(
+                                        order.totalAmount,
+                                        1,
+                                        2
+                                      )
+                                    : '0.00'}">
+
+                                0.00
+
+                            </span>
+
+                        </strong>
+
+                    </div>
+
+
+                    <a
+                        th:href="@{/Krishna/orders/{orderId}(
+                            orderId=${order.id}
+                        )}"
+                        class="view-order-button">
+
+                        <i class="fa-solid fa-eye"></i>
+
+                        VIEW ORDER DETAILS
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="customer-footer">
+
+    <div class="container">
+
+        <div class="footer-inner">
+
+            <span>
+                © 2026 Sri Krishna Collection
+            </span>
+
+            <span>
+                Premium Fashion
+            </span>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>

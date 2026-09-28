@@ -1,0 +1,535 @@
+/* =========================================================
+   SRI KRISHNA COLLECTION
+   CUSTOMER CANCELLATION PAGE
+   ========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f7f7f5;
+    color: #253333;
+}
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.cancel-container {
+    max-width: 650px;
+    margin: 70px auto;
+    padding: 20px;
+}
+
+/* =========================================================
+   CARD
+   ========================================================= */
+
+.cancel-card {
+    background: #ffffff;
+    padding: 38px;
+    border-radius: 20px;
+
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.08);
+
+    border: 1px solid #ece8df;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.cancel-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cancel-icon {
+    width: 65px;
+    height: 65px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fff0f0;
+    color: #a83232;
+
+    font-size: 27px;
+}
+
+.cancel-header h1 {
+    margin: 0;
+
+    font-family: Georgia, serif;
+
+    font-size: 32px;
+
+    color: #183b3b;
+}
+
+.cancel-header p {
+    margin-top: 8px;
+
+    color: #777;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   ORDER INFORMATION
+   ========================================================= */
+
+.order-info {
+    padding: 17px 20px;
+
+    background: #f5f9f8;
+
+    border: 1px solid #dce9e6;
+
+    border-radius: 12px;
+
+    margin-bottom: 28px;
+}
+
+.order-info-label {
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+
+    color: #777;
+
+    margin-bottom: 5px;
+}
+
+.order-id {
+    font-size: 20px;
+
+    font-weight: 700;
+
+    color: #176f6c;
+}
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.form-group {
+    margin-bottom: 22px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 9px;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    color: #333;
+}
+
+.required {
+    color: #a83232;
+}
+
+/* =========================================================
+   TEXTAREA
+   ========================================================= */
+
+textarea {
+    width: 100%;
+
+    min-height: 140px;
+
+    padding: 14px 15px;
+
+    border: 1px solid #d8d8d8;
+
+    border-radius: 11px;
+
+    resize: vertical;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    color: #333;
+
+    background: #fff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+textarea::placeholder {
+    color: #999;
+}
+
+textarea:hover {
+    border-color: #bdbdbd;
+}
+
+textarea:focus {
+    outline: none;
+
+    border-color: #197b75;
+
+    box-shadow:
+        0 0 0 3px rgba(25, 123, 117, 0.10);
+}
+
+/* =========================================================
+   CHARACTER COUNTER
+   ========================================================= */
+
+.character-count {
+    text-align: right;
+
+    margin-top: 6px;
+
+    font-size: 12px;
+
+    color: #888;
+}
+
+/* =========================================================
+   WARNING
+   ========================================================= */
+
+.warning-box {
+    display: flex;
+
+    gap: 13px;
+
+    padding: 16px;
+
+    margin: 25px 0;
+
+    border-radius: 12px;
+
+    background: #fff9e8;
+
+    border: 1px solid #f0dfaa;
+
+    color: #765d19;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+.warning-icon {
+    flex-shrink: 0;
+
+    width: 25px;
+    height: 25px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #f2d77d;
+
+    color: #604c12;
+
+    font-weight: bold;
+}
+
+/* =========================================================
+   REFUND INFORMATION
+   ========================================================= */
+
+.refund-info {
+    padding: 16px;
+
+    margin-bottom: 25px;
+
+    border-radius: 12px;
+
+    background: #eef8f6;
+
+    border: 1px solid #d3ebe7;
+
+    font-size: 13px;
+
+    color: #285b58;
+
+    line-height: 1.6;
+}
+
+.refund-info strong {
+    color: #176f6c;
+}
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.actions {
+    display: flex;
+
+    gap: 12px;
+
+    margin-top: 28px;
+}
+
+.btn {
+    flex: 1;
+
+    min-height: 48px;
+
+    border-radius: 10px;
+
+    border: none;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Back */
+
+.back-btn {
+    background: #eeeeeb;
+
+    color: #444;
+}
+
+.back-btn:hover {
+    background: #e2e2df;
+}
+
+/* Cancel */
+
+.cancel-btn {
+    background: #a83232;
+
+    color: #ffffff;
+}
+
+.cancel-btn:hover {
+    background: #8f2929;
+
+    box-shadow:
+        0 6px 18px rgba(168, 50, 50, 0.20);
+}
+
+.cancel-btn:disabled {
+    cursor: not-allowed;
+
+    opacity: 0.55;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+/* =========================================================
+   CONFIRMATION MODAL
+   ========================================================= */
+
+.confirm-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0, 0, 0, 0.55);
+
+    backdrop-filter: blur(3px);
+}
+
+.confirm-overlay.active {
+    display: flex;
+}
+
+.confirm-box {
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 30px;
+
+    border-radius: 18px;
+
+    background: #fff;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.20);
+
+    text-align: center;
+
+    animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn {
+
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.confirm-icon {
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 15px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #fff0f0;
+
+    color: #a83232;
+
+    font-size: 24px;
+}
+
+.confirm-box h2 {
+    margin: 0 0 10px;
+
+    color: #333;
+
+    font-size: 22px;
+}
+
+.confirm-box p {
+    margin: 0;
+
+    color: #777;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+.confirm-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.confirm-actions button {
+    flex: 1;
+
+    min-height: 44px;
+
+    border: none;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: 650;
+}
+
+.confirm-no {
+    background: #eeeeeb;
+
+    color: #333;
+}
+
+.confirm-yes {
+    background: #a83232;
+
+    color: white;
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .cancel-container {
+        margin: 25px auto;
+
+        padding: 12px;
+    }
+
+    .cancel-card {
+        padding: 25px 20px;
+
+        border-radius: 16px;
+    }
+
+    .cancel-header h1 {
+        font-size: 27px;
+    }
+
+    .actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .confirm-box {
+        padding: 25px 20px;
+    }
+
+    .confirm-actions {
+        flex-direction: column;
+    }
+}

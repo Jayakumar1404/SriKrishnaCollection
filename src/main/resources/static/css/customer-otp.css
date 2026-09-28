@@ -1,0 +1,648 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: #f7f4ef;
+    color: #222;
+}
+
+.otp-wrapper {
+    min-height: 100vh;
+    display: flex;
+}
+
+
+/* =====================================================
+   LEFT SECTION
+===================================================== */
+
+.fashion-section {
+    width: 55%;
+    min-height: 100vh;
+
+    position: relative;
+    overflow: hidden;
+
+    background-image:
+        url("https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1400&q=85");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.fashion-overlay {
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 0, 0, .82),
+            rgba(0, 0, 0, .48),
+            rgba(0, 0, 0, .68)
+        );
+}
+
+.fashion-content {
+    position: relative;
+    z-index: 2;
+
+    width: 78%;
+    max-width: 620px;
+
+    min-height: 100vh;
+
+    margin: auto;
+    padding: 70px 0;
+
+    color: white;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+/* =====================================================
+   BRAND
+===================================================== */
+
+.logo-symbol {
+    width: 65px;
+    height: 65px;
+
+    border: 1px solid #c9a227;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #c9a227;
+
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.gold-line {
+    width: 45px;
+    height: 1px;
+
+    background: #c9a227;
+
+    margin: 15px 0;
+}
+
+.brand-logo h1 {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 34px;
+    letter-spacing: 7px;
+
+    font-weight: 600;
+}
+
+.brand-logo span {
+    display: block;
+
+    color: #d5ad36;
+
+    font-size: 9px;
+    letter-spacing: 8px;
+}
+
+
+/* =====================================================
+   MESSAGE
+===================================================== */
+
+.eyebrow {
+    color: #d5ad36;
+
+    font-size: 10px;
+    letter-spacing: 3px;
+
+    margin-bottom: 25px;
+}
+
+.fashion-message h2 {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: clamp(50px, 5vw, 76px);
+
+    line-height: .94;
+    font-weight: 500;
+
+    margin-bottom: 28px;
+}
+
+.fashion-message h2 span {
+    color: #d5ad36;
+}
+
+.fashion-message > p:last-child {
+    max-width: 430px;
+
+    color: #d0d0d0;
+
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.fashion-footer {
+    display: flex;
+    gap: 30px;
+
+    color: #ccc;
+
+    font-size: 10px;
+}
+
+.fashion-footer i {
+    color: #d5ad36;
+    margin-right: 6px;
+}
+
+
+/* =====================================================
+   RIGHT SECTION
+===================================================== */
+
+.otp-section {
+    width: 45%;
+    min-height: 100vh;
+
+    padding: 50px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.otp-card {
+    width: 100%;
+    max-width: 450px;
+}
+
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.otp-icon {
+    width: 60px;
+    height: 60px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eee6d2;
+
+    color: #9a7714;
+
+    margin-bottom: 24px;
+
+    font-size: 20px;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.eyebrow-dark {
+    color: #9a7714;
+
+    font-size: 9px;
+    letter-spacing: 3px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+}
+
+.otp-header h2 {
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 50px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+    margin-bottom: 14px;
+}
+
+.otp-header > p:last-child {
+    color: #888;
+
+    font-size: 12px;
+    line-height: 1.8;
+
+    margin-bottom: 32px;
+}
+
+
+/* =====================================================
+   ALERT
+===================================================== */
+
+.custom-alert {
+    border: none;
+
+    font-size: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* =====================================================
+   OTP
+===================================================== */
+
+.otp-label {
+    display: block;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    margin-bottom: 10px;
+}
+
+.otp-hidden-input {
+    position: absolute;
+
+    opacity: 0;
+
+    width: 1px;
+    height: 1px;
+
+    pointer-events: none;
+}
+
+.otp-boxes {
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 24px;
+}
+
+.otp-box {
+    width: 52px;
+    height: 58px;
+
+    border: 1px solid #ddd4c5;
+
+    border-radius: 8px;
+
+    background: white;
+
+    text-align: center;
+
+    font-size: 21px;
+
+    font-weight: 600;
+
+    color: #222;
+
+    outline: none;
+
+    transition: .25s;
+}
+
+.otp-box:focus {
+    border-color: #b9972e;
+
+    box-shadow:
+        0 0 0 3px rgba(185,151,46,.10);
+
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   TIMER
+===================================================== */
+
+.otp-timer {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-bottom: 25px;
+
+    color: #999;
+
+    font-size: 10px;
+}
+
+.otp-timer i {
+    color: #9a7714;
+}
+
+.otp-timer strong {
+    color: #9a7714;
+
+    font-weight: 600;
+
+    letter-spacing: 1px;
+}
+
+
+/* =====================================================
+   VERIFY BUTTON
+===================================================== */
+
+.verify-button {
+    width: 100%;
+    height: 55px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #171717;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    position: relative;
+
+    overflow: hidden;
+
+    transition: .3s;
+}
+
+.verify-button::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background: #c9a227;
+
+    transform: translateX(-100%);
+
+    transition: .35s;
+}
+
+.verify-button:hover::before {
+    transform: translateX(0);
+}
+
+.verify-button span,
+.verify-button i {
+    position: relative;
+    z-index: 2;
+}
+
+.verify-button:hover {
+    color: #111;
+}
+
+.verify-button:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   RESEND
+===================================================== */
+
+.resend-section {
+    text-align: center;
+
+    margin-top: 25px;
+}
+
+.resend-section p {
+    display: inline;
+
+    color: #888;
+
+    font-size: 11px;
+
+    margin-right: 5px;
+}
+
+.resend-button {
+    border: none;
+
+    background: transparent;
+
+    color: #9a7714;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    padding: 0;
+}
+
+.resend-button:disabled {
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+.resend-button:not(:disabled):hover {
+    text-decoration: underline;
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+.back-login {
+    text-align: center;
+
+    margin-top: 28px;
+}
+
+.back-login a {
+    color: #9a7714;
+
+    font-size: 11px;
+
+    text-decoration: none;
+}
+
+.back-login a:hover {
+    text-decoration: underline;
+}
+
+.back-login i {
+    margin-right: 7px;
+}
+
+
+/* =====================================================
+   SECURITY
+===================================================== */
+
+.security-note {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-top: 30px;
+
+    color: #999;
+
+    font-size: 9px;
+}
+
+.security-note i {
+    color: #9a7714;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.otp-footer {
+    margin-top: 40px;
+
+    color: #aaa;
+
+    font-size: 8px;
+
+    letter-spacing: 1px;
+
+    text-align: center;
+}
+
+.otp-footer span {
+    color: #c9a227;
+
+    margin: 0 7px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+.mobile-brand {
+    display: none;
+}
+
+@media (max-width: 900px) {
+
+    .fashion-section {
+        display: none;
+    }
+
+    .otp-section {
+        width: 100%;
+
+        padding: 30px 20px;
+    }
+
+    .mobile-brand {
+        display: flex;
+
+        align-items: center;
+
+        gap: 12px;
+
+        margin-bottom: 40px;
+    }
+
+    .mobile-logo {
+        width: 48px;
+        height: 48px;
+
+        border: 1px solid #c9a227;
+
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        font-family: 'Cormorant Garamond', serif;
+
+        color: #9a7714;
+
+        font-size: 21px;
+
+        font-weight: 700;
+    }
+
+    .mobile-brand h3 {
+        font-family: 'Cormorant Garamond', serif;
+
+        font-size: 20px;
+
+        letter-spacing: 3px;
+
+        margin: 0;
+    }
+
+    .mobile-brand span {
+        color: #9a7714;
+
+        font-size: 7px;
+
+        letter-spacing: 4px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .otp-section {
+        padding: 25px 15px;
+    }
+
+    .otp-header h2 {
+        font-size: 42px;
+    }
+
+    .otp-boxes {
+        gap: 6px;
+    }
+
+    .otp-box {
+        width: 44px;
+        height: 52px;
+    }
+}

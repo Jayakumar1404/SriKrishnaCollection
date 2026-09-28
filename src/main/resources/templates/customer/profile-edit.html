@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Edit Profile | Sri Krishna Collection
+    </title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/profile.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="profile-page">
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="profile-header">
+
+        <div class="profile-avatar">
+
+            <img
+                th:if="${customer.image != null and customer.image != ''}"
+                th:src="@{'/customer-images/' + ${customer.image}}"
+                alt="Profile Image">
+
+            <i
+                th:if="${customer.image == null or customer.image == ''}"
+                class="fa-solid fa-user-pen">
+            </i>
+
+        </div>
+
+        <div>
+
+            <h1>
+                Edit Profile
+            </h1>
+
+            <p>
+                Update your personal information
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         EDIT CARD
+         ================================================= -->
+
+    <div class="profile-card">
+
+        <form
+            id="profileForm"
+            th:action="@{/Krishna/profile/update}"
+            method="post">
+
+
+            <!-- =========================================
+                 FIRST NAME
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="firstName">
+                    First Name
+                </label>
+
+                <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    required
+                    maxlength="100"
+                    th:value="${customer.firstName}"
+                    placeholder="Enter first name">
+
+            </div>
+
+
+            <!-- =========================================
+                 LAST NAME
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="lastName">
+                    Last Name
+                </label>
+
+                <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    required
+                    maxlength="100"
+                    th:value="${customer.lastName}"
+                    placeholder="Enter last name">
+
+            </div>
+
+
+            <!-- =========================================
+                 EMAIL
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    th:value="${customer.email}"
+                    readonly>
+
+                <small>
+                    <i class="fa-solid fa-lock"></i>
+
+                    Email address cannot be changed
+                    from this page.
+                </small>
+
+            </div>
+
+
+            <!-- =========================================
+                 MOBILE
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="mobile">
+                    Mobile Number
+                </label>
+
+                <input
+                    type="tel"
+                    id="mobile"
+                    name="mobile"
+                    required
+                    maxlength="10"
+                    pattern="[0-9]{10}"
+                    th:value="${customer.mobile}"
+                    placeholder="Enter 10-digit mobile number">
+
+            </div>
+
+
+            <!-- =========================================
+                 GENDER
+                 ========================================= -->
+
+           <!-- =================================================
+     GENDER
+     ================================================= -->
+
+<div class="form-group gender-group">
+
+    <label>
+        Gender
+    </label>
+
+    <div class="gender-options">
+
+        <!-- MALE -->
+        <label class="gender-option">
+
+            <input
+                type="radio"
+                name="gender"
+                value="Male"
+                th:checked="${customer.gender == 'Male'}">
+
+            <span class="gender-card">
+
+                <span class="gender-icon male-icon">
+                    <i class="fa-solid fa-person"></i>
+                </span>
+
+                <span class="gender-text">
+                    Male
+                </span>
+
+                <span class="gender-check">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+
+            </span>
+
+        </label>
+
+
+        <!-- FEMALE -->
+        <label class="gender-option">
+
+            <input
+                type="radio"
+                name="gender"
+                value="Female"
+                th:checked="${customer.gender == 'Female'}">
+
+            <span class="gender-card">
+
+                <span class="gender-icon female-icon">
+                    <i class="fa-solid fa-person-dress"></i>
+                </span>
+
+                <span class="gender-text">
+                    Female
+                </span>
+
+                <span class="gender-check">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+
+            </span>
+
+        </label>
+
+
+        <!-- OTHER -->
+        <label class="gender-option">
+
+            <input
+                type="radio"
+                name="gender"
+                value="Other"
+                th:checked="${customer.gender == 'Other'}">
+
+            <span class="gender-card">
+
+                <span class="gender-icon other-icon">
+                    <i class="fa-solid fa-user"></i>
+                </span>
+
+                <span class="gender-text">
+                    Other
+                </span>
+
+                <span class="gender-check">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+
+            </span>
+
+        </label>
+
+    </div>
+
+</div>
+
+
+            <!-- =========================================
+                 ADDRESS
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="address">
+                    Delivery Address
+                </label>
+
+                <textarea
+                    id="address"
+                    name="address"
+                    maxlength="500"
+                    placeholder="Enter your complete delivery address"
+                    th:text="${customer.address}">
+                </textarea>
+
+            </div>
+
+
+            <!-- =========================================
+                 CITY + STATE
+                 ========================================= -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="city">
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        maxlength="100"
+                        th:value="${customer.city}"
+                        placeholder="Enter city">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="state">
+                        State
+                    </label>
+
+                    <input
+                        type="text"
+                        id="state"
+                        name="state"
+                        maxlength="100"
+                        th:value="${customer.state}"
+                        placeholder="Enter state">
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 PINCODE
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="pincode">
+                    Pincode
+                </label>
+
+                <input
+                    type="text"
+                    id="pincode"
+                    name="pincode"
+                    required
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    th:value="${customer.pincode}"
+                    placeholder="Enter 6-digit pincode">
+
+            </div>
+
+
+            <!-- =========================================
+                 ACTIONS
+                 ========================================= -->
+
+            <div class="form-actions">
+
+                <a
+                    th:href="@{/Krishna/profile}"
+                    class="btn back-btn">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Cancel
+
+                </a>
+
+
+                <button
+                    type="submit"
+                    id="saveProfileButton"
+                    class="btn save-btn">
+
+                    <i class="fa-solid fa-check"></i>
+
+                    Save Changes
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script
+    th:src="@{/js/profile.js}">
+</script>
+
+</body>
+
+</html>

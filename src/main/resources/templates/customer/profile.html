@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        My Profile | Sri Krishna Collection
+    </title>
+
+    <link rel="stylesheet"
+          th:href="@{/css/profile.css}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="profile-page">
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="profile-header">
+
+        <div class="profile-avatar">
+
+            <img
+                th:if="${customer.image != null and customer.image != ''}"
+                th:src="@{'/customer-images/' + ${customer.image}}"
+                alt="Profile Image">
+
+            <i
+                th:if="${customer.image == null or customer.image == ''}"
+                class="fa-solid fa-user">
+            </i>
+
+        </div>
+
+        <div>
+
+            <h1>
+                My Profile
+            </h1>
+
+            <p>
+                Manage your personal information
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         SUCCESS
+         ================================================= -->
+
+    <div
+        th:if="${success}"
+        class="alert success">
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <span th:text="${success}">
+            Profile updated successfully.
+        </span>
+
+    </div>
+
+
+    <!-- =================================================
+         ERROR
+         ================================================= -->
+
+    <div
+        th:if="${error}"
+        class="alert error">
+
+        <i class="fa-solid fa-circle-exclamation"></i>
+
+        <span th:text="${error}">
+            Something went wrong.
+        </span>
+
+    </div>
+
+
+    <!-- =================================================
+         PROFILE CARD
+         ================================================= -->
+
+    <div class="profile-card">
+
+        <div class="section-title">
+
+            <div>
+
+                <h2>
+                    Personal Information
+                </h2>
+
+                <p>
+                    Your registered account details
+                </p>
+
+            </div>
+
+            <a
+                th:href="@{/Krishna/account-settings}"
+                class="edit-button">
+
+                <i class="fa-solid fa-pen"></i>
+
+                Edit Profile
+
+            </a>
+
+        </div>
+
+
+        <div class="profile-grid">
+
+            <!-- FIRST NAME -->
+
+            <div class="profile-field">
+
+                <span class="field-label">
+                    First Name
+                </span>
+
+                <strong
+                    th:text="${customer.firstName}">
+                    First Name
+                </strong>
+
+            </div>
+
+
+            <!-- LAST NAME -->
+
+            <div class="profile-field">
+
+                <span class="field-label">
+                    Last Name
+                </span>
+
+                <strong
+                    th:text="${customer.lastName}">
+                    Last Name
+                </strong>
+
+            </div>
+
+
+            <!-- EMAIL -->
+
+            <div class="profile-field">
+
+                <span class="field-label">
+                    Email Address
+                </span>
+
+                <strong
+                    th:text="${customer.email}">
+                    customer@gmail.com
+                </strong>
+
+            </div>
+
+
+            <!-- MOBILE -->
+
+            <div class="profile-field">
+
+                <span class="field-label">
+                    Mobile Number
+                </span>
+
+                <strong
+                    th:text="${customer.mobile}">
+                    9876543210
+                </strong>
+
+            </div>
+
+
+            <!-- GENDER -->
+
+            <div class="profile-field">
+
+                <span class="field-label">
+                    Gender
+                </span>
+
+                <strong
+                    th:text="${customer.gender != null and customer.gender != ''
+                        ? customer.gender
+                        : 'Not provided'}">
+
+                    Not provided
+
+                </strong>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="profile-field">
+
+                <span class="field-label">
+                    Account Status
+                </span>
+
+                <strong
+                    th:class="${customer.status}
+                        ? 'status active'
+                        : 'status inactive'"
+
+                    th:text="${customer.status}
+                        ? 'Active'
+                        : 'Inactive'">
+
+                    Active
+
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ADDRESS
+             ================================================= -->
+
+        <div class="address-section">
+
+            <h2>
+
+                <i class="fa-solid fa-location-dot"></i>
+
+                Delivery Address
+
+            </h2>
+
+
+            <div class="address-card">
+
+                <p
+                    th:if="${customer.address != null and customer.address != ''}"
+                    th:text="${customer.address}">
+                    Address
+                </p>
+
+                <p
+                    th:if="${customer.city != null and customer.city != ''}">
+
+                    <span
+                        th:text="${customer.city}">
+                        City
+                    </span>
+
+                    <span
+                        th:if="${customer.state != null and customer.state != ''}">
+
+                        ,
+                        <span
+                            th:text="${customer.state}">
+                            State
+                        </span>
+
+                    </span>
+
+                </p>
+
+                <p
+                    th:if="${customer.pincode != null and customer.pincode != ''}">
+
+                    Pincode:
+
+                    <strong
+                        th:text="${customer.pincode}">
+                        636001
+                    </strong>
+
+                </p>
+
+               <div class="address-section">
+
+    <h2>
+        <i class="fa-solid fa-location-dot"></i>
+        Delivery Address
+    </h2>
+
+    <div class="address-card">
+
+        <p th:if="${customer.address != null}"
+           th:text="${customer.address}">
+            Address
+        </p>
+
+        <p th:if="${customer.city != null}"
+           th:text="${customer.city}">
+            City
+        </p>
+
+        <p th:if="${customer.state != null}"
+           th:text="${customer.state}">
+            State
+        </p>
+
+        <p th:if="${customer.pincode != null}">
+            Pincode:
+            <strong th:text="${customer.pincode}">
+                000000
+            </strong>
+        </p>
+
+    </div>
+
+</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         QUICK LINKS
+         ================================================= -->
+
+    <div class="quick-links">
+
+        <a th:href="@{/Krishna/orders}">
+
+            <i class="fa-solid fa-box"></i>
+
+            My Orders
+
+        </a>
+
+        <a th:href="@{/Krishna/product}">
+
+            <i class="fa-solid fa-bag-shopping"></i>
+
+            Continue Shopping
+
+        </a>
+
+    </div>
+
+</div>
+
+
+<script
+    th:src="@{/js/profile.js}">
+</script>
+
+</body>
+
+</html>

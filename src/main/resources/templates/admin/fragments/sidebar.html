@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+
+    <!-- =====================================================
+     SRI KRISHNA COLLECTION
+     ADMIN SIDEBAR
+===================================================== -->
+
+    <aside class="sidebar" th:fragment="adminSidebar">
+
+
+        <!-- =================================================
+         SIDEBAR HEADER
+    ================================================== -->
+
+        <div class="sidebar-header">
+
+            <h4>
+
+                <i class="fa-solid fa-crown"></i>
+
+                SRI KRISHNA
+
+            </h4>
+
+            <span class="sidebar-subtitle">
+                COLLECTION
+            </span>
+
+        </div>
+
+
+        <!-- =================================================
+         MENU SCROLL UP
+    ================================================== -->
+
+        <button type="button" class="menu-scroll-btn" id="menuScrollUp" title="Scroll Up">
+
+            <i class="fa-solid fa-chevron-up"></i>
+
+        </button>
+
+
+        <!-- =================================================
+         NAVIGATION
+    ================================================== -->
+
+        <nav class="sidebar-menu" id="sidebarMenu">
+
+
+            <!-- =============================================
+             MAIN
+        ============================================== -->
+
+            <div class="menu-section-title">
+
+                MAIN
+
+            </div>
+
+
+            <!-- DASHBOARD -->
+
+            <a th:href="@{/admin/dashboard}" class="sidebar-link">
+
+                <i class="fa-solid fa-house"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+
+            <!-- =============================================
+             CATALOG
+        ============================================== -->
+
+            <div class="menu-section-title">
+
+                CATALOG
+
+            </div>
+
+
+            <!-- CATEGORIES -->
+
+            <a th:href="@{/admin/categories}" class="sidebar-link">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                <span>
+                    Categories
+                </span>
+
+            </a>
+
+
+            <!-- PRODUCTS -->
+
+            <a th:href="@{/admin/products}" class="sidebar-link">
+
+                <i class="fa-solid fa-shirt"></i>
+
+                <span>
+                    Products
+                </span>
+
+            </a>
+
+
+
+            <!-- =============================================
+             CUSTOMERS
+        ============================================== -->
+
+            <div class="menu-section-title">
+
+                CUSTOMERS
+
+            </div>
+
+
+            <!-- CUSTOMER MANAGEMENT -->
+
+            <a th:href="@{/admin/customers}" class="sidebar-link">
+
+                <i class="fa-solid fa-users"></i>
+
+                <span>
+                    Customers
+                </span>
+
+            </a>
+
+
+
+            <!-- =============================================
+             SALES
+        ============================================== -->
+
+            <div class="menu-section-title">
+
+                SALES
+
+            </div>
+
+
+            <!-- ORDERS -->
+
+            <a th:href="@{/admin/orders}" class="sidebar-link">
+
+                <i class="fa-solid fa-box"></i>
+
+                <span>
+                    Orders
+                </span>
+
+            </a>
+
+
+            <!-- PAYMENTS -->
+
+            <a th:href="@{/admin/payments}" class="sidebar-link">
+
+                <i class="fa-solid fa-credit-card"></i>
+
+                <span>
+                    Payments
+                </span>
+
+            </a>
+
+
+
+            <!-- =============================================
+             ANALYTICS
+        ============================================== -->
+
+            <div class="menu-section-title">
+
+                ANALYTICS
+
+            </div>
+
+
+            <!-- REPORTS -->
+
+            <a th:href="@{/admin/inventory}" class="sidebar-link">
+
+                <i class="fa-solid fa-boxes-stacked"></i>
+
+                <span>
+                    Inventory
+                </span>
+
+            </a>
+
+            <a th:href="@{/admin/payment-report}" class="sidebar-link">
+
+                <i class="fa-solid fa-file-invoice-dollar"></i>
+
+                <span>
+                    Payment Report
+                </span>
+
+            </a>
+
+            <a th:href="@{/admin/report}" class="sidebar-link">
+
+                <i class="fa-solid fa-file-lines"></i>
+
+                <span>
+                    Admin Report
+                </span>
+
+            </a>
+
+            <a th:href="@{/admin/reports}" class="sidebar-link">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <!-- =================================================
+         MENU SCROLL DOWN
+    ================================================== -->
+
+        <button type="button" class="menu-scroll-btn" id="menuScrollDown" title="Scroll Down">
+
+            <i class="fa-solid fa-chevron-down"></i>
+
+        </button>
+
+
+
+        <!-- =================================================
+         SIDEBAR FOOTER
+    ================================================== -->
+
+        <div class="sidebar-footer">
+
+
+            <!-- ADMIN STATUS -->
+
+            <div class="sidebar-admin-status">
+
+                <span class="sidebar-status-dot"></span>
+
+                <div>
+
+                    <strong>
+                        Administrator
+                    </strong>
+
+                    <small>
+                        System Online
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROFILE -->
+
+            <a th:href="@{/admin/profile}" class="sidebar-link sidebar-footer-link">
+
+                <i class="fa-solid fa-user"></i>
+
+                <span>Profile</span>
+
+            </a>
+
+            <a th:href="@{/admin/settings}" class="sidebar-link sidebar-footer-link">
+
+                <i class="fa-solid fa-gear"></i>
+
+                <span>Settings</span>
+
+            </a>
+
+            <!-- LOGOUT -->
+
+            <a th:href="@{/admin/logout}" class="sidebar-logout">
+
+                <i class="fa-solid fa-right-from-bracket"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- =================================================
+         BACK BUTTON
+    ================================================== -->
+
+        <div class="sidebar-back">
+
+            <button type="button" class="back-btn" onclick="goBack()">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Back
+
+            </button>
+
+        </div>
+
+
+    </aside>
+
+</body>
+
+</html>

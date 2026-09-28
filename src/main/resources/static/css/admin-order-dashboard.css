@@ -1,0 +1,1499 @@
+/* =========================================================
+   SRI KRISHNA COLLECTION
+   ADMIN ORDER MANAGEMENT
+   COMPLETE STYLESHEET
+========================================================= */
+
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+    --primary: #176b68;
+    --primary-dark: #0e4d4b;
+
+    --gold: #c89b3c;
+
+    --cream: #faf8f2;
+    --white: #ffffff;
+
+    --text: #292929;
+    --dark-text: #173f3d;
+
+    --muted: #777777;
+
+    --border: #ddd8cd;
+
+    --danger: #a33a3a;
+    --success: #26755e;
+
+    --blue: #2d6682;
+    --purple: #7252a3;
+    --orange: #a97a22;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    margin: 0;
+
+    background: var(--cream);
+
+    color: var(--text);
+
+    font-family: 'Jost', sans-serif;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+button,
+input,
+select {
+    font-family: 'Jost', sans-serif;
+}
+
+
+.container {
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.admin-header {
+    background: var(--white);
+
+    border-bottom: 1px solid var(--border);
+
+    padding: 18px 0;
+}
+
+
+.header-inner {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.brand {
+    display: inline-block;
+
+    text-decoration: none;
+}
+
+
+.brand small {
+    display: block;
+
+    color: var(--gold);
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+}
+
+
+.brand strong {
+    display: block;
+
+    color: var(--primary);
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 18px;
+
+    letter-spacing: 1px;
+}
+
+
+.admin-label {
+    color: var(--muted);
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    letter-spacing: 1px;
+}
+
+
+/* =========================================================
+   MAIN PAGE
+========================================================= */
+
+.admin-page {
+    width: 100%;
+
+    padding: 40px 0 70px;
+}
+
+
+.page-header {
+    margin-bottom: 28px;
+}
+
+
+.page-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--gold);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+
+.page-header h1 {
+    margin: 0;
+
+    color: var(--primary);
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 32px;
+
+    font-weight: 600;
+
+    line-height: 1.2;
+}
+
+
+.page-header p {
+    margin: 8px 0 0;
+
+    color: var(--muted);
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   DASHBOARD GRID
+========================================================= */
+
+.dashboard-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 18px;
+
+    margin: 0 0 30px;
+
+    padding: 0;
+}
+
+
+/* =========================================================
+   DASHBOARD CARD
+========================================================= */
+
+.dashboard-card {
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 145px;
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 22px;
+
+    overflow: hidden;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.06);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.11);
+
+    border-color: #c8c0b2;
+}
+
+
+/* =========================================================
+   DASHBOARD ICON
+========================================================= */
+
+.dashboard-icon {
+    width: 54px;
+
+    height: 54px;
+
+    min-width: 54px;
+
+    min-height: 54px;
+
+    flex: 0 0 54px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 13px;
+
+    font-size: 20px;
+
+    opacity: 1 !important;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   DASHBOARD CONTENT
+========================================================= */
+
+.dashboard-content {
+    flex: 1;
+
+    min-width: 0;
+
+    position: relative;
+
+    z-index: 2;
+}
+
+
+/* =========================================================
+   DASHBOARD LABEL
+========================================================= */
+
+.dashboard-content > span {
+    display: block;
+
+    width: 100%;
+
+    margin: 0 0 6px;
+
+    color: #444444 !important;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    line-height: 1.3;
+
+    letter-spacing: 1.2px;
+
+    white-space: nowrap;
+
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   DASHBOARD NUMBER
+========================================================= */
+
+.dashboard-content strong {
+    display: block;
+
+    width: 100%;
+
+    margin: 0;
+
+    color: var(--dark-text) !important;
+
+    font-size: 27px;
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   DASHBOARD DESCRIPTION
+========================================================= */
+
+.dashboard-content small {
+    display: block;
+
+    width: 100%;
+
+    margin-top: 5px;
+
+    color: #777777 !important;
+
+    font-size: 9px;
+
+    font-weight: 500;
+
+    line-height: 1.3;
+
+    white-space: nowrap;
+
+    opacity: 1 !important;
+}
+
+
+/* =========================================================
+   TOTAL ORDERS
+========================================================= */
+
+.total-card {
+    border-top: 3px solid var(--primary);
+}
+
+
+.total-card .dashboard-icon {
+    color: var(--primary) !important;
+
+    background: #e3f1ef !important;
+}
+
+
+/* =========================================================
+   TODAY ORDERS
+========================================================= */
+
+.today-card {
+    border-top: 3px solid var(--blue);
+}
+
+
+.today-card .dashboard-icon {
+    color: var(--blue) !important;
+
+    background: #e5eff5 !important;
+}
+
+
+/* =========================================================
+   PENDING
+========================================================= */
+
+.pending-card {
+    border-top: 3px solid var(--orange);
+}
+
+
+.pending-card .dashboard-icon {
+    color: var(--orange) !important;
+
+    background: #f8efd9 !important;
+}
+
+
+/* =========================================================
+   SHIPPED
+========================================================= */
+
+.shipped-card {
+    border-top: 3px solid var(--purple);
+}
+
+
+.shipped-card .dashboard-icon {
+    color: var(--purple) !important;
+
+    background: #eee8f7 !important;
+}
+
+
+/* =========================================================
+   DELIVERED
+========================================================= */
+
+.delivered-card {
+    border-top: 3px solid var(--success);
+}
+
+
+.delivered-card .dashboard-icon {
+    color: var(--success) !important;
+
+    background: #e4f2ec !important;
+}
+
+
+/* =========================================================
+   CANCELLED
+========================================================= */
+
+.cancelled-card {
+    border-top: 3px solid var(--danger);
+}
+
+
+.cancelled-card .dashboard-icon {
+    color: var(--danger) !important;
+
+    background: #f7e6e6 !important;
+}
+
+
+/* =========================================================
+   TOTAL REVENUE
+========================================================= */
+
+.revenue-card {
+    border-top: 3px solid #b08325;
+}
+
+
+.revenue-card .dashboard-icon {
+    color: #b08325 !important;
+
+    background: #f8efd9 !important;
+}
+
+
+/* =========================================================
+   TODAY REVENUE
+========================================================= */
+
+.today-revenue-card {
+    border-top: 3px solid var(--primary);
+}
+
+
+.today-revenue-card .dashboard-icon {
+    color: var(--primary) !important;
+
+    background: #e3f1ef !important;
+}
+
+
+/* =========================================================
+   SEARCH + FILTER CARD
+========================================================= */
+
+.filter-card {
+    width: 100%;
+
+    margin-bottom: 24px;
+
+    padding: 22px;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, .04);
+}
+
+
+/* =========================================================
+   FILTER TOP ROW
+========================================================= */
+
+.filter-top-row {
+    display: flex;
+
+    align-items: flex-end;
+
+    gap: 15px;
+}
+
+
+.search-area {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.clear-area {
+    flex: 0 0 auto;
+}
+
+
+/* =========================================================
+   FILTER LABEL
+========================================================= */
+
+.filter-label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.8px;
+}
+
+
+/* =========================================================
+   SEARCH BOX
+========================================================= */
+
+.search-box {
+    position: relative;
+
+    width: 100%;
+}
+
+
+.search-box i {
+    position: absolute;
+
+    top: 50%;
+
+    left: 15px;
+
+    transform: translateY(-50%);
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+    pointer-events: none;
+}
+
+
+.search-box input {
+    width: 100%;
+
+    height: 45px;
+
+    padding: 0 15px 0 40px;
+
+    color: var(--text);
+
+    background: #fcfbf8;
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-size: 10px;
+
+    transition: all .3s ease;
+}
+
+
+.search-box input:focus {
+    background: var(--white);
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 0 0 4px
+        rgba(23, 107, 104, .07);
+}
+
+
+.search-box input::placeholder {
+    color: #aaa;
+}
+
+
+/* =========================================================
+   CLEAR BUTTON
+========================================================= */
+
+.clear-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    height: 45px;
+
+    padding: 0 17px;
+
+    color: var(--muted);
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 7px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    transition: all .3s ease;
+}
+
+
+.clear-button:hover {
+    color: var(--danger);
+
+    border-color: var(--danger);
+
+    background: #fff8f8;
+}
+
+
+/* =========================================================
+   STATUS FILTER
+========================================================= */
+
+.status-filter-section {
+    margin-top: 22px;
+
+    padding-top: 19px;
+
+    border-top: 1px solid var(--border);
+}
+
+
+.status-filter-header {
+    margin-bottom: 12px;
+}
+
+
+.status-filter-header small {
+    display: block;
+
+    margin-top: -4px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   STATUS PILLS
+========================================================= */
+
+.status-pills {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+}
+
+
+.status-pill {
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    min-height: 38px;
+
+    padding: 0 15px;
+
+    color: var(--muted);
+
+    background: #fcfbf8;
+
+    border: 1px solid var(--border);
+
+    border-radius: 30px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        border-color .25s ease,
+        color .25s ease,
+        box-shadow .25s ease;
+}
+
+
+.status-pill:hover {
+    color: var(--primary);
+
+    border-color: var(--primary);
+
+    transform: translateY(-2px);
+}
+
+
+.status-pill.active {
+    color: var(--white);
+
+    background: var(--primary);
+
+    border-color: var(--primary);
+
+    box-shadow:
+        0 6px 18px
+        rgba(23, 107, 104, .18);
+}
+
+
+.status-pill.active:hover {
+    color: var(--white);
+
+    background: var(--primary-dark);
+
+    border-color: var(--primary-dark);
+}
+
+
+/* =========================================================
+   STATUS DOT
+========================================================= */
+
+.status-dot {
+    width: 7px;
+
+    height: 7px;
+
+    flex: 0 0 7px;
+
+    border-radius: 50%;
+}
+
+
+.all-dot {
+    background: #777777;
+}
+
+
+.placed-dot {
+    background: var(--primary);
+}
+
+
+.confirmed-dot {
+    background: var(--blue);
+}
+
+
+.packed-dot {
+    background: var(--orange);
+}
+
+
+.shipped-dot {
+    background: var(--purple);
+}
+
+
+.delivered-dot {
+    background: var(--success);
+}
+
+
+.cancelled-dot {
+    background: var(--danger);
+}
+
+
+.status-pill.active .status-dot {
+    background: var(--gold);
+}
+
+
+/* =========================================================
+   ORDERS CARD
+========================================================= */
+
+.orders-card {
+    width: 100%;
+
+    overflow: hidden;
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, .04);
+}
+
+
+/* =========================================================
+   ORDERS HEADER
+========================================================= */
+
+.orders-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+
+.orders-card-header h2 {
+    margin: 0;
+
+    color: var(--primary);
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 17px;
+
+    font-weight: 600;
+}
+
+
+.orders-count {
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.orders-table {
+    width: 100%;
+
+    min-width: 950px;
+
+    margin: 0;
+
+    border-collapse: collapse;
+}
+
+
+.orders-table thead th {
+    padding: 14px 16px;
+
+    color: var(--muted);
+
+    background: #fcfbf8;
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.2px;
+
+    white-space: nowrap;
+}
+
+
+.orders-table tbody td {
+    padding: 16px;
+
+    color: var(--text);
+
+    border-bottom: 1px solid var(--border);
+
+    vertical-align: middle;
+
+    font-size: 10px;
+}
+
+
+.orders-table tbody tr {
+    transition: background .2s ease;
+}
+
+
+.orders-table tbody tr:hover {
+    background: #fcfbf8;
+}
+
+
+.orders-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+/* =========================================================
+   ORDER NUMBER
+========================================================= */
+
+.order-number {
+    color: var(--primary);
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   CUSTOMER
+========================================================= */
+
+.customer-info strong {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.customer-info span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   ORDER DATE
+========================================================= */
+
+.order-date {
+    color: var(--text);
+
+    white-space: nowrap;
+}
+
+
+.order-time {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   AMOUNT
+========================================================= */
+
+.amount {
+    color: var(--primary);
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
+.payment-method {
+    display: block;
+
+    color: var(--text);
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.payment-status {
+    display: block;
+
+    margin-top: 3px;
+
+    color: var(--muted);
+
+    font-size: 8px;
+}
+
+
+/* =========================================================
+   STATUS BADGE
+========================================================= */
+
+.status-badge {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 85px;
+
+    padding: 6px 10px;
+
+    border-radius: 30px;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    letter-spacing: .5px;
+}
+
+
+.status-placed {
+    color: var(--primary);
+
+    background: #e3f1ef;
+}
+
+
+.status-confirmed {
+    color: var(--blue);
+
+    background: #e5eff5;
+}
+
+
+.status-packed {
+    color: var(--orange);
+
+    background: #f8efd9;
+}
+
+
+.status-shipped {
+    color: var(--purple);
+
+    background: #eee8f7;
+}
+
+
+.status-delivered {
+    color: var(--success);
+
+    background: #e4f2ec;
+}
+
+
+.status-cancelled {
+    color: var(--danger);
+
+    background: #f7e6e6;
+}
+
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.view-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    min-height: 34px;
+
+    padding: 0 13px;
+
+    color: var(--primary);
+
+    background: var(--white);
+
+    border: 1px solid var(--border);
+
+    border-radius: 6px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    transition: all .3s ease;
+}
+
+
+.view-button:hover {
+    color: var(--white);
+
+    background: var(--primary);
+
+    border-color: var(--primary);
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   EMPTY ORDERS
+========================================================= */
+
+.empty-orders {
+    padding: 70px 20px;
+
+    text-align: center;
+}
+
+
+.empty-orders i {
+    margin-bottom: 15px;
+
+    color: var(--gold);
+
+    font-size: 35px;
+}
+
+
+.empty-orders h3 {
+    margin: 0 0 6px;
+
+    color: var(--primary);
+
+    font-family: 'Cinzel', serif;
+
+    font-size: 18px;
+}
+
+
+.empty-orders p {
+    margin: 0;
+
+    color: var(--muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.admin-footer {
+    padding: 18px 0;
+
+    background: var(--white);
+
+    border-top: 1px solid var(--border);
+
+    color: var(--muted);
+
+    font-size: 9px;
+}
+
+
+.footer-inner {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+/* =========================================================
+   RESPONSIVE - LARGE TABLET
+========================================================= */
+
+@media (max-width: 1199px) {
+
+    .dashboard-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .dashboard-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .admin-page {
+        padding: 30px 0 50px;
+    }
+
+
+    .page-header h1 {
+        font-size: 27px;
+    }
+
+
+    .filter-top-row {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .clear-area {
+        width: 100%;
+    }
+
+
+    .clear-button {
+        width: 100%;
+    }
+
+
+    .dashboard-card {
+        min-height: 125px;
+
+        padding: 16px;
+
+        gap: 12px;
+    }
+
+
+    .dashboard-icon {
+        width: 45px;
+
+        height: 45px;
+
+        min-width: 45px;
+
+        min-height: 45px;
+
+        flex-basis: 45px;
+
+        font-size: 17px;
+    }
+
+
+    .dashboard-content > span {
+        font-size: 8px;
+    }
+
+
+    .dashboard-content strong {
+        font-size: 22px;
+    }
+
+
+    .dashboard-content small {
+        font-size: 8px;
+    }
+
+
+    .status-pills {
+        gap: 7px;
+    }
+
+
+    .status-pill {
+        min-height: 36px;
+
+        padding: 0 12px;
+    }
+
+
+    .orders-card-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 6px;
+    }
+
+
+    .footer-inner {
+        align-items: center;
+
+        flex-direction: column;
+
+        gap: 5px;
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - SMALL MOBILE
+========================================================= */
+
+@media (max-width: 500px) {
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .dashboard-card {
+        min-height: 120px;
+    }
+
+/* =========================================================
+   DASHBOARD BOOTSTRAP OVERRIDE
+========================================================= */
+
+.dashboard-grid {
+    display: grid !important;
+
+    width: 100% !important;
+
+    max-width: 100% !important;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr)) !important;
+
+    gap: 18px !important;
+
+    margin: 0 0 30px 0 !important;
+
+    padding: 0 !important;
+}
+
+
+.dashboard-grid .dashboard-card {
+    width: 100% !important;
+
+    max-width: none !important;
+
+    min-width: 0 !important;
+
+    margin: 0 !important;
+
+    float: none !important;
+
+    position: relative !important;
+}
+
+
+.dashboard-grid .dashboard-content {
+    width: auto !important;
+
+    max-width: none !important;
+
+    flex: 1 1 auto !important;
+}
+
+
+.dashboard-grid .dashboard-icon {
+    flex: 0 0 54px !important;
+}
+
+
+@media (max-width: 1199px) {
+
+    .dashboard-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr)) !important;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .dashboard-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr)) !important;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .dashboard-grid {
+        grid-template-columns:
+            1fr !important;
+    }
+
+}}

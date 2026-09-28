@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title th:text="${pageTitle + ' | Sri Krishna Collection'}">
+        Category
+    </title>
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
+    <link rel="stylesheet" th:href="@{/css/admin-categories.css}">
+
+<link rel="stylesheet" th:href="@{/css/admin-back.css}"></head>
+
+
+<body>
+
+
+    <header class="admin-header">
+
+        <div class="page-container">
+
+            <div class="header-inner">
+
+                <a th:href="@{/admin/categories}" class="brand">
+
+                    <small>
+                        SRI KRISHNA
+                    </small>
+
+                    <strong>
+                        COLLECTION
+                    </strong>
+
+                </a>
+
+
+                <a th:href="@{/admin/categories}" class="back-link">
+
+                    <i class="fa-solid fa-arrow-left"></i>
+
+                    Categories
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+
+    <main class="category-page">
+
+        <div class="page-container">
+
+
+            <div class="form-page-header">
+
+                <span class="page-label">
+                    CATEGORY MANAGEMENT
+                </span>
+
+                <h1 th:text="${pageTitle}">
+                    Add Category
+                </h1>
+
+                <p>
+                    Create or update a product category.
+                </p>
+
+            </div>
+
+
+
+            <!-- ERROR -->
+
+            <div th:if="${error}" class="alert-message error-message">
+
+                <i class="fa-solid fa-circle-exclamation"></i>
+
+                <span th:text="${error}">
+                    Error
+                </span>
+
+            </div>
+
+
+
+            <div class="category-form-card">
+
+                <form th:action="@{/admin/categories/save}" th:object="${category}" method="post"
+                    enctype="multipart/form-data">
+
+                    <input type="hidden" th:field="*{id}">
+
+
+                    <!-- CATEGORY NAME -->
+
+                    <div class="form-group">
+
+                        <label for="name">
+                            CATEGORY NAME
+                        </label>
+
+                        <input type="text" id="name" th:field="*{name}" placeholder="Example: Sarees" maxlength="100"
+                            required>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group">
+
+                        <label for="description">
+                            DESCRIPTION
+                        </label>
+
+                        <textarea id="description" th:field="*{description}" placeholder="Enter category description"
+                            maxlength="500" rows="5"></textarea>
+
+                    </div>
+
+
+                    <!-- IMAGE -->
+
+                    <div class="form-group">
+
+                        <label for="imageFile">
+                            CATEGORY IMAGE
+                        </label>
+
+                        <input type="file" id="imageFile" name="imageFile"
+                            accept="image/png,image/jpeg,image/jpg,image/webp">
+
+                        <small>
+                            JPG, JPEG, PNG or WEBP
+                        </small>
+
+                    </div>
+
+
+                    <!-- CURRENT IMAGE -->
+
+                    <div class="current-image" th:if="${category.image != null and category.image != ''}">
+
+                        <p>
+                            Current Image
+                        </p>
+
+                        <img th:src="@{'/category-images/' + ${category.image}}" alt="Category Image">
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="form-group">
+
+                        <label>
+                            STATUS
+                        </label>
+
+                        <div class="status-select">
+
+                            <label class="radio-option">
+
+                                <input type="radio" th:field="*{status}" th:value="true">
+
+                                <span>
+                                    Active
+                                </span>
+
+                            </label>
+
+
+                            <label class="radio-option">
+
+                                <input type="radio" th:field="*{status}" th:value="false">
+
+                                <span>
+                                    Inactive
+                                </span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="form-actions">
+
+                        <a th:href="@{/admin/categories}" class="cancel-button">
+
+                            Cancel
+
+                        </a>
+
+                        <button type="submit" class="save-button">
+
+                            <i class="fa-solid fa-check"></i>
+
+                            Save Category
+
+                        </button>
+
+                    </div>
+
+                </form>
+
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+<script th:src="@{/js/admin-back.js}"></script></body>
+
+</html>
