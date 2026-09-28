@@ -3,12 +3,12 @@ package com.example.srikrishna.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import com.example.srikrishna.Repository.OrderRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.srikrishna.Repository.OrderRepository;
 import com.example.srikrishna.Service.CustomerService;
 import com.example.srikrishna.Service.ProductService;
 
@@ -18,246 +18,231 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 public class AdminAuthController {
 
-    /*
-     * BCrypt hash of:
-     *
-     * Admin@123
-     */
-    private static final String ADMIN_PASSWORD =
-            "$2a$10$p5ZEhQQiyWDraTY.ZyKQROhgJxelbjWZtuks4XN7Cig/HFSQQqP/6";
+        /*
+         * BCrypt hash of:
+         *
+         * Admin@123
+         */
+        private static final String ADMIN_PASSWORD = "$2a$10$p5ZEhQQiyWDraTY.ZyKQROhgJxelbjWZtuks4XN7Cig/HFSQQqP/6";
 
-    private static final String ADMIN_USERNAME = "admin";
+        private static final String ADMIN_USERNAME = "admin";
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+        @Autowired
+        private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private CustomerService customerService;
+        @Autowired
+        private CustomerService customerService;
 
-    @Autowired
-    private ProductService productService;
+        @Autowired
+        private ProductService productService;
 
-    @AutoWired
-    private final OrderRepository orderRepository;
-    public AdminAuthController(
-        CustomerService customerService,
-        ProductService productService,
-        OrderRepository orderRepository
-) {
-    this.customerService = customerService;
-    this.productService = productService;
-    this.orderRepository = orderRepository;
-}
+        @Autowired
+        private final OrderRepository orderRepository;
 
-    // =========================================================
-    // ADMIN LOGIN PAGE
-    // =========================================================
-
-    @GetMapping("/admin/login")
-    public String adminLoginPage() {
-
-        return "admin/login";
-    }
-
-
-    // =========================================================
-    // ADMIN LOGIN
-    // =========================================================
-
-    @PostMapping("/admin/login")
-    public String adminLogin(
-            @RequestParam("username") String username,
-            @RequestParam("password") String password,
-            HttpServletRequest request,
-            Model model) {
-
-        // ---------------------------------------------------------
-        // CHECK USERNAME
-        // ---------------------------------------------------------
-
-        if (!ADMIN_USERNAME.equals(username)) {
-
-            model.addAttribute(
-                    "error",
-                    "Invalid username or password");
-
-            return "admin/login";
+        public AdminAuthController(
+                        CustomerService customerService,
+                        ProductService productService,
+                        OrderRepository orderRepository) {
+                this.customerService = customerService;
+                this.productService = productService;
+                this.orderRepository = orderRepository;
         }
 
-        // ---------------------------------------------------------
-        // CHECK PASSWORD USING BCrypt
-        // ---------------------------------------------------------
+        // =========================================================
+        // ADMIN LOGIN PAGE
+        // =========================================================
 
-        if (!passwordEncoder.matches(
-                password,
-                ADMIN_PASSWORD)) {
+        @GetMapping("/admin/login")
+        public String adminLoginPage() {
 
-            model.addAttribute(
-                    "error",
-                    "Invalid username or password");
-
-            return "admin/login";
+                return "admin/login";
         }
 
-        // ---------------------------------------------------------
-        // SESSION FIXATION PROTECTION
-        // ---------------------------------------------------------
+        // =========================================================
+        // ADMIN LOGIN
+        // =========================================================
 
-        HttpSession oldSession =
-                request.getSession(false);
+        @PostMapping("/admin/login")
+        public String adminLogin(
+                        @RequestParam("username") String username,
+                        @RequestParam("password") String password,
+                        HttpServletRequest request,
+                        Model model) {
 
-        if (oldSession != null) {
-            oldSession.invalidate();
+                // ---------------------------------------------------------
+                // CHECK USERNAME
+                // ---------------------------------------------------------
+
+                if (!ADMIN_USERNAME.equals(username)) {
+
+                        model.addAttribute(
+                                        "error",
+                                        "Invalid username or password");
+
+                        return "admin/login";
+                }
+
+                // ---------------------------------------------------------
+                // CHECK PASSWORD USING BCrypt
+                // ---------------------------------------------------------
+
+                if (!passwordEncoder.matches(
+                                password,
+                                ADMIN_PASSWORD)) {
+
+                        model.addAttribute(
+                                        "error",
+                                        "Invalid username or password");
+
+                        return "admin/login";
+                }
+
+                // ---------------------------------------------------------
+                // SESSION FIXATION PROTECTION
+                // ---------------------------------------------------------
+
+                HttpSession oldSession = request.getSession(false);
+
+                if (oldSession != null) {
+                        oldSession.invalidate();
+                }
+
+                HttpSession session = request.getSession(true);
+
+                // ---------------------------------------------------------
+                // CREATE ADMIN SESSION
+                // ---------------------------------------------------------
+
+                session.setAttribute(
+                                "loggedInAdmin",
+                                username);
+
+                session.setAttribute(
+                                "adminAuthenticated",
+                                true);
+
+                session.setAttribute(
+                                "role",
+                                "ADMIN");
+
+                // ---------------------------------------------------------
+                // REDIRECT TO DASHBOARD
+                // ---------------------------------------------------------
+
+                return "redirect:/admin/dashboard";
         }
 
-        HttpSession session =
-                request.getSession(true);
+        // =========================================================
+        // ADMIN DASHBOARD
+        // =========================================================
+        @GetMapping("/admin/dashboard")
+        public String adminDashboard(
+                        HttpSession session,
+                        Model model) {
 
-        // ---------------------------------------------------------
-        // CREATE ADMIN SESSION
-        // ---------------------------------------------------------
+                // ---------------------------------------------------------
+                // CHECK ADMIN SESSION
+                // ---------------------------------------------------------
 
-        session.setAttribute(
-                "loggedInAdmin",
-                username);
+                Object admin = session.getAttribute("loggedInAdmin");
 
-        session.setAttribute(
-                "adminAuthenticated",
-                true);
+                if (admin == null) {
+                        return "redirect:/admin/login";
+                }
 
-        session.setAttribute(
-                "role",
-                "ADMIN");
+                // ---------------------------------------------------------
+                // CUSTOMER COUNT
+                // ---------------------------------------------------------
 
-        // ---------------------------------------------------------
-        // REDIRECT TO DASHBOARD
-        // ---------------------------------------------------------
+                long customerCount = customerService
+                                .getAllCustomers()
+                                .size();
 
-        return "redirect:/admin/dashboard";
-    }
+                // ---------------------------------------------------------
+                // PRODUCT DATA
+                // ---------------------------------------------------------
 
+                var products = productService.getAllProducts();
 
-    // =========================================================
-    // ADMIN DASHBOARD
-    // =========================================================
-    @GetMapping("/admin/dashboard")
-public String adminDashboard(
-        HttpSession session,
-        Model model) {
+                // ---------------------------------------------------------
+                // PRODUCT COUNT
+                // ---------------------------------------------------------
 
-    // ---------------------------------------------------------
-    // CHECK ADMIN SESSION
-    // ---------------------------------------------------------
+                long productCount = products.size();
 
-    Object admin =
-            session.getAttribute("loggedInAdmin");
+                // ---------------------------------------------------------
+                // LOW STOCK COUNT
+                // ---------------------------------------------------------
 
-    if (admin == null) {
-        return "redirect:/admin/login";
-    }
+                long lowStockCount = products.stream()
+                                .filter(product -> product.getStock() != null
+                                                && product.getStock() < 2)
+                                .count();
 
-    // ---------------------------------------------------------
-    // CUSTOMER COUNT
-    // ---------------------------------------------------------
+                // ---------------------------------------------------------
+                // ORDER COUNT
+                // ---------------------------------------------------------
 
-    long customerCount =
-            customerService
-                    .getAllCustomers()
-                    .size();
+                long orderCount = orderRepository.count();
 
-    // ---------------------------------------------------------
-    // PRODUCT DATA
-    // ---------------------------------------------------------
+                // ---------------------------------------------------------
+                // TOTAL REVENUE
+                // ---------------------------------------------------------
 
-    var products =
-            productService.getAllProducts();
+                double totalRevenue = orderRepository.findAll()
+                                .stream()
+                                .filter(order -> order.getTotalAmount() != null)
+                                .mapToDouble(order -> order.getTotalAmount())
+                                .sum();
 
-    // ---------------------------------------------------------
-    // PRODUCT COUNT
-    // ---------------------------------------------------------
+                // ---------------------------------------------------------
+                // SEND DATA TO THYMELEAF
+                // ---------------------------------------------------------
 
-    long productCount =
-            products.size();
+                model.addAttribute(
+                                "customerCount",
+                                customerCount);
 
-    // ---------------------------------------------------------
-    // LOW STOCK COUNT
-    // ---------------------------------------------------------
+                model.addAttribute(
+                                "productCount",
+                                productCount);
 
-    long lowStockCount =
-            products.stream()
-                    .filter(product ->
-                            product.getStock() != null
-                            && product.getStock() < 2)
-                    .count();
+                model.addAttribute(
+                                "orderCount",
+                                orderCount);
 
-    // ---------------------------------------------------------
-    // ORDER COUNT
-    // ---------------------------------------------------------
+                model.addAttribute(
+                                "totalRevenue",
+                                totalRevenue);
 
-    long orderCount =
-            orderRepository.count();
+                model.addAttribute(
+                                "lowStockCount",
+                                lowStockCount);
 
-    // ---------------------------------------------------------
-    // TOTAL REVENUE
-    // ---------------------------------------------------------
+                model.addAttribute(
+                                "products",
+                                products);
 
-    double totalRevenue =
-            orderRepository.findAll()
-                    .stream()
-                    .filter(order ->
-                            order.getTotalAmount() != null)
-                    .mapToDouble(order ->
-                            order.getTotalAmount())
-                    .sum();
+                model.addAttribute(
+                                "adminUsername",
+                                admin);
 
-    // ---------------------------------------------------------
-    // SEND DATA TO THYMELEAF
-    // ---------------------------------------------------------
-
-    model.addAttribute(
-            "customerCount",
-            customerCount);
-
-    model.addAttribute(
-            "productCount",
-            productCount);
-
-    model.addAttribute(
-            "orderCount",
-            orderCount);
-
-    model.addAttribute(
-            "totalRevenue",
-            totalRevenue);
-
-    model.addAttribute(
-            "lowStockCount",
-            lowStockCount);
-
-    model.addAttribute(
-            "products",
-            products);
-
-    model.addAttribute(
-            "adminUsername",
-            admin);
-
-    return "admin/dashboard";
-}
-
-    // =========================================================
-    // ADMIN LOGOUT
-    // =========================================================
-
-    @GetMapping("/admin/logout")
-    public String adminLogout(
-            HttpSession session) {
-
-        if (session != null) {
-
-            session.invalidate();
+                return "admin/dashboard";
         }
 
-        return "redirect:/admin/login?logout=success";
-    }
+        // =========================================================
+        // ADMIN LOGOUT
+        // =========================================================
+
+        @GetMapping("/admin/logout")
+        public String adminLogout(
+                        HttpSession session) {
+
+                if (session != null) {
+
+                        session.invalidate();
+                }
+
+                return "redirect:/admin/login?logout=success";
+        }
 }
