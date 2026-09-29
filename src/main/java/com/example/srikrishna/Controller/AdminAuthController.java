@@ -128,86 +128,110 @@ public class AdminAuthController {
     // =========================================================
     // ADMIN DASHBOARD
     // =========================================================
-
     @GetMapping("/admin/dashboard")
-    public String adminDashboard(
-            HttpSession session,
-            Model model) {
+public String adminDashboard(
+        HttpSession session,
+        Model model) {
 
-        // ---------------------------------------------------------
-        // CHECK ADMIN SESSION
-        // ---------------------------------------------------------
+    // ---------------------------------------------------------
+    // CHECK ADMIN SESSION
+    // ---------------------------------------------------------
 
-        Object admin =
-                session.getAttribute("loggedInAdmin");
+    Object admin =
+            session.getAttribute("loggedInAdmin");
 
-        if (admin == null) {
-
-            return "redirect:/admin/login";
-        }
-
-        // ---------------------------------------------------------
-        // CUSTOMER COUNT
-        // ---------------------------------------------------------
-
-        long customerCount =
-                customerService
-                        .getAllCustomers()
-                        .size();
-
-        // ---------------------------------------------------------
-        // PRODUCT DATA
-        // ---------------------------------------------------------
-
-        var products =
-                productService.getAllProducts();
-
-        // ---------------------------------------------------------
-        // PRODUCT COUNT
-        // ---------------------------------------------------------
-
-        long productCount =
-                products.size();
-
-        // ---------------------------------------------------------
-        // LOW STOCK COUNT
-        // Stock below 2
-        // ---------------------------------------------------------
-
-        long lowStockCount =
-                products.stream()
-                        .filter(product ->
-                                product.getStock() != null
-                                && product.getStock() < 2)
-                        .count();
-
-        // ---------------------------------------------------------
-        // SEND DATA TO THYMELEAF
-        // ---------------------------------------------------------
-
-        model.addAttribute(
-                "customerCount",
-                customerCount);
-
-        model.addAttribute(
-                "productCount",
-                productCount);
-
-        model.addAttribute(
-                "lowStockCount",
-                lowStockCount);
-
-        model.addAttribute(
-                "products",
-                products);
-
-        model.addAttribute(
-                "adminUsername",
-                admin);
-
-        return "admin/dashboard";
+    if (admin == null) {
+        return "redirect:/admin/login";
     }
 
+    // ---------------------------------------------------------
+    // CUSTOMER COUNT
+    // ---------------------------------------------------------
+
+    long customerCount =
+            customerService
+                    .getAllCustomers()
+                    .size();
+
+    // ---------------------------------------------------------
+    // PRODUCT DATA
+    // ---------------------------------------------------------
+
+    var products =
+            productService.getAllProducts();
+
+    // ---------------------------------------------------------
+    // PRODUCT COUNT
+    // ---------------------------------------------------------
+
+    long productCount =
+            products.size();
+
+    // ---------------------------------------------------------
+    // LOW STOCK COUNT
+    // ---------------------------------------------------------
+
+    long lowStockCount =
+            products.stream()
+                    .filter(product ->
+                            product.getStock() != null
+                            && product.getStock() < 2)
+                    .count();
+
+    // ---------------------------------------------------------
+    // ORDER COUNT
+    // ---------------------------------------------------------
+
+    long orderCount =
+            orderRepository.count();
+
+    // ---------------------------------------------------------
+    // TOTAL REVENUE
+    // ---------------------------------------------------------
+
+    double totalRevenue =
+            orderRepository.findAll()
+                    .stream()
+                    .filter(order ->
+                            order.getTotalAmount() != null)
+                    .mapToDouble(order ->
+                            order.getTotalAmount())
+                    .sum();
+
+    // ---------------------------------------------------------
+    // SEND DATA TO THYMELEAF
+    // ---------------------------------------------------------
+
+    model.addAttribute(
+            "customerCount",
+            customerCount);
+
+    model.addAttribute(
+            "productCount",
+            productCount);
+
+    model.addAttribute(
+            "orderCount",
+            orderCount);
+
+    model.addAttribute(
+            "totalRevenue",
+            totalRevenue);
+
+    model.addAttribute(
+            "lowStockCount",
+            lowStockCount);
+
+    model.addAttribute(
+            "products",
+            products);
+
+    model.addAttribute(
+            "adminUsername",
+            admin);
+
+    return "admin/dashboard";
+}
 
     // =========================================================
     // ADMIN LOGOUT
