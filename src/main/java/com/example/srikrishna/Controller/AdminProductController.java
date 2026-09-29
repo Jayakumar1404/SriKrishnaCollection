@@ -116,15 +116,18 @@ public class AdminProductController {
         // UPLOAD DIRECTORY
         // =========================================
 
-        String uploadDir =
-                "uploads/products/";
+       String uploadDir =
+        System.getProperty("user.dir")
+        + File.separator
+        + "uploads"
+        + File.separator
+        + "products";
 
-        File folder =
-                new File(uploadDir);
+File folder = new File(uploadDir);
 
-        if (!folder.exists()) {
-            folder.mkdirs();
-        }
+if (!folder.exists()) {
+    folder.mkdirs();
+}
 
         // =========================================
         // SAVE PRODUCT
@@ -367,7 +370,7 @@ public class AdminProductController {
         // UPLOAD DIRECTORY
         // =========================================
 
-       String uploadDir =
+    String uploadDir =
         System.getProperty("user.dir")
         + File.separator
         + "uploads"
@@ -379,7 +382,6 @@ File folder = new File(uploadDir);
 if (!folder.exists()) {
     folder.mkdirs();
 }
-
         // =========================================
         // UPDATE PRODUCT
         // =========================================
