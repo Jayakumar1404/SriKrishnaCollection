@@ -106,7 +106,8 @@
 
                     <!-- Admin -->
 
-                    <a th:href="@{/admin/profile}" class="admin-profile" style="text-decoration:none;color:inherit;cursor:pointer;">
+                    <a th:href="@{/admin/profile}" class="admin-profile"
+                        style="text-decoration:none;color:inherit;cursor:pointer;">
 
                         <div class="admin-avatar">
 
@@ -248,8 +249,8 @@
                             </div>
 
 
-                           <div class="stat-value" th:text="${productCount}">
-                            0
+                            <div class="stat-value" th:text="${productCount}">
+                                0
                             </div>
 
 
@@ -343,7 +344,7 @@
 
 
                             <div class="stat-value" th:text="${orderCount}">
-                                              0
+                                0
                             </div>
 
 
@@ -388,10 +389,10 @@
                             </div>
 
 
-                           <div class="stat-value revenue"
-                           th:text="'₹' + ${#numbers.formatDecimal(totalRevenue, 0, 'COMMA', 2, 'POINT')}">
-                        ₹0.00
-                           </div>
+                            <div class="stat-value revenue"
+                                th:text="${'₹' + #numbers.formatDecimal(totalRevenue, 0, 'COMMA', 2, 'POINT')}">
+                                ₹0.00
+                            </div>
 
 
                             <p>

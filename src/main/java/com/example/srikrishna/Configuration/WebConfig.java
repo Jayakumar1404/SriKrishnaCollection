@@ -8,54 +8,34 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
-    public void addResourceHandlers(
-            ResourceHandlerRegistry registry) {
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        // ==============================
-        // CATEGORY IMAGES
-        // ==============================
-
-
-        // ==============================
-        // PRODUCT IMAGES
-        // ==============================
         String uploadPath =
                 System.getProperty("user.dir")
-            + "/uploads/";
+                + "/uploads/";
 
+        // PRODUCT IMAGES
         registry.addResourceHandler("/products/**")
-            .addResourceLocations(
-                    "file:" + uploadPath + "products/"
-            );
+                .addResourceLocations(
+                        "file:" + uploadPath + "products/"
+                );
 
-
-        // ==============================
         // CUSTOMER IMAGES
-        // ==============================
-
         registry.addResourceHandler("/customers/**")
                 .addResourceLocations(
-                        "file:uploads/customers/"
+                        "file:" + uploadPath + "customers/"
                 );
 
-
-        // ==============================
         // BANNER IMAGES
-        // ==============================
-
         registry.addResourceHandler("/banners/**")
                 .addResourceLocations(
-                        "file:uploads/banners/"
+                        "file:" + uploadPath + "banners/"
                 );
 
-
-        // ==============================
         // ADMIN IMAGES
-        // ==============================
-
         registry.addResourceHandler("/admins/**")
                 .addResourceLocations(
-                        "file:uploads/admins/"
+                        "file:" + uploadPath + "admins/"
                 );
     }
 }
