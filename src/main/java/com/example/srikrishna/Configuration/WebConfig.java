@@ -19,11 +19,14 @@ public class WebConfig implements WebMvcConfigurer {
         // ==============================
         // PRODUCT IMAGES
         // ==============================
+        String uploadPath =
+                System.getProperty("user.dir")
+            + "/uploads/";
 
         registry.addResourceHandler("/products/**")
-                .addResourceLocations(
-                        "file:uploads/products/"
-                );
+            .addResourceLocations(
+                    "file:" + uploadPath + "products/"
+            );
 
 
         // ==============================
