@@ -3,6 +3,7 @@ package com.example.srikrishna.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import com.example.srikrishna.Repository.OrderRepository;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,17 @@ public class AdminAuthController {
     @Autowired
     private ProductService productService;
 
+    @AutoWired
+    private final OrderRepository orderRepository;
+    public AdminAuthController(
+        CustomerService customerService,
+        ProductService productService,
+        OrderRepository orderRepository
+) {
+    this.customerService = customerService;
+    this.productService = productService;
+    this.orderRepository = orderRepository;
+}
 
     // =========================================================
     // ADMIN LOGIN PAGE
