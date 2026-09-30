@@ -99,10 +99,7 @@ public class ProductController {
          *
          * No hard-coded categories such as:
          *
-         * Sarees
-         * Chudidar
-         * Lehenga
-         * Kurti
+         
          *
          * are required.
          */
