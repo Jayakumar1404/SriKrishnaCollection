@@ -1369,16 +1369,109 @@ img {
     transition: var(--sk-transition);
 }
 
-.social-links a:hover {
-    background: var(--sk-gold);
+/* =========================================================
+   SOCIAL MEDIA BRAND COLORS
+========================================================= */
 
-    border-color: var(--sk-gold);
-
-    color: var(--sk-green-dark);
-
-    transform: translateY(-4px);
+.social-links a {
+    position: relative;
+    overflow: hidden;
 }
 
+.social-links a i {
+    position: relative;
+    z-index: 2;
+    transition: var(--sk-transition);
+}
+
+
+/* FACEBOOK */
+.social-links .facebook-icon:hover {
+    background: #1877F2;
+    border-color: #1877F2;
+    color: #ffffff;
+    transform: translateY(-5px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(24, 119, 242, 0.35);
+}
+
+
+/* INSTAGRAM */
+.social-links .instagram-icon:hover {
+    background: #E4405F;
+    border-color: #E4405F;
+    color: #ffffff;
+    transform: translateY(-5px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(228, 64, 95, 0.35);
+}
+
+
+/* WHATSAPP */
+.social-links .whatsapp-icon:hover {
+    background: #25D366;
+    border-color: #25D366;
+    color: #ffffff;
+    transform: translateY(-5px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.35);
+}
+
+
+/* YOUTUBE */
+.social-links .youtube-icon:hover {
+    background: #FF0000;
+    border-color: #FF0000;
+    color: #ffffff;
+    transform: translateY(-5px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(255, 0, 0, 0.35);
+}
+
+
+/* =========================================================
+   WHATSAPP COMMUNITY SUBSCRIBE
+========================================================= */
+
+.newsletter-form {
+    display: flex;
+    width: 100%;
+    max-width: 480px;
+}
+
+.whatsapp-subscribe {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    width: 100%;
+
+    padding: 14px 24px;
+
+    border-radius: 8px !important;
+
+    background: #25D366 !important;
+    border: 1px solid #25D366 !important;
+
+    color: #ffffff !important;
+
+    font-weight: 600;
+
+    transition: var(--sk-transition);
+}
+
+.whatsapp-subscribe i {
+    font-size: 19px;
+}
+
+.whatsapp-subscribe:hover {
+    background: #1ebe5d !important;
+    border-color: #1ebe5d !important;
+
+    color: #ffffff !important;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 10px 25px rgba(37, 211, 102, 0.30);
+}
 .main-footer hr {
     border-color: rgba(229,194,122,.20);
 

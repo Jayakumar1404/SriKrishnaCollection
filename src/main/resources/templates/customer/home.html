@@ -650,148 +650,81 @@
                  DYNAMIC PRODUCTS
             ================================================== -->
 
-               <div class="arrival-slider">
+                <div class="arrival-slider">
 
-    <div class="arrival-track">
+                    <div class="arrival-track">
 
-        <!-- EACH ENTIRE CARD MOVES -->
+                        <!-- EACH ENTIRE CARD MOVES -->
 
-        <div
-            class="arrival-item"
-            th:each="product : ${products}">
+                        <div class="arrival-item" th:each="product : ${products}">
 
-            <div class="product-card">
+                            <div class="product-card">
 
-                <!-- IMAGE -->
+                                <!-- IMAGE -->
 
-                <div class="product-image">
+                                <div class="product-image">
 
-                    <span class="product-badge">
-                        NEW
-                    </span>
+                                    <span class="product-badge">
+                                        NEW
+                                    </span>
 
-                    <img
-                        th:if="${product.image != null and !#strings.isEmpty(product.image)}"
-                        th:src="@{'/products/' + ${product.image}}"
-                        th:alt="${product.name}"
-                        class="home-product-image">
+                                    <img th:if="${product.image != null and !#strings.isEmpty(product.image)}"
+                                        th:src="@{'/products/' + ${product.image}}" th:alt="${product.name}"
+                                        class="home-product-image">
 
-                    <div
-                        class="product-placeholder"
-                        th:unless="${product.image != null and !#strings.isEmpty(product.image)}">
+                                    <div class="product-placeholder"
+                                        th:unless="${product.image != null and !#strings.isEmpty(product.image)}">
 
-                        <i class="fa-solid fa-image"></i>
+                                        <i class="fa-solid fa-image"></i>
 
-                    </div>
+                                    </div>
 
-                    <button
-                        type="button"
-                        class="wishlist-btn">
+                                    <button type="button" class="wishlist-btn">
 
-                        <i class="fa-regular fa-heart"></i>
+                                        <i class="fa-regular fa-heart"></i>
 
-                    </button>
+                                    </button>
 
-                </div>
+                                </div>
 
 
-                <!-- ALL PRODUCT DATA -->
+                                <!-- ALL PRODUCT DATA -->
 
-                <div class="product-content">
+                                <div class="product-content">
 
-                    <small
-                        th:if="${product.category != null}"
-                        th:text="${product.category.name}">
-                        CATEGORY
-                    </small>
+                                    <small th:if="${product.category != null}" th:text="${product.category.name}">
+                                        CATEGORY
+                                    </small>
 
-                    <small
-                        th:unless="${product.category != null}">
-                        COLLECTION
-                    </small>
+                                    <small th:unless="${product.category != null}">
+                                        COLLECTION
+                                    </small>
 
-                    <h5 th:text="${product.name}">
-                        Product Name
-                    </h5>
+                                    <h5 th:text="${product.name}">
+                                        Product Name
+                                    </h5>
 
-                    <div class="rating">
-                        ★★★★★
-                    </div>
+                                    <div class="rating">
+                                        ★★★★★
+                                    </div>
 
-                    <div class="price">
+                                    <div class="price">
 
-                        <strong
-                            th:text="${'₹' + product.price}">
-                            ₹0
-                        </strong>
+                                        <strong th:text="${'₹' + product.price}">
+                                            ₹0
+                                        </strong>
 
-                    </div>
+                                    </div>
 
-                    <a
-                        th:href="@{/Krishna/product/{id}(id=${product.id})}"
-                        class="btn btn-dark w-100">
+                                    <a th:href="@{/Krishna/product/{id}(id=${product.id})}" class="btn btn-dark w-100">
 
-                        View Product
+                                        View Product
 
-                    </a>
+                                    </a>
 
-                </div>
+                                </div>
 
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-<!-- NO PRODUCTS -->
-
-<div
-    class="col-12"
-    th:if="${products == null or #lists.isEmpty(products)}">
-
-    <div class="text-center py-5">
-
-        <i
-            class="fa-solid fa-box-open"
-            style="font-size:50px;color:#c9963e;">
-        </i>
-
-        <h4 class="mt-3">
-            No Products Available
-        </h4>
-
-        <p>
-            Products added from the admin panel
-            will appear here.
-        </p>
-
-    </div>
-
-</div>
-
-
-                    <!-- =================================================
-                     NO PRODUCTS
-                ================================================== -->
-
-                    <div class="col-12" th:if="${#lists.isEmpty(products)}">
-
-                        <div class="text-center py-5">
-
-                            <i class="fa-solid fa-box-open" style="font-size:50px;color:#c9963e;">
-                            </i>
-
-                            <h4 class="mt-3">
-                                No Products Available
-                            </h4>
-
-                            <p>
-                                Products added from the admin panel
-                                will appear here.
-                            </p>
+                            </div>
 
                         </div>
 
@@ -800,23 +733,73 @@
                 </div>
 
 
+                <!-- NO PRODUCTS -->
+
+                <div class="col-12" th:if="${products == null or #lists.isEmpty(products)}">
+
+                    <div class="text-center py-5">
+
+                        <i class="fa-solid fa-box-open" style="font-size:50px;color:#c9963e;">
+                        </i>
+
+                        <h4 class="mt-3">
+                            No Products Available
+                        </h4>
+
+                        <p>
+                            Products added from the admin panel
+                            will appear here.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
                 <!-- =================================================
-                 VIEW ALL PRODUCTS
-            ================================================== -->
+                     NO PRODUCTS
+                ================================================== -->
 
-                <div class="text-center mt-5">
+                <div class="col-12" th:if="${#lists.isEmpty(products)}">
 
-                    <a th:href="@{/Krishna/product}" class="btn btn-gold-dark">
+                    <div class="text-center py-5">
 
-                        View All Products
+                        <i class="fa-solid fa-box-open" style="font-size:50px;color:#c9963e;">
+                        </i>
 
-                        <i class="fa-solid fa-arrow-right"></i>
+                        <h4 class="mt-3">
+                            No Products Available
+                        </h4>
 
-                    </a>
+                        <p>
+                            Products added from the admin panel
+                            will appear here.
+                        </p>
+
+                    </div>
 
                 </div>
 
             </div>
+
+
+            <!-- =================================================
+                 VIEW ALL PRODUCTS
+            ================================================== -->
+
+            <div class="text-center mt-5">
+
+                <a th:href="@{/Krishna/product}" class="btn btn-gold-dark">
+
+                    View All Products
+
+                    <i class="fa-solid fa-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
 
         </div>
 
@@ -1053,18 +1036,16 @@
 
                 </div>
 
-
                 <div class="newsletter-form">
 
-                    <input type="email" placeholder="Enter your email">
+                    <a href="https://chat.whatsapp.com/LasMjOihVfT3qktBzdlmOC" target="_blank" rel="noopener noreferrer"
+                        class="btn btn-gold whatsapp-subscribe">
 
-                    <button type="button" class="btn btn-gold">
+                        Join WhatsApp Community
 
-                        Subscribe
+                        <i class="fa-brands fa-whatsapp"></i>
 
-                        <i class="fa-solid fa-paper-plane"></i>
-
-                    </button>
+                    </a>
 
                 </div>
 
@@ -1110,30 +1091,25 @@
 
                     <div class="social-links">
 
-                        <a href="#">
+                        <!-- FACEBOOK -->
+                        <a href="#" class="facebook-icon" title="Follow us on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
 
-                        <a href="https://www.instagram.com/srikrishna_collection31/"
-   target="_blank"
-   rel="noopener noreferrer"
-   class="instagram-icon"
-   title="Follow us on Instagram">
+                        <!-- INSTAGRAM -->
+                        <a href="https://www.instagram.com/_learn_lyf/" target="_blank" rel="noopener noreferrer"
+                            class="instagram-icon" title="Follow us on Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
 
-    <i class="fa-brands fa-instagram"></i>
+                        <!-- WHATSAPP -->
+                        <a href="https://wa.me/919344911192" target="_blank" rel="noopener noreferrer"
+                            class="whatsapp-icon" title="Chat on WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
 
-</a>
-
-                       <a href="https://wa.me/919876543210?text=Hello%20Sri%20Krishna%20Collection,%20I%20need%20some%20information%20about%20your%20products."
-   target="_blank"
-   class="whatsapp-icon"
-   title="Chat on WhatsApp">
-
-    <i class="fa-brands fa-whatsapp"></i>
-
-</a>
-
-                        <a href="#">
+                        <!-- YOUTUBE -->
+                        <a href="" class="youtube-icon" title="Subscribe on YouTube">
                             <i class="fab fa-youtube"></i>
                         </a>
 
