@@ -385,8 +385,9 @@ public class AdminProductController {
 
                                         continue;
                                 }
-
                                 String fileName = System.currentTimeMillis()
+                                                + "_"
+                                                + addedCount
                                                 + "_"
                                                 + originalName;
 
@@ -463,16 +464,16 @@ public class AdminProductController {
                 // DELETE PHYSICAL IMAGE
                 // =========================================
 
-               String uploadDir = System.getProperty("user.dir")
-        + File.separator
-        + "uploads"
-        + File.separator
-        + "products"
-        + File.separator;
+                String uploadDir = System.getProperty("user.dir")
+                                + File.separator
+                                + "uploads"
+                                + File.separator
+                                + "products"
+                                + File.separator;
 
-File imageFile = new File(
-        uploadDir + productImage.getImageName());
-               
+                File imageFile = new File(
+                                uploadDir + productImage.getImageName());
+
                 if (imageFile.exists()) {
 
                         imageFile.delete();

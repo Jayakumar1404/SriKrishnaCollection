@@ -1,46 +1,39 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Products | Sri Krishna Collection</title>
 
 
     <!-- GOOGLE FONTS -->
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
 
     <!-- BOOTSTRAP -->
 
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
 
 
     <!-- FONT AWESOME -->
 
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 
     <!-- PRODUCT CSS -->
 
-    <link rel="stylesheet"
-          th:href="@{/css/customer-products.css}">
+    <link rel="stylesheet" th:href="@{/css/customer-products.css}">
 
 </head>
 
@@ -48,545 +41,557 @@
 <body>
 
 
-<!-- =====================================================
+    <!-- =====================================================
      TOP OFFER BAR
 ===================================================== -->
 
-<div class="top-offer">
+    <div class="top-offer">
 
-    <div class="offer-track">
+        <div class="offer-track">
 
-        <span>
-            <i class="fa-solid fa-gem"></i>
-            Festival Special — Exclusive Collection
-        </span>
+            <span>
+                <i class="fa-solid fa-gem"></i>
+                Festival Special — Exclusive Collection
+            </span>
 
-        <span>
-            <i class="fa-solid fa-truck-fast"></i>
-            Free Shipping on Orders Above ₹1999
-        </span>
+            <span>
+                <i class="fa-solid fa-truck-fast"></i>
+                Free Shipping on Orders Above ₹1999
+            </span>
 
-        <span>
-            <i class="fa-solid fa-star"></i>
-            Royal Collection — New Arrivals
-        </span>
+            <span>
+                <i class="fa-solid fa-star"></i>
+                Royal Collection — New Arrivals
+            </span>
+
+        </div>
 
     </div>
 
-</div>
 
-
-<!-- =====================================================
+    <!-- =====================================================
      NAVBAR
 ===================================================== -->
 
-<nav class="royal-navbar">
+    <nav class="royal-navbar">
 
-    <div class="container">
+        <div class="container">
 
-        <div class="nav-wrapper">
-
-
-            <!-- BRAND -->
-
-            <a th:href="@{/Krishna}"
-               class="brand">
-
-                <div class="brand-icon">
-
-                    <i class="fa-solid fa-feather-pointed"></i>
-
-                </div>
-
-                <div class="brand-text">
-
-                    <span class="brand-main">
-                        Sri Krishna
-                    </span>
-
-                    <span class="brand-sub">
-                        COLLECTION
-                    </span>
-
-                </div>
-
-            </a>
+            <div class="nav-wrapper">
 
 
-            <!-- DESKTOP NAVIGATION -->
+                <!-- BRAND -->
 
-            <div class="nav-links">
+                <a th:href="@{/Krishna}" class="brand">
 
-                <a th:href="@{/}"
-                   class="nav-link">
+                    <div class="brand-icon">
 
-                    Home
+                        <i class="fa-solid fa-feather-pointed"></i>
+
+                    </div>
+
+                    <div class="brand-text">
+
+                        <span class="brand-main">
+                            Sri Krishna
+                        </span>
+
+                        <span class="brand-sub">
+                            COLLECTION
+                        </span>
+
+                    </div>
 
                 </a>
 
 
-                <a th:href="@{/Krishna/categories}"
-                   class="nav-link">
+                <!-- DESKTOP NAVIGATION -->
 
-                    Categories
+                <div class="nav-links">
 
-                </a>
+                    <a th:href="@{/}" class="nav-link">
+
+                        Home
+
+                    </a>
 
 
-                <!-- IMPORTANT:
+                    <a th:href="@{/Krishna/categories}" class="nav-link">
+
+                        Categories
+
+                    </a>
+
+
+                    <!-- IMPORTANT:
                      controller mapping is /product,
                      NOT /products
                 -->
 
-                <a th:href="@{/Krishna/product}"
-                   class="nav-link active">
+                    <a th:href="@{/Krishna/product}" class="nav-link active">
 
-                    Products
+                        Products
 
-                </a>
+                    </a>
 
 
-                <a th:href="@{/Krishna/wishlist(customerId=${customerId})}"
-                   class="nav-link">
+                    <a th:href="@{/Krishna/wishlist(customerId=${customerId})}" class="nav-link">
 
-                    Wishlist
+                        Wishlist
 
-                </a>
+                    </a>
+
+                </div>
+
+
+                <!-- NAV ACTIONS -->
+
+                <div class="nav-actions">
+
+
+
+
+                    <!-- WISHLIST -->
+
+                    <a th:href="@{/Krishna/wishlist(customerId=${customerId})}" class="icon-button" title="Wishlist">
+
+                        <i class="fa-regular fa-heart"></i>
+
+                    </a>
+
+
+                    <!-- CART -->
+                    <a th:href="@{/Krishna/cart(customerId=${customerId})}" class="icon-button cart-button"
+                        title="Cart">
+
+                        <i class="fa-solid fa-bag-shopping"></i>
+
+                    </a>
+
+
+                </div>
+
+
+                <!-- MOBILE MENU -->
+
+                <button type="button" class="mobile-menu" onclick="toggleMenu()">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
 
             </div>
-
-
-            <!-- NAV ACTIONS -->
-
-            <div class="nav-actions">
-
-
-
-
-                <!-- WISHLIST -->
-
-                <a th:href="@{/Krishna/wishlist(customerId=${customerId})}"
-                   class="icon-button"
-                   title="Wishlist">
-
-                    <i class="fa-regular fa-heart"></i>
-
-                </a>
-
-
-                <!-- CART -->
-<a th:href="@{/Krishna/cart(customerId=${customerId})}"
-   class="icon-button cart-button"
-   title="Cart">
-
-    <i class="fa-solid fa-bag-shopping"></i>
-
-</a>
-                
-
-            </div>
-
-
-            <!-- MOBILE MENU -->
-
-            <button type="button"
-                    class="mobile-menu"
-                    onclick="toggleMenu()">
-
-                <i class="fa-solid fa-bars"></i>
-
-            </button>
 
         </div>
 
-    </div>
-
-</nav>
+    </nav>
 
 
-<!-- =====================================================
+    <!-- =====================================================
      HERO
 ===================================================== -->
 
-<section class="product-hero">
+    <section class="product-hero">
 
-    <div class="container">
+        <div class="container">
 
-        <div class="hero-content">
+            <div class="hero-content">
 
-            <div class="gold-line"></div>
+                <div class="gold-line"></div>
 
-            <span class="hero-small">
-                OUR EXQUISITE COLLECTION
-            </span>
-
-            <h1>
-                SHOP PRODUCTS
-            </h1>
-
-            <p>
-                Discover timeless Indian elegance,
-                carefully selected for your style.
-            </p>
-
-            <div class="breadcrumb">
-
-                <a th:href="@{/Krishna}">
-                    Home
-                </a>
-
-                <i class="fa-solid fa-chevron-right"></i>
-
-                <span>
-                    Products
+                <span class="hero-small">
+                    OUR EXQUISITE COLLECTION
                 </span>
+
+                <h1>
+                    SHOP PRODUCTS
+                </h1>
+
+                <p>
+                    Discover timeless Indian elegance,
+                    carefully selected for your style.
+                </p>
+
+                <div class="breadcrumb">
+
+                    <a th:href="@{/Krishna}">
+                        Home
+                    </a>
+
+                    <i class="fa-solid fa-chevron-right"></i>
+
+                    <span>
+                        Products
+                    </span>
+
+                </div>
 
             </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- =====================================================
+    <!-- =====================================================
      PRODUCTS SECTION
 ===================================================== -->
 
-<section class="products-section">
+    <section class="products-section">
 
-    <div class="container">
-
-
-        <!-- SECTION HEADER -->
-
-        <div class="section-heading">
-
-            <div>
-
-                <span class="section-label">
-                    CURATED FOR YOU
-                </span>
-
-                <h2>
-                    Discover Your Style
-                </h2>
-
-                <p>
-                    Explore our collection of elegant
-                    traditional and contemporary fashion.
-                </p>
-
-            </div>
+        <div class="container">
 
 
-            <!-- PRODUCT COUNT -->
+            <!-- SECTION HEADER -->
 
-            <div class="product-count">
+            <div class="section-heading">
 
-                <span th:text="${products != null ? products.size() : 0}">
-                    0
-                </span>
+                <div>
 
-                Products
+                    <span class="section-label">
+                        CURATED FOR YOU
+                    </span>
 
-            </div>
+                    <h2>
+                        Discover Your Style
+                    </h2>
 
-        </div>
+                    <p>
+                        Explore our collection of elegant
+                        traditional and contemporary fashion.
+                    </p>
+
+                </div>
 
 
-        <!-- =================================================
-             FILTER PANEL
-        ================================================== -->
+                <!-- PRODUCT COUNT -->
 
-        <div class="filter-panel">
+                <div class="product-count">
 
+                    <span th:text="${products != null ? products.size() : 0}">
+                        0
+                    </span>
 
-            <!-- SEARCH -->
+                    Products
 
-            <div class="search-box">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-                <input
-                    type="text"
-                    id="productSearch"
-                    placeholder="Search products..."
-                    autocomplete="off">
+                </div>
 
             </div>
 
 
             <!-- =================================================
+             FILTER PANEL
+        ================================================== -->
+
+            <div class="filter-panel">
+
+
+                <!-- SEARCH -->
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-magnifying-glass"></i>
+
+                    <input type="text" id="productSearch" placeholder="Search products..." autocomplete="off">
+
+                </div>
+
+
+                <!-- =================================================
                  DYNAMIC CATEGORY FILTER
             ================================================== -->
 
-            <div class="filter-buttons">
+                <div class="filter-buttons">
 
 
-                <!-- ALL -->
+                    <!-- ALL -->
 
-                <a th:href="@{/Krishna/product}"
-                   class="filter-btn"
-                   th:classappend="${selectedCategory == null or selectedCategory.isBlank() ? ' active' : ''}">
+                    <a th:href="@{/Krishna/product}" class="filter-btn"
+                        th:classappend="${selectedCategory == null or selectedCategory.isBlank() ? ' active' : ''}">
 
-                    All
+                        All
 
-                </a>
+                    </a>
 
 
-                <!-- DYNAMIC ACTIVE CATEGORIES -->
+                    <!-- DYNAMIC ACTIVE CATEGORIES -->
 
-                <a th:each="category : ${categories}"
-                   th:href="@{/Krishna/product(category=${category.name})}"
-                   class="filter-btn"
-                   th:text="${category.name}"
-                   th:classappend="${selectedCategory != null and selectedCategory.equalsIgnoreCase(category.name) ? ' active' : ''}">
+                    <a th:each="category : ${categories}" th:href="@{/Krishna/product(category=${category.name})}"
+                        class="filter-btn" th:text="${category.name}"
+                        th:classappend="${selectedCategory != null and selectedCategory.equalsIgnoreCase(category.name) ? ' active' : ''}">
 
-                    Category
+                        Category
 
-                </a>
+                    </a>
+
+                </div>
+
+
+                <!-- SORT -->
+
+                <div class="sort-box">
+
+                    <select id="sortProducts">
+
+                        <option value="default">
+                            Sort By
+                        </option>
+
+                        <option value="low">
+                            Price: Low to High
+                        </option>
+
+                        <option value="high">
+                            Price: High to Low
+                        </option>
+
+                        <option value="name">
+                            Name
+                        </option>
+
+                    </select>
+
+                </div>
 
             </div>
 
 
-            <!-- SORT -->
-
-            <div class="sort-box">
-
-                <select id="sortProducts">
-
-                    <option value="default">
-                        Sort By
-                    </option>
-
-                    <option value="low">
-                        Price: Low to High
-                    </option>
-
-                    <option value="high">
-                        Price: High to Low
-                    </option>
-
-                    <option value="name">
-                        Name
-                    </option>
-
-                </select>
-
-            </div>
-
-        </div>
-
-
-        <!-- =================================================
+            <!-- =================================================
              PRODUCT GRID
         ================================================== -->
 
-        <div class="product-grid"
-             id="productGrid">
+            <div class="product-grid" id="productGrid">
 
 
-            <!-- PRODUCT CARD -->
+                <!-- PRODUCT CARD -->
 
-            <div class="product-wrapper"
-                 th:each="product : ${products}"
-
-                 th:attr="
+                <div class="product-wrapper" th:each="product : ${products}" th:attr="
                     data-name=${product.name},
                     data-category=${product.category != null ? product.category.name : ''},
                     data-price=${product.price}">
 
 
-                <article class="product-card">
+                    <article class="product-card">
 
 
-                    <!-- PRODUCT IMAGE -->
+                        <!-- PRODUCT IMAGE -->
 
-                    <div class="product-image">
+                        <div class="product-image">
 
-                        <img
-                            th:if="${product.image != null and !product.image.isEmpty()}"
-                            th:src="@{/products/{image}(image=${product.image})}"
-                            th:alt="${product.name}">
+                            <img th:if="${product.image != null and !product.image.isEmpty()}"
+                                th:src="@{/products/{image}(image=${product.image})}" th:alt="${product.name}">
 
 
-                        <!-- NO IMAGE -->
+                            <!-- NO IMAGE -->
 
-                        <div
-                            class="image-placeholder"
-                            th:if="${product.image == null or product.image.isEmpty()}">
+                            <div class="image-placeholder" th:if="${product.image == null or product.image.isEmpty()}">
 
-                            <i class="fa-regular fa-image"></i>
+                                <i class="fa-regular fa-image"></i>
+
+                            </div>
+
+
+                            <!-- PRODUCT ACTIONS -->
+
+                            <div class="product-actions">
+
+
+                                <!-- WISHLIST -->
+
+                                <form th:action="@{/Krishna/wishlist/toggle}" method="post" class="wishlist-form">
+
+                                    <input type="hidden" name="customerId" th:value="${customerId}">
+
+                                    <input type="hidden" name="productId" th:value="${product.id}">
+
+                                    <button type="submit" class="round-action wishlist-action" title="Wishlist">
+
+                                        <i th:if="${wishlistProductIds != null and wishlistProductIds.contains(product.id)}"
+                                            class="fa-solid fa-heart wishlist-active">
+                                        </i>
+
+                                        <i th:unless="${wishlistProductIds != null and wishlistProductIds.contains(product.id)}"
+                                            class="fa-regular fa-heart">
+                                        </i>
+
+                                    </button>
+
+                                </form>
+
+
+                                <!-- VIEW PRODUCT -->
+
+                                <a th:href="@{/Krishna/product/{id}(id=${product.id},customerId=${customerId})}"
+                                    class="round-action" title="View Product">
+
+                                    <i class="fa-regular fa-eye"></i>
+
+                                </a>
+
+                            </div>
 
                         </div>
 
 
-                        <!-- PRODUCT ACTIONS -->
+                        <!-- PRODUCT DETAILS -->
 
-                        <div class="product-actions">
-
-
-                            <!-- WISHLIST -->
-
-                            <form
-                                th:action="@{/Krishna/wishlist/toggle}"
-                                method="post"
-                                class="wishlist-form">
-
-                                <input
-                                    type="hidden"
-                                    name="customerId"
-                                    th:value="${customerId}">
-
-                                <input
-                                    type="hidden"
-                                    name="productId"
-                                    th:value="${product.id}">
-
-                                <button
-                                    type="submit"
-                                    class="round-action wishlist-action"
-                                    title="Wishlist">
-
-                                    <i
-                                        th:if="${wishlistProductIds != null and wishlistProductIds.contains(product.id)}"
-                                        class="fa-solid fa-heart wishlist-active">
-                                    </i>
-
-                                    <i
-                                        th:unless="${wishlistProductIds != null and wishlistProductIds.contains(product.id)}"
-                                        class="fa-regular fa-heart">
-                                    </i>
-
-                                </button>
-
-                            </form>
+                        <div class="product-details">
 
 
-                            <!-- VIEW PRODUCT -->
+                            <!-- CATEGORY -->
 
-                            <a
-                                th:href="@{/Krishna/product/{id}(id=${product.id},customerId=${customerId})}"
-                                class="round-action"
-                                title="View Product">
+                            <span class="product-category" th:text="${product.category != null
+                                ? product.category.name
+                                : 'COLLECTION'}">
 
-                                <i class="fa-regular fa-eye"></i>
+                                COLLECTION
+
+                            </span>
+
+
+                            <!-- PRODUCT NAME -->
+
+                            <h3 th:text="${product.name}">
+
+                                Product Name
+
+                            </h3>
+
+
+                            <!-- RATING -->
+
+                            <div class="stars">
+
+                                <i class="fa-solid fa-star"></i>
+
+                                <i class="fa-solid fa-star"></i>
+
+                                <i class="fa-solid fa-star"></i>
+
+                                <i class="fa-solid fa-star"></i>
+
+                                <i class="fa-regular fa-star"></i>
+
+                            </div>
+
+
+                            <!-- PRICE -->
+
+                            <div class="price-row">
+
+                                <span class="price" th:text="${'₹' + product.price}">
+
+                                    ₹0
+
+                                </span>
+
+                            </div>
+
+
+                            <!-- PRODUCT DETAILS LINK -->
+
+                            <a th:href="@{/Krishna/product/{id}(id=${product.id},customerId=${customerId})}"
+                                class="view-product">
+
+                                <span>
+                                    Explore Product
+                                </span>
+
+                                <i class="fa-solid fa-arrow-right"></i>
 
                             </a>
 
                         </div>
 
-                    </div>
+                    </article>
+
+                </div>
 
 
-                    <!-- PRODUCT DETAILS -->
+                <!-- EMPTY DATABASE -->
 
-                    <div class="product-details">
+                <div class="empty-products" th:if="${products == null or products.isEmpty()}">
 
+                    <div class="empty-icon">
 
-                        <!-- CATEGORY -->
-
-                        <span
-                            class="product-category"
-                            th:text="${product.category != null
-                                ? product.category.name
-                                : 'COLLECTION'}">
-
-                            COLLECTION
-
-                        </span>
-
-
-                        <!-- PRODUCT NAME -->
-
-                        <h3
-                            th:text="${product.name}">
-
-                            Product Name
-
-                        </h3>
-
-
-                        <!-- RATING -->
-
-                        <div class="stars">
-
-                            <i class="fa-solid fa-star"></i>
-
-                            <i class="fa-solid fa-star"></i>
-
-                            <i class="fa-solid fa-star"></i>
-
-                            <i class="fa-solid fa-star"></i>
-
-                            <i class="fa-regular fa-star"></i>
-
-                        </div>
-
-
-                        <!-- PRICE -->
-
-                        <div class="price-row">
-
-                            <span
-                                class="price"
-                                th:text="${'₹' + product.price}">
-
-                                ₹0
-
-                            </span>
-
-                        </div>
-
-
-                        <!-- PRODUCT DETAILS LINK -->
-
-                        <a
-                            th:href="@{/Krishna/product/{id}(id=${product.id},customerId=${customerId})}"
-                            class="view-product">
-
-                            <span>
-                                Explore Product
-                            </span>
-
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </a>
+                        <i class="fa-solid fa-box-open"></i>
 
                     </div>
 
-                </article>
+                    <h3>
+                        No Products Available
+                    </h3>
+
+                    <p>
+                        Products will appear here once they
+                        are added to the collection.
+                    </p>
+
+                    <a th:href="@{/Krishna/categories}" class="empty-button">
+
+                        Explore Categories
+
+                        <i class="fa-solid fa-arrow-right"></i>
+
+                    </a>
+
+                </div>
 
             </div>
 
 
-            <!-- EMPTY DATABASE -->
+            <!-- SEARCH EMPTY -->
 
-            <div
-                class="empty-products"
-                th:if="${products == null or products.isEmpty()}">
+            <div class="search-empty" id="searchEmpty">
 
                 <div class="empty-icon">
 
-                    <i class="fa-solid fa-box-open"></i>
+                    <i class="fa-solid fa-magnifying-glass"></i>
 
                 </div>
 
                 <h3>
-                    No Products Available
+                    No Products Found
                 </h3>
 
                 <p>
-                    Products will appear here once they
-                    are added to the collection.
+                    Try another product name or category.
                 </p>
 
-                <a th:href="@{/Krishna/categories}"
-                   class="empty-button">
+            </div>
 
-                    Explore Categories
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+     COLLECTION BANNER
+===================================================== -->
+
+    <section class="collection-banner">
+
+        <div class="container">
+
+            <div class="banner-content">
+
+                <span>
+                    SRI KRISHNA COLLECTION
+                </span>
+
+                <h2>
+                    Tradition Meets
+                    <strong>Elegance</strong>
+                </h2>
+
+                <p>
+                    Every piece tells a story of craftsmanship,
+                    culture and timeless beauty.
+                </p>
+
+                <a th:href="@{/Krishna/categories}">
+
+                    Explore Collections
 
                     <i class="fa-solid fa-arrow-right"></i>
 
@@ -596,514 +601,438 @@
 
         </div>
 
-
-        <!-- SEARCH EMPTY -->
-
-        <div
-            class="search-empty"
-            id="searchEmpty">
-
-            <div class="empty-icon">
-
-                <i class="fa-solid fa-magnifying-glass"></i>
-
-            </div>
-
-            <h3>
-                No Products Found
-            </h3>
-
-            <p>
-                Try another product name or category.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
+    </section>
 
 
-<!-- =====================================================
-     COLLECTION BANNER
-===================================================== -->
-
-<section class="collection-banner">
-
-    <div class="container">
-
-        <div class="banner-content">
-
-            <span>
-                SRI KRISHNA COLLECTION
-            </span>
-
-            <h2>
-                Tradition Meets
-                <strong>Elegance</strong>
-            </h2>
-
-            <p>
-                Every piece tells a story of craftsmanship,
-                culture and timeless beauty.
-            </p>
-
-            <a th:href="@{/Krishna/categories}">
-
-                Explore Collections
-
-                <i class="fa-solid fa-arrow-right"></i>
-
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =====================================================
+    <!-- =====================================================
      FOOTER
 ===================================================== -->
 
-<footer class="footer">
+    <footer class="footer">
 
-    <div class="container">
+        <div class="container">
 
-        <div class="footer-grid">
+            <div class="footer-grid">
 
 
-            <!-- BRAND -->
+                <!-- BRAND -->
 
-            <div>
+                <div>
 
-                <div class="footer-brand">
+                    <div class="footer-brand">
 
-                    Sri Krishna
+                        Sri Krishna
 
-                    <span>
-                        Collection
-                    </span>
+                        <span>
+                            Collection
+                        </span>
+
+                    </div>
+
+                    <p>
+                        Royal Indian fashion crafted
+                        with tradition and elegance.
+                    </p>
+
+                </div>
+
+
+                <!-- EXPLORE -->
+
+                <div>
+
+                    <h4>
+                        Explore
+                    </h4>
+
+                    <a th:href="@{/Krishna}">
+                        Home
+                    </a>
+
+                    <a th:href="@{/Krishna/categories}">
+                        Categories
+                    </a>
+
+                    <a th:href="@{/Krishna/product}">
+                        Products
+                    </a>
+
+                    <a th:href="@{/Krishna/wishlist(customerId=${customerId})}">
+                        Wishlist
+                    </a>
 
                 </div>
 
-                <p>
-                    Royal Indian fashion crafted
-                    with tradition and elegance.
-                </p>
 
-            </div>
+                <!-- CUSTOMER CARE -->
 
+                <div>
 
-            <!-- EXPLORE -->
+                    <h4>
+                        Customer Care
+                    </h4>
 
-            <div>
-
-                <h4>
-                    Explore
-                </h4>
-
-                <a th:href="@{/Krishna}">
-                    Home
-                </a>
-
-                <a th:href="@{/Krishna/categories}">
-                    Categories
-                </a>
-
-                <a th:href="@{/Krishna/product}">
-                    Products
-                </a>
-
-                <a th:href="@{/Krishna/wishlist(customerId=${customerId})}">
-                    Wishlist
-                </a>
-
-            </div>
-
-
-            <!-- CUSTOMER CARE -->
-
-            <div>
-
-                <h4>
-                    Customer Care
-                </h4>
-
-                <a th:href="@{/Krishna}">
-                    Contact Us
-                </a>
-
-                <a th:href="@{/Krishna}">
-                    Shipping
-                </a>
-
-                <a th:href="@{/Krishna}">
-                    Returns
-                </a>
-
-            </div>
-
-
-            <!-- SOCIAL -->
-
-            <div>
-
-                <h4>
-                    Follow Us
-                </h4>
-
-                <div class="socials">
-
-                    <a th:href="@{/Krishna}"
-                       title="Instagram">
-
-                        <i class="fa-brands fa-instagram"></i>
-
+                    <a th:href="@{/Krishna}">
+                        Contact Us
                     </a>
 
-                    <a th:href="@{/Krishna}"
-                       title="Facebook">
-
-                        <i class="fa-brands fa-facebook"></i>
-
+                    <a th:href="@{/Krishna}">
+                        Shipping
                     </a>
 
-                    <a th:href="@{/Krishna}"
-                       title="WhatsApp">
-
-                        <i class="fa-brands fa-whatsapp"></i>
-
+                    <a th:href="@{/Krishna}">
+                        Returns
                     </a>
 
                 </div>
+
+
+                <!-- SOCIAL -->
+
+                <div>
+
+                    <h4>
+                        Follow Us
+                    </h4>
+
+                    <div class="socials">
+
+                        <a th:href="@{/Krishna}" title="Instagram">
+
+                            <i class="fa-brands fa-instagram"></i>
+
+                        </a>
+
+                        <a th:href="@{/Krishna}" title="Facebook">
+
+                            <i class="fa-brands fa-facebook"></i>
+
+                        </a>
+
+                        <a th:href="@{/Krishna}" title="WhatsApp">
+
+                            <i class="fa-brands fa-whatsapp"></i>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                © 2026 Sri Krishna Collection.
+                All Rights Reserved.
 
             </div>
 
         </div>
 
-
-        <div class="footer-bottom">
-
-            © 2026 Sri Krishna Collection.
-            All Rights Reserved.
-
-        </div>
-
-    </div>
-
-</footer>
+    </footer>
 
 
-<!-- =====================================================
+    <!-- =====================================================
      SEARCH OVERLAY
 ===================================================== -->
 
-<div
-    class="search-overlay"
-    id="searchOverlay">
+    <div class="search-overlay" id="searchOverlay">
 
-    <button
-        type="button"
-        onclick="closeSearch()"
-        class="close-search">
+        <button type="button" onclick="closeSearch()" class="close-search">
 
-        <i class="fa-solid fa-xmark"></i>
+            <i class="fa-solid fa-xmark"></i>
 
-    </button>
+        </button>
 
-    <div class="search-overlay-content">
+        <div class="search-overlay-content">
 
-        <span>
-            SEARCH OUR COLLECTION
-        </span>
+            <span>
+                SEARCH OUR COLLECTION
+            </span>
 
-        <input
-            type="text"
-            id="overlaySearch"
-            placeholder="Search products..."
-            autocomplete="off">
+            <input type="text" id="overlaySearch" placeholder="Search products..." autocomplete="off">
+
+        </div>
 
     </div>
 
-</div>
 
-
-<!-- =====================================================
+    <!-- =====================================================
      JAVASCRIPT
 ===================================================== -->
 
-<script>
+    <script>
 
 
-/* =====================================================
-   OPEN SEARCH
-===================================================== */
+        /* =====================================================
+           OPEN SEARCH
+        ===================================================== */
 
-function openSearch() {
+        function openSearch() {
 
-    const overlay =
-        document.getElementById("searchOverlay");
+            const overlay =
+                document.getElementById("searchOverlay");
 
-    overlay.classList.add("show");
+            overlay.classList.add("show");
 
-    const input =
-        document.getElementById("overlaySearch");
+            const input =
+                document.getElementById("overlaySearch");
 
-    input.focus();
-}
-
-
-/* =====================================================
-   CLOSE SEARCH
-===================================================== */
-
-function closeSearch() {
-
-    const overlay =
-        document.getElementById("searchOverlay");
-
-    overlay.classList.remove("show");
-}
-
-
-/* =====================================================
-   MOBILE MENU
-===================================================== */
-
-function toggleMenu() {
-
-    const nav =
-        document.querySelector(".nav-links");
-
-    nav.classList.toggle("show");
-}
-
-
-/* =====================================================
-   SEARCH PRODUCTS
-===================================================== */
-
-function filterProducts() {
-
-    const searchInput =
-        document.getElementById("productSearch");
-
-    const search =
-        searchInput.value
-            .toLowerCase()
-            .trim();
-
-    const products =
-        document.querySelectorAll(".product-wrapper");
-
-    let visibleCount = 0;
-
-    products.forEach(function(product) {
-
-        const name =
-            (product.dataset.name || "")
-                .toLowerCase();
-
-        const category =
-            (product.dataset.category || "")
-                .toLowerCase();
-
-        const searchMatch =
-            search === ""
-            ||
-            name.includes(search)
-            ||
-            category.includes(search);
-
-        if (searchMatch) {
-
-            product.style.display = "";
-
-            visibleCount++;
-
-        } else {
-
-            product.style.display = "none";
-
-        }
-
-    });
-
-
-    const searchEmpty =
-        document.getElementById("searchEmpty");
-
-
-    if (
-        visibleCount === 0
-        &&
-        products.length > 0
-        &&
-        search !== ""
-    ) {
-
-        searchEmpty.classList.add("show");
-
-    } else {
-
-        searchEmpty.classList.remove("show");
-
-    }
-
-}
-
-
-/* =====================================================
-   SORT PRODUCTS
-===================================================== */
-
-function sortProducts() {
-
-    const select =
-        document.getElementById("sortProducts");
-
-    const value =
-        select.value;
-
-    const grid =
-        document.getElementById("productGrid");
-
-    const products =
-        Array.from(
-            grid.querySelectorAll(".product-wrapper")
-        );
-
-
-    products.sort(function(a, b) {
-
-        if (value === "low") {
-
-            return Number(a.dataset.price)
-                -
-                Number(b.dataset.price);
-
+            input.focus();
         }
 
 
-        if (value === "high") {
+        /* =====================================================
+           CLOSE SEARCH
+        ===================================================== */
 
-            return Number(b.dataset.price)
-                -
-                Number(a.dataset.price);
+        function closeSearch() {
 
+            const overlay =
+                document.getElementById("searchOverlay");
+
+            overlay.classList.remove("show");
         }
 
 
-        if (value === "name") {
+        /* =====================================================
+           MOBILE MENU
+        ===================================================== */
 
-            return (
-                a.dataset.name || ""
-            ).localeCompare(
-                b.dataset.name || ""
-            );
+        function toggleMenu() {
 
+            const nav =
+                document.querySelector(".nav-links");
+
+            nav.classList.toggle("show");
         }
 
 
-        return 0;
+        /* =====================================================
+           SEARCH PRODUCTS
+        ===================================================== */
 
-    });
+        function filterProducts() {
 
-
-    products.forEach(function(product) {
-
-        grid.appendChild(product);
-
-    });
-
-}
-
-
-/* =====================================================
-   PRODUCT SEARCH
-===================================================== */
-
-document
-    .getElementById("productSearch")
-    .addEventListener(
-        "input",
-        filterProducts
-    );
-
-
-/* =====================================================
-   SORT
-===================================================== */
-
-document
-    .getElementById("sortProducts")
-    .addEventListener(
-        "change",
-        sortProducts
-    );
-
-
-/* =====================================================
-   OVERLAY SEARCH
-===================================================== */
-
-document
-    .getElementById("overlaySearch")
-    .addEventListener(
-        "input",
-        function() {
-
-            const mainSearch =
+            const searchInput =
                 document.getElementById("productSearch");
 
-            mainSearch.value = this.value;
+            const search =
+                searchInput.value
+                    .toLowerCase()
+                    .trim();
 
-            filterProducts();
+            const products =
+                document.querySelectorAll(".product-wrapper");
 
-        }
-    );
+            let visibleCount = 0;
+
+            products.forEach(function (product) {
+
+                const name =
+                    (product.dataset.name || "")
+                        .toLowerCase();
+
+                const category =
+                    (product.dataset.category || "")
+                        .toLowerCase();
+
+                const searchMatch =
+                    search === ""
+                    ||
+                    name.includes(search)
+                    ||
+                    category.includes(search);
+
+                if (searchMatch) {
+
+                    product.style.display = "";
+
+                    visibleCount++;
+
+                } else {
+
+                    product.style.display = "none";
+
+                }
+
+            });
 
 
-/* =====================================================
-   CLOSE SEARCH BY BACKGROUND
-===================================================== */
+            const searchEmpty =
+                document.getElementById("searchEmpty");
 
-document
-    .getElementById("searchOverlay")
-    .addEventListener(
-        "click",
-        function(event) {
 
-            if (event.target === this) {
+            if (
+                visibleCount === 0
+                &&
+                products.length > 0
+                &&
+                search !== ""
+            ) {
 
-                closeSearch();
+                searchEmpty.classList.add("show");
+
+            } else {
+
+                searchEmpty.classList.remove("show");
 
             }
 
         }
-    );
 
 
-/* =====================================================
-   ESC KEY
-===================================================== */
+        /* =====================================================
+           SORT PRODUCTS
+        ===================================================== */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+        function sortProducts() {
 
-        if (event.key === "Escape") {
+            const select =
+                document.getElementById("sortProducts");
 
-            closeSearch();
+            const value =
+                select.value;
+
+            const grid =
+                document.getElementById("productGrid");
+
+            const products =
+                Array.from(
+                    grid.querySelectorAll(".product-wrapper")
+                );
+
+
+            products.sort(function (a, b) {
+
+                if (value === "low") {
+
+                    return Number(a.dataset.price)
+                        -
+                        Number(b.dataset.price);
+
+                }
+
+
+                if (value === "high") {
+
+                    return Number(b.dataset.price)
+                        -
+                        Number(a.dataset.price);
+
+                }
+
+
+                if (value === "name") {
+
+                    return (
+                        a.dataset.name || ""
+                    ).localeCompare(
+                        b.dataset.name || ""
+                    );
+
+                }
+
+
+                return 0;
+
+            });
+
+
+            products.forEach(function (product) {
+
+                grid.appendChild(product);
+
+            });
 
         }
 
-    }
-);
 
-</script>
+        /* =====================================================
+           PRODUCT SEARCH
+        ===================================================== */
+
+        document
+            .getElementById("productSearch")
+            .addEventListener(
+                "input",
+                filterProducts
+            );
+
+
+        /* =====================================================
+           SORT
+        ===================================================== */
+
+        document
+            .getElementById("sortProducts")
+            .addEventListener(
+                "change",
+                sortProducts
+            );
+
+
+        /* =====================================================
+           OVERLAY SEARCH
+        ===================================================== */
+
+        document
+            .getElementById("overlaySearch")
+            .addEventListener(
+                "input",
+                function () {
+
+                    const mainSearch =
+                        document.getElementById("productSearch");
+
+                    mainSearch.value = this.value;
+
+                    filterProducts();
+
+                }
+            );
+
+
+        /* =====================================================
+           CLOSE SEARCH BY BACKGROUND
+        ===================================================== */
+
+        document
+            .getElementById("searchOverlay")
+            .addEventListener(
+                "click",
+                function (event) {
+
+                    if (event.target === this) {
+
+                        closeSearch();
+
+                    }
+
+                }
+            );
+
+
+        /* =====================================================
+           ESC KEY
+        ===================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function (event) {
+
+                if (event.key === "Escape") {
+
+                    closeSearch();
+
+                }
+
+            }
+        );
+
+    </script>
 
 
 </body>
