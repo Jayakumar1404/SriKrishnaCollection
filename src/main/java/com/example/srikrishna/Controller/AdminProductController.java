@@ -1,8 +1,8 @@
 package com.example.srikrishna.Controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.srikrishna.Entity.Category;
 import com.example.srikrishna.Entity.Product;
 import com.example.srikrishna.Entity.ProductImage;
@@ -26,530 +28,521 @@ import com.example.srikrishna.Service.ProductService;
 @RequestMapping("/admin")
 public class AdminProductController {
 
-        private final ProductService productService;
-        private final CategoryService categoryService;
-        private final ProductImageRepository productImageRepository;
+    private final ProductService productService;
+    private final CategoryService categoryService;
+    private final ProductImageRepository productImageRepository;
+    private final Cloudinary cloudinary;
 
-        public AdminProductController(
-                        ProductService productService,
-                        CategoryService categoryService,
-                        ProductImageRepository productImageRepository) {
+    public AdminProductController(
+            ProductService productService,
+            CategoryService categoryService,
+            ProductImageRepository productImageRepository,
+            Cloudinary cloudinary) {
 
-                this.productService = productService;
-                this.categoryService = categoryService;
-                this.productImageRepository = productImageRepository;
+        this.productService = productService;
+        this.categoryService = categoryService;
+        this.productImageRepository = productImageRepository;
+        this.cloudinary = cloudinary;
+    }
+
+    // =========================================
+    // PRODUCT LIST
+    // =========================================
+
+    @GetMapping("/products")
+    public String products(Model model) {
+
+        List<Product> products = productService.getAllProducts();
+
+        model.addAttribute("products", products);
+
+        model.addAttribute(
+                "categories",
+                categoryService.getAllCategories());
+
+        model.addAttribute(
+                "product",
+                new Product());
+
+        return "admin/products";
+    }
+
+    // =========================================
+    // SAVE PRODUCT
+    // =========================================
+
+    @PostMapping("/products/save")
+    public String saveProduct(
+
+            @ModelAttribute Product product,
+
+            @RequestParam("categoryId") Long categoryId,
+
+            @RequestParam(
+                    value = "imageFiles",
+                    required = false)
+            List<MultipartFile> imageFiles,
+
+            RedirectAttributes redirectAttributes)
+
+            throws IOException {
+
+        // =========================================
+        // GET SELECTED CATEGORY
+        // =========================================
+
+        Category category =
+                categoryService.getCategoryById(categoryId);
+
+        if (category == null) {
+
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "Invalid category selected!");
+
+            return "redirect:/admin/products";
         }
 
         // =========================================
-        // PRODUCT LIST
+        // SET CATEGORY
         // =========================================
 
-        @GetMapping("/products")
-        public String products(Model model) {
-
-                List<Product> products = productService.getAllProducts();
-
-                model.addAttribute(
-                                "products",
-                                products);
-
-                model.addAttribute(
-                                "categories",
-                                categoryService.getAllCategories());
-
-                model.addAttribute(
-                                "product",
-                                new Product());
-
-                return "admin/products";
-        }
+        product.setCategory(category);
 
         // =========================================
         // SAVE PRODUCT
         // =========================================
 
-        @PostMapping("/products/save")
-        public String saveProduct(
+        Product savedProduct =
+                productService.saveProduct(product);
 
-                        @ModelAttribute Product product,
+        // =========================================
+        // SAVE PRODUCT IMAGES
+        // =========================================
 
-                        @RequestParam("categoryId") Long categoryId,
+        int imageCount = 0;
 
-                        @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles,
+        if (imageFiles != null) {
 
-                        RedirectAttributes redirectAttributes)
+            for (MultipartFile imageFile : imageFiles) {
 
-                        throws IOException {
+                if (imageFile == null
+                        || imageFile.isEmpty()
+                        || imageCount >= 5) {
 
-                // =========================================
-                // GET SELECTED CATEGORY
-                // =========================================
+                    continue;
+                }
 
-                Category category = categoryService.getCategoryById(categoryId);
+                String originalName =
+                        imageFile.getOriginalFilename();
 
-                if (category == null) {
+                if (originalName == null
+                        || originalName.isBlank()) {
 
-                        redirectAttributes.addFlashAttribute(
-                                        "error",
-                                        "Invalid category selected!");
-
-                        return "redirect:/admin/products";
+                    continue;
                 }
 
                 // =========================================
-                // SET CATEGORY TO PRODUCT
+                // UPLOAD TO CLOUDINARY
                 // =========================================
 
-                product.setCategory(category);
+                Map uploadResult =
+                        cloudinary.uploader().upload(
+                                imageFile.getBytes(),
+                                ObjectUtils.asMap(
+                                        "folder",
+                                        "srikrishna/products"
+                                )
+                        );
+
+                String imageUrl =
+                        uploadResult
+                                .get("secure_url")
+                                .toString();
 
                 // =========================================
-                // UPLOAD DIRECTORY
+                // PRODUCT IMAGE
                 // =========================================
 
-                String uploadDir = System.getProperty("user.dir")
-                                + File.separator
-                                + "uploads"
-                                + File.separator
-                                + "products";
+                ProductImage productImage =
+                        new ProductImage();
 
-                File folder = new File(uploadDir);
+                productImage.setImageName(imageUrl);
 
-                if (!folder.exists()) {
-                        folder.mkdirs();
+                productImage.setProduct(
+                        savedProduct);
+
+                productImage.setPrimaryImage(
+                        imageCount == 0);
+
+                productImageRepository.save(
+                        productImage);
+
+                // =========================================
+                // FIRST IMAGE = PRIMARY IMAGE
+                // =========================================
+
+                if (imageCount == 0) {
+
+                    savedProduct.setImage(
+                            imageUrl);
+
+                    productService.updateProduct(
+                            savedProduct);
                 }
 
-                // =========================================
-                // SAVE PRODUCT
-                // =========================================
-
-                Product savedProduct = productService.saveProduct(product);
-
-                // =========================================
-                // SAVE PRODUCT IMAGES
-                // =========================================
-
-                int imageCount = 0;
-
-                if (imageFiles != null) {
-
-                        for (MultipartFile imageFile : imageFiles) {
-
-                                if (imageFile == null
-                                                || imageFile.isEmpty()
-                                                || imageCount >= 5) {
-
-                                        continue;
-                                }
-
-                                String originalName = imageFile.getOriginalFilename();
-
-                                if (originalName == null
-                                                || originalName.isBlank()) {
-
-                                        continue;
-                                }
-
-                                String fileName = System.currentTimeMillis()
-                                                + "_"
-                                                + imageCount
-                                                + "_"
-                                                + originalName;
-
-                                imageFile.transferTo(
-                                                new File(folder, fileName));
-
-                                // =================================
-                                // PRODUCT IMAGE
-                                // =================================
-
-                                ProductImage productImage = new ProductImage();
-
-                                productImage.setImageName(
-                                                fileName);
-
-                                productImage.setProduct(
-                                                savedProduct);
-
-                                productImage.setPrimaryImage(
-                                                imageCount == 0);
-
-                                productImageRepository.save(
-                                                productImage);
-
-                                // =================================
-                                // FIRST IMAGE = PRIMARY IMAGE
-                                // =================================
-
-                                if (imageCount == 0) {
-
-                                        savedProduct.setImage(
-                                                        fileName);
-
-                                        productService.updateProduct(
-                                                        savedProduct);
-                                }
-
-                                imageCount++;
-                        }
-                }
-
-                // =========================================
-                // SUCCESS MESSAGE
-                // =========================================
-
-                redirectAttributes.addFlashAttribute(
-                                "success",
-                                imageCount > 0
-                                                ? "Product added successfully with "
-                                                                + imageCount
-                                                                + " image(s)!"
-                                                : "Product added successfully!");
-
-                return "redirect:/admin/products";
+                imageCount++;
+            }
         }
 
         // =========================================
-        // DELETE PRODUCT
+        // SUCCESS MESSAGE
         // =========================================
 
-        @GetMapping("/products/delete/{id}")
-        public String deleteProduct(
-                        @PathVariable Long id,
-                        RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute(
+                "success",
+                imageCount > 0
+                        ? "Product added successfully with "
+                                + imageCount
+                                + " image(s)!"
+                        : "Product added successfully!");
 
-                try {
+        return "redirect:/admin/products";
+    }
 
-                        productService.deleteProduct(id);
+    // =========================================
+    // DELETE PRODUCT
+    // =========================================
 
-                        redirectAttributes.addFlashAttribute(
-                                        "success",
-                                        "Product deleted successfully!");
+    @GetMapping("/products/delete/{id}")
+    public String deleteProduct(
+            @PathVariable Long id,
+            RedirectAttributes redirectAttributes) {
 
-                } catch (Exception e) {
+        try {
 
-                        redirectAttributes.addFlashAttribute(
-                                        "error",
-                                        "Unable to delete product: "
-                                                        + e.getMessage());
-                }
+            productService.deleteProduct(id);
 
-                return "redirect:/admin/products";
+            redirectAttributes.addFlashAttribute(
+                    "success",
+                    "Product deleted successfully!");
+
+        } catch (Exception e) {
+
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "Unable to delete product: "
+                            + e.getMessage());
+        }
+
+        return "redirect:/admin/products";
+    }
+
+    // =========================================
+    // EDIT PRODUCT
+    // =========================================
+
+    @GetMapping("/products/edit/{id}")
+    public String editProduct(
+            @PathVariable Long id,
+            Model model) {
+
+        Product product =
+                productService.getProductById(id);
+
+        if (product == null) {
+
+            return "redirect:/admin/products";
+        }
+
+        List<ProductImage> productImages =
+                productImageRepository
+                        .findByProductId(id);
+
+        model.addAttribute(
+                "product",
+                product);
+
+        model.addAttribute(
+                "productImages",
+                productImages);
+
+        model.addAttribute(
+                "products",
+                productService.getAllProducts());
+
+        model.addAttribute(
+                "categories",
+                categoryService.getAllCategories());
+
+        return "admin/products";
+    }
+
+    // =========================================
+    // UPDATE PRODUCT
+    // =========================================
+
+    @PostMapping("/products/update")
+    public String updateProduct(
+
+            @ModelAttribute Product product,
+
+            @RequestParam("categoryId") Long categoryId,
+
+            @RequestParam(
+                    value = "imageFiles",
+                    required = false)
+            List<MultipartFile> imageFiles)
+
+            throws IOException {
+
+        // =========================================
+        // GET CATEGORY
+        // =========================================
+
+        Category category =
+                categoryService.getCategoryById(
+                        categoryId);
+
+        if (category == null) {
+
+            return "redirect:/admin/products";
         }
 
         // =========================================
-        // EDIT PRODUCT
+        // SET CATEGORY
         // =========================================
 
-        @GetMapping("/products/edit/{id}")
-        public String editProduct(
-                        @PathVariable Long id,
-                        Model model) {
+        product.setCategory(category);
 
-                Product product = productService.getProductById(id);
+        // =========================================
+        // GET EXISTING PRODUCT
+        // =========================================
 
-                if (product == null) {
+        Product oldProduct =
+                productService.getProductById(
+                        product.getId());
 
-                        return "redirect:/admin/products";
-                }
+        if (oldProduct == null) {
 
-                List<ProductImage> productImages = productImageRepository
-                                .findByProductId(id);
-
-                model.addAttribute(
-                                "product",
-                                product);
-
-                model.addAttribute(
-                                "productImages",
-                                productImages);
-
-                model.addAttribute(
-                                "products",
-                                productService.getAllProducts());
-
-                model.addAttribute(
-                                "categories",
-                                categoryService.getAllCategories());
-
-                return "admin/products";
+            return "redirect:/admin/products";
         }
+
+        // =========================================
+        // KEEP EXISTING PRIMARY IMAGE
+        // =========================================
+
+        product.setImage(
+                oldProduct.getImage());
 
         // =========================================
         // UPDATE PRODUCT
         // =========================================
 
-        @PostMapping("/products/update")
-        public String updateProduct(
-
-                        @ModelAttribute Product product,
-
-                        @RequestParam("categoryId") Long categoryId,
-
-                        @RequestParam(value = "imageFiles", required = false) List<MultipartFile> imageFiles)
-
-                        throws IOException {
-
-                // =========================================
-                // GET CATEGORY
-                // =========================================
-
-                Category category = categoryService.getCategoryById(
-                                categoryId);
-
-                if (category == null) {
-
-                        return "redirect:/admin/products";
-                }
-
-                // =========================================
-                // SET CATEGORY
-                // =========================================
-
-                product.setCategory(category);
-
-                // =========================================
-                // GET EXISTING PRODUCT
-                // =========================================
-
-                Product oldProduct = productService.getProductById(
-                                product.getId());
-
-                if (oldProduct == null) {
-
-                        return "redirect:/admin/products";
-                }
-
-                // =========================================
-                // KEEP EXISTING PRIMARY IMAGE
-                // =========================================
-
-                product.setImage(
-                                oldProduct.getImage());
-
-                // =========================================
-                // UPLOAD DIRECTORY
-                // =========================================
-
-                String uploadDir = System.getProperty("user.dir")
-                                + File.separator
-                                + "uploads"
-                                + File.separator
-                                + "products";
-
-                File folder = new File(uploadDir);
-
-                if (!folder.exists()) {
-                        folder.mkdirs();
-                }
-                // =========================================
-                // UPDATE PRODUCT
-                // =========================================
-
-                Product updatedProduct = productService.updateProduct(
-                                product);
-
-                // =========================================
-                // ADD NEW IMAGES
-                // =========================================
-
-                if (imageFiles != null
-                                && !imageFiles.isEmpty()) {
-
-                        int existingImageCount = productImageRepository
-                                        .findByProductId(
-                                                        product.getId())
-                                        .size();
-
-                        int remainingSlots = Math.max(
-                                        0,
-                                        5 - existingImageCount);
-
-                        int addedCount = 0;
-
-                        for (MultipartFile imageFile : imageFiles) {
-
-                                if (addedCount >= remainingSlots) {
-                                        break;
-                                }
-
-                                if (imageFile == null
-                                                || imageFile.isEmpty()) {
-
-                                        continue;
-                                }
-
-                                String originalName = imageFile.getOriginalFilename();
-
-                                if (originalName == null
-                                                || originalName.isBlank()) {
-
-                                        continue;
-                                }
-                                String fileName = System.currentTimeMillis()
-                                                + "_"
-                                                + addedCount
-                                                + "_"
-                                                + originalName;
-
-                                File destination = new File(
-                                                folder,
-                                                fileName);
-
-                                imageFile.transferTo(
-                                                destination);
-
-                                // =================================
-                                // PRODUCT IMAGE
-                                // =================================
-
-                                ProductImage productImage = new ProductImage();
-
-                                productImage.setImageName(
-                                                fileName);
-
-                                productImage.setProduct(
-                                                updatedProduct);
-
-                                productImage.setPrimaryImage(
-                                                false);
-
-                                productImageRepository.save(
-                                                productImage);
-
-                                // =================================
-                                // IF NO PRIMARY IMAGE
-                                // =================================
-
-                                if (updatedProduct.getImage() == null
-                                                || updatedProduct.getImage()
-                                                                .isBlank()) {
-
-                                        updatedProduct.setImage(
-                                                        fileName);
-
-                                        productService.updateProduct(
-                                                        updatedProduct);
-                                }
-
-                                addedCount++;
-                        }
-                }
-
-                return "redirect:/admin/products";
-        }
+        Product updatedProduct =
+                productService.updateProduct(
+                        product);
 
         // =========================================
-        // DELETE PRODUCT IMAGE
+        // ADD NEW IMAGES
         // =========================================
 
-        @GetMapping("/products/image/delete/{imageId}")
-        public String deleteProductImage(
-                        @PathVariable Long imageId)
-                        throws IOException {
+        if (imageFiles != null
+                && !imageFiles.isEmpty()) {
 
-                ProductImage productImage = productImageRepository
-                                .findById(imageId)
-                                .orElse(null);
+            int existingImageCount =
+                    productImageRepository
+                            .findByProductId(
+                                    product.getId())
+                            .size();
 
-                if (productImage == null) {
+            int remainingSlots =
+                    Math.max(
+                            0,
+                            5 - existingImageCount);
 
-                        return "redirect:/admin/products";
+            int addedCount = 0;
+
+            for (MultipartFile imageFile :
+                    imageFiles) {
+
+                if (addedCount >= remainingSlots) {
+                    break;
                 }
 
-                Product product = productImage.getProduct();
+                if (imageFile == null
+                        || imageFile.isEmpty()) {
 
-                Long productId = product.getId();
+                    continue;
+                }
 
-                // =========================================
-                // DELETE PHYSICAL IMAGE
-                // =========================================
+                String originalName =
+                        imageFile.getOriginalFilename();
 
-                String uploadDir = System.getProperty("user.dir")
-                                + File.separator
-                                + "uploads"
-                                + File.separator
-                                + "products"
-                                + File.separator;
+                if (originalName == null
+                        || originalName.isBlank()) {
 
-                File imageFile = new File(
-                                uploadDir + productImage.getImageName());
-
-                if (imageFile.exists()) {
-
-                        imageFile.delete();
+                    continue;
                 }
 
                 // =========================================
-                // DELETE DATABASE RECORD
+                // UPLOAD NEW IMAGE TO CLOUDINARY
                 // =========================================
 
-                productImageRepository.deleteById(
-                                imageId);
+                Map uploadResult =
+                        cloudinary.uploader().upload(
+                                imageFile.getBytes(),
+                                ObjectUtils.asMap(
+                                        "folder",
+                                        "srikrishna/products"
+                                )
+                        );
 
-                return "redirect:/admin/products/edit/"
-                                + productId;
-        }
-
-        // =========================================
-        // MAKE IMAGE PRIMARY
-        // =========================================
-
-        @GetMapping("/products/image/primary/{imageId}")
-        public String makePrimary(
-                        @PathVariable Long imageId) {
-
-                ProductImage selectedImage = productImageRepository
-                                .findById(imageId)
-                                .orElse(null);
-
-                if (selectedImage == null) {
-
-                        return "redirect:/admin/products";
-                }
-
-                Product product = selectedImage.getProduct();
-
-                Long productId = product.getId();
+                String imageUrl =
+                        uploadResult
+                                .get("secure_url")
+                                .toString();
 
                 // =========================================
-                // GET ALL PRODUCT IMAGES
+                // PRODUCT IMAGE
                 // =========================================
 
-                List<ProductImage> images = productImageRepository
-                                .findByProductId(productId);
+                ProductImage productImage =
+                        new ProductImage();
 
-                // =========================================
-                // REMOVE PRIMARY FROM ALL
-                // =========================================
+                productImage.setImageName(
+                        imageUrl);
 
-                for (ProductImage image : images) {
+                productImage.setProduct(
+                        updatedProduct);
 
-                        image.setPrimaryImage(false);
-                }
-
-                productImageRepository.saveAll(
-                                images);
-
-                // =========================================
-                // MAKE SELECTED IMAGE PRIMARY
-                // =========================================
-
-                selectedImage.setPrimaryImage(true);
+                productImage.setPrimaryImage(
+                        false);
 
                 productImageRepository.save(
-                                selectedImage);
+                        productImage);
 
                 // =========================================
-                // UPDATE PRODUCT IMAGE
+                // IF NO PRIMARY IMAGE
                 // =========================================
 
-                product.setImage(
-                                selectedImage.getImageName());
+                if (updatedProduct.getImage() == null
+                        || updatedProduct.getImage().isBlank()) {
 
-                productService.updateProduct(
-                                product);
+                    updatedProduct.setImage(
+                            imageUrl);
 
-                return "redirect:/admin/products/edit/"
-                                + productId;
+                    productService.updateProduct(
+                            updatedProduct);
+                }
+
+                addedCount++;
+            }
         }
+
+        return "redirect:/admin/products";
+    }
+
+    // =========================================
+    // DELETE PRODUCT IMAGE
+    // =========================================
+
+    @GetMapping("/products/image/delete/{imageId}")
+    public String deleteProductImage(
+            @PathVariable Long imageId)
+            throws IOException {
+
+        ProductImage productImage =
+                productImageRepository
+                        .findById(imageId)
+                        .orElse(null);
+
+        if (productImage == null) {
+
+            return "redirect:/admin/products";
+        }
+
+        Product product =
+                productImage.getProduct();
+
+        Long productId =
+                product.getId();
+
+        // =========================================
+        // DELETE DATABASE RECORD
+        // =========================================
+
+        productImageRepository.deleteById(
+                imageId);
+
+        return "redirect:/admin/products/edit/"
+                + productId;
+    }
+
+    // =========================================
+    // MAKE IMAGE PRIMARY
+    // =========================================
+
+    @GetMapping("/products/image/primary/{imageId}")
+    public String makePrimary(
+            @PathVariable Long imageId) {
+
+        ProductImage selectedImage =
+                productImageRepository
+                        .findById(imageId)
+                        .orElse(null);
+
+        if (selectedImage == null) {
+
+            return "redirect:/admin/products";
+        }
+
+        Product product =
+                selectedImage.getProduct();
+
+        Long productId =
+                product.getId();
+
+        // =========================================
+        // GET ALL PRODUCT IMAGES
+        // =========================================
+
+        List<ProductImage> images =
+                productImageRepository
+                        .findByProductId(productId);
+
+        // =========================================
+        // REMOVE PRIMARY FROM ALL
+        // =========================================
+
+        for (ProductImage image : images) {
+
+            image.setPrimaryImage(false);
+        }
+
+        productImageRepository.saveAll(
+                images);
+
+        // =========================================
+        // MAKE SELECTED IMAGE PRIMARY
+        // =========================================
+
+        selectedImage.setPrimaryImage(true);
+
+        productImageRepository.save(
+                selectedImage);
+
+        // =========================================
+        // UPDATE PRODUCT IMAGE
+        // =========================================
+
+        product.setImage(
+                selectedImage.getImageName());
+
+        productService.updateProduct(
+                product);
+
+        return "redirect:/admin/products/edit/"
+                + productId;
+    }
 }
