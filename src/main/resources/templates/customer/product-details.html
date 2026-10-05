@@ -30,6 +30,7 @@
 
 <body>
 
+
 <!-- =====================================================
      TOP BAR
 ===================================================== -->
@@ -361,7 +362,9 @@
                     </div>
 
 
-                    <!-- THUMBNAILS -->
+                    <!-- =================================================
+                         THUMBNAILS
+                    ================================================== -->
 
                     <div class="thumbnail-container"
                          th:if="${productImages != null and !productImages.isEmpty()}">
@@ -370,7 +373,8 @@
                                 class="thumbnail"
                                 th:each="image,stat : ${productImages}"
                                 th:classappend="${stat.index == 0 ? 'active' : ''}"
-                                th:onclick="'changeImage(this, \'' + ${image.imageName} + '\')'">
+                                th:attr="data-image=${image.imageName}"
+                                onclick="changeImage(this, this.dataset.image)">
 
                             <img th:src="${image.imageName}"
                                  th:alt="${product.name}">
@@ -817,10 +821,6 @@
 
 <script>
 
-    const galleryImages = [
-        /*[[${productImages != null ? productImages.![imageName] : {}}]]*/
-    ];
-
     let galleryIndex = 0;
     let galleryTimer = null;
     let touchStartX = 0;
@@ -835,7 +835,9 @@
         const mainImage =
             document.getElementById("mainProductImage");
 
-        if (!mainImage) return;
+        if (!mainImage) {
+            return;
+        }
 
         mainImage.src = imageName;
 
@@ -849,7 +851,9 @@
 
 
         if (button) {
+
             button.classList.add("active");
+
         }
 
 
@@ -863,7 +867,7 @@
                 thumbnail.querySelector("img");
 
             if (image &&
-                image.src.endsWith(imageName)) {
+                image.getAttribute("src") === imageName) {
 
                 galleryIndex = index;
 
@@ -883,7 +887,9 @@
         const thumbnails =
             document.querySelectorAll(".thumbnail");
 
-        if (!thumbnails.length) return;
+        if (!thumbnails.length) {
+            return;
+        }
 
 
         galleryIndex =
@@ -921,11 +927,15 @@
             document.querySelectorAll(".thumbnail");
 
 
-        if (thumbnails.length <= 1) return;
+        if (thumbnails.length <= 1) {
+            return;
+        }
 
 
         if (galleryTimer) {
+
             clearInterval(galleryTimer);
+
         }
 
 
@@ -945,87 +955,90 @@
        MOUSE / TOUCH EVENTS
     ===================================================== */
 
-    const galleryWrapper =
-        document.querySelector(".main-image-wrapper");
-
-
-    if (galleryWrapper) {
-
-
-        galleryWrapper.addEventListener(
-            "mouseenter",
-            function () {
-
-                if (galleryTimer) {
-                    clearInterval(galleryTimer);
-                }
-
-            }
-        );
-
-
-        galleryWrapper.addEventListener(
-            "mouseleave",
-            function () {
-
-                startGalleryAutoPlay();
-
-            }
-        );
-
-
-        galleryWrapper.addEventListener(
-            "touchstart",
-            function (event) {
-
-                touchStartX =
-                    event.changedTouches[0].screenX;
-
-            },
-            {
-                passive: true
-            }
-        );
-
-
-        galleryWrapper.addEventListener(
-            "touchend",
-            function (event) {
-
-                const delta =
-                    event.changedTouches[0].screenX -
-                    touchStartX;
-
-
-                if (Math.abs(delta) > 40) {
-
-                    showGalleryImage(
-                        galleryIndex +
-                        (delta < 0 ? 1 : -1)
-                    );
-
-                }
-
-            },
-            {
-                passive: true
-            }
-        );
-
-    }
-
-
-    startGalleryAutoPlay();
-
-
-    /* =====================================================
-       QUANTITY
-    ===================================================== */
-
     document.addEventListener(
         "DOMContentLoaded",
         function () {
 
+
+            const galleryWrapper =
+                document.querySelector(".main-image-wrapper");
+
+
+            if (galleryWrapper) {
+
+
+                galleryWrapper.addEventListener(
+                    "mouseenter",
+                    function () {
+
+                        if (galleryTimer) {
+
+                            clearInterval(
+                                galleryTimer
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                galleryWrapper.addEventListener(
+                    "mouseleave",
+                    function () {
+
+                        startGalleryAutoPlay();
+
+                    }
+                );
+
+
+                galleryWrapper.addEventListener(
+                    "touchstart",
+                    function (event) {
+
+                        touchStartX =
+                            event.changedTouches[0]
+                                .screenX;
+
+                    },
+                    {
+                        passive: true
+                    }
+                );
+
+
+                galleryWrapper.addEventListener(
+                    "touchend",
+                    function (event) {
+
+                        const delta =
+                            event.changedTouches[0]
+                                .screenX -
+                            touchStartX;
+
+
+                        if (Math.abs(delta) > 40) {
+
+                            showGalleryImage(
+                                galleryIndex +
+                                (delta < 0 ? 1 : -1)
+                            );
+
+                        }
+
+                    },
+                    {
+                        passive: true
+                    }
+                );
+
+            }
+
+
+            /* =================================================
+               QUANTITY
+            ================================================= */
 
             const quantity =
                 document.getElementById("quantity");
@@ -1044,6 +1057,11 @@
 
 
             function updateQuantity() {
+
+                if (!quantity) {
+                    return;
+                }
+
 
                 let value =
                     parseInt(quantity.value) || 1;
@@ -1141,8 +1159,15 @@
                             this.querySelector("i");
 
 
+                        if (!icon) {
+                            return;
+                        }
+
+
                         if (
-                            icon.classList.contains("fa-regular")
+                            icon.classList.contains(
+                                "fa-regular"
+                            )
                         ) {
 
                             icon.classList.remove(
@@ -1177,6 +1202,13 @@
                 );
 
             }
+
+
+            /* =================================================
+               START GALLERY
+            ================================================= */
+
+            startGalleryAutoPlay();
 
         }
     );

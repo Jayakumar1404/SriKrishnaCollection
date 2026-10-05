@@ -7,30 +7,42 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Categories | Sri Krishna Collection</title>
+    <title>Category Management | Sri Krishna Collection</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
     <!-- Google Fonts -->
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
 
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
 
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+
+
     <!-- Font Awesome -->
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        rel="stylesheet">
 
 
-    <!-- Category CSS -->
+    <!-- Admin Category CSS -->
 
-    <link rel="stylesheet" th:href="@{/css/admin-categories.css}">
+    <link
+        rel="stylesheet"
+        th:href="@{/css/admin-category.css}">
 
-    <link rel="stylesheet" th:href="@{/css/admin-back.css}">
 </head>
 
 
@@ -38,238 +50,576 @@
 
 
     <!-- =====================================================
-     HEADER
-===================================================== -->
+         ADMIN NAVBAR
+    ===================================================== -->
 
-    <header class="admin-header">
+    <nav class="navbar admin-navbar">
 
-        <div class="page-container">
+        <div class="container">
 
-            <div class="header-inner">
+            <a class="admin-brand"
+               th:href="@{/admin/dashboard}">
 
+                <span class="admin-brand-icon">
 
-                <!-- BRAND -->
-
-                <a th:href="@{/admin/categories}" class="brand">
-
-                    <small>
-                        SRI KRISHNA
-                    </small>
-
-                    <strong>
-                        COLLECTION
-                    </strong>
-
-                </a>
-
-
-                <!-- PAGE LABEL -->
-
-                <span class="admin-label">
-
-                    <i class="fa-solid fa-layer-group"></i>
-
-                    CATEGORY MANAGEMENT
+                    <i class="fa-solid fa-crown"></i>
 
                 </span>
 
+
+                <span>
+
+                    <small>SRI KRISHNA</small>
+
+                    COLLECTION ADMIN
+
+                </span>
+
+            </a>
+
+
+            <!-- Right Navigation -->
+
+            <div class="d-flex align-items-center gap-2">
+
+                <a
+                    th:href="@{/admin/dashboard}"
+                    class="btn btn-sm text-white">
+
+                    <i class="fa-solid fa-house"></i>
+
+                    Dashboard
+
+                </a>
 
             </div>
 
         </div>
 
-    </header>
+    </nav>
 
 
 
     <!-- =====================================================
-     MAIN
-===================================================== -->
+         MAIN CONTENT
+    ===================================================== -->
 
-    <main class="category-page">
-
-        <div class="page-container">
+    <div class="container admin-page">
 
 
-            <!-- =================================================
+        <!-- =================================================
              PAGE HEADER
         ================================================== -->
 
-            <div class="page-header">
+        <div class="page-header">
 
-                <span class="page-label">
-                    ADMIN PANEL
-                </span>
+            <div>
 
-                <h1>
+                <h1 class="page-title">
+
+                    <i class="fa-solid fa-layer-group page-title-icon"></i>
+
                     Category Management
+
                 </h1>
 
-                <p>
-                    Organize and manage your product categories.
+
+                <p class="page-subtitle">
+
+                    Manage your product categories and collections
+
                 </p>
 
             </div>
 
 
+            <!-- Add Category -->
 
-            <!-- =================================================
+            <button
+                type="button"
+                class="btn-add-category"
+                data-bs-toggle="modal"
+                data-bs-target="#categoryModal">
+
+                <i class="fa-solid fa-plus"></i>
+
+                Add Category
+
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
              SUCCESS MESSAGE
         ================================================== -->
 
-            <div th:if="${success}" class="alert-message success-message">
+        <div
+            th:if="${success}"
+            class="alert alert-success alert-dismissible fade show"
+            role="alert">
 
-                <i class="fa-solid fa-circle-check"></i>
+            <i class="fa-solid fa-circle-check me-2"></i>
 
-                <span th:text="${success}">
-                    Success
-                </span>
+            <span th:text="${success}"></span>
 
-            </div>
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
 
 
 
-            <!-- =================================================
+        <!-- =================================================
              ERROR MESSAGE
         ================================================== -->
 
-            <div th:if="${error}" class="alert-message error-message">
+        <div
+            th:if="${error}"
+            class="alert alert-danger alert-dismissible fade show"
+            role="alert">
 
-                <i class="fa-solid fa-circle-exclamation"></i>
+            <i class="fa-solid fa-circle-exclamation me-2"></i>
 
-                <span th:text="${error}">
-                    Error
-                </span>
+            <span th:text="${error}"></span>
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+
+
+        <!-- =================================================
+             SEARCH
+        ================================================== -->
+
+        <div class="category-search">
+
+            <div class="category-search-icon">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
 
             </div>
 
 
+            <input
+                type="text"
+                id="searchCategory"
+                autocomplete="off"
+                placeholder="Search categories...">
 
-            <!-- =================================================
-             STATISTICS
+        </div>
+
+
+
+        <!-- =================================================
+             CATEGORY TABLE
         ================================================== -->
 
-            <div class="category-stats">
+        <div class="category-table-card">
+
+            <div class="table-responsive">
+
+                <table class="table category-table align-middle">
 
 
-                <!-- TOTAL -->
+                    <!-- TABLE HEADER -->
 
-                <div class="category-stat total-stat">
+                    <thead>
 
-                    <div class="stat-title">
-                        TOTAL CATEGORIES
-                    </div>
+                        <tr>
 
+                            <th>
+                                S.No
+                            </th>
 
-                    <div class="stat-value">
+                            <th>
+                                Image
+                            </th>
 
-                        <i class="fa-solid fa-layer-group"></i>
+                            <th>
+                                Category
+                            </th>
 
-                        <strong th:text="${totalCategories}">
-                            0
-                        </strong>
+                            <th>
+                                Description
+                            </th>
 
-                    </div>
+                            <th>
+                                Actions
+                            </th>
 
+                        </tr>
 
-                    <small>
-                        All categories
-                    </small>
-
-                </div>
-
-
-
-                <!-- ACTIVE -->
-
-                <div class="category-stat active-stat">
-
-                    <div class="stat-title">
-                        ACTIVE
-                    </div>
-
-
-                    <div class="stat-value">
-
-                        <i class="fa-solid fa-circle-check"></i>
-
-                        <strong th:text="${activeCategories}">
-                            0
-                        </strong>
-
-                    </div>
-
-
-                    <small>
-                        Active categories
-                    </small>
-
-                </div>
+                    </thead>
 
 
 
-                <!-- INACTIVE -->
+                    <!-- TABLE BODY -->
 
-                <div class="category-stat inactive-stat">
-
-                    <div class="stat-title">
-                        INACTIVE
-                    </div>
+                    <tbody id="categoryTableBody">
 
 
-                    <div class="stat-value">
+                        <!-- =================================================
+                             CATEGORY ROW
+                        ================================================== -->
 
-                        <i class="fa-solid fa-circle-xmark"></i>
-
-                        <strong th:text="${inactiveCategories}">
-                            0
-                        </strong>
-
-                    </div>
+                        <tr
+                            th:each="category, stat : ${categories}"
+                            data-category-row>
 
 
-                    <small>
-                        Inactive categories
-                    </small>
+                            <!-- S.NO -->
 
-                </div>
+                            <td>
 
+                                <span
+                                    class="category-number"
+                                    th:text="${stat.count}">
+
+                                    1
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- =================================================
+                                 CATEGORY IMAGE
+                            ================================================== -->
+
+                            <td>
+
+                                <!-- Cloudinary Image -->
+
+                                <div
+                                    th:if="${category.image != null and !#strings.isEmpty(category.image)}">
+
+                                    <img
+                                        th:src="${category.image}"
+                                        class="category-image"
+                                        th:alt="${category.name}"
+                                        alt="Category Image">
+
+                                </div>
+
+
+                                <!-- No Image -->
+
+                                <div
+                                    th:unless="${category.image != null and !#strings.isEmpty(category.image)}"
+                                    class="category-image d-flex align-items-center justify-content-center">
+
+                                    <i class="fa-solid fa-image text-muted"></i>
+
+                                </div>
+
+                            </td>
+
+
+
+                            <!-- =================================================
+                                 CATEGORY NAME
+                            ================================================== -->
+
+                            <td>
+
+                                <span
+                                    class="category-name"
+                                    th:text="${category.name}">
+
+                                    Category Name
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- =================================================
+                                 DESCRIPTION
+                            ================================================== -->
+
+                            <td>
+
+                                <span
+                                    class="category-description"
+                                    th:text="${category.description != null && !#strings.isEmpty(category.description)
+                                    ? category.description
+                                    : 'No description available'}">
+
+                                    Description
+
+                                </span>
+
+                            </td>
+
+
+
+                            <!-- =================================================
+                                 ACTIONS
+                            ================================================== -->
+
+                            <td>
+
+                                <div class="category-actions">
+
+
+                                    <!-- EDIT -->
+
+                                    <a
+                                        th:href="@{/admin/categories/edit/{id}(id=${category.id})}"
+                                        class="btn-edit-category"
+                                        title="Edit Category">
+
+                                        <i class="fa-solid fa-pen"></i>
+
+                                    </a>
+
+
+
+                                    <!-- DELETE -->
+
+                                    <a
+                                        th:href="@{/admin/categories/delete/{id}(id=${category.id})}"
+                                        class="btn-delete-category deleteCategory"
+                                        title="Delete Category">
+
+                                        <i class="fa-solid fa-trash"></i>
+
+                                    </a>
+
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+
+
+                        <!-- =================================================
+                             EMPTY STATE
+                        ================================================== -->
+
+                        <tr
+                            th:if="${#lists.isEmpty(categories)}">
+
+                            <td colspan="5">
+
+                                <div class="empty-category">
+
+                                    <i class="fa-solid fa-layer-group"></i>
+
+
+                                    <h5>
+
+                                        No Categories Found
+
+                                    </h5>
+
+
+                                    <p>
+
+                                        Start by adding your first
+                                        product category.
+
+                                    </p>
+
+
+                                    <button
+                                        type="button"
+                                        class="btn-add-category"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#categoryModal">
+
+                                        <i class="fa-solid fa-plus"></i>
+
+                                        Add Category
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+
+                    </tbody>
+
+                </table>
 
             </div>
 
+        </div>
+
+    </div>
 
 
-            <!-- =================================================
-             SEARCH + FILTER
-        ================================================== -->
 
-            <div class="filter-card">
+    <!-- =====================================================
+         CATEGORY MODAL
+    ===================================================== -->
 
-
-                <form id="categoryFilterForm" th:action="@{/admin/categories}" method="get">
-
-
-                    <!-- SEARCH ROW -->
-
-                    <div class="search-row">
+    <div
+        class="modal fade"
+        id="categoryModal"
+        tabindex="-1"
+        aria-labelledby="categoryModalTitle"
+        aria-hidden="true">
 
 
-                        <!-- SEARCH -->
+        <div class="modal-dialog modal-dialog-centered">
 
-                        <div class="search-area">
+            <div class="modal-content">
 
-                            <label>
-                                SEARCH CATEGORIES
+
+                <!-- =================================================
+                     MODAL HEADER
+                ================================================== -->
+
+                <div class="modal-header">
+
+
+                    <h5
+                        class="modal-title"
+                        id="categoryModalTitle"
+                        th:text="${category.id == null
+                        ? 'Add Category'
+                        : 'Edit Category'}">
+
+                        Add Category
+
+                    </h5>
+
+
+                    <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                    </button>
+
+                </div>
+
+
+
+                <!-- =================================================
+                     MODAL BODY
+                ================================================== -->
+
+                <div class="modal-body">
+
+
+                    <form
+                        th:action="${category.id == null}
+                        ? @{/admin/categories/save}
+                        : @{/admin/categories/update}"
+                        th:object="${category}"
+                        method="post"
+                        enctype="multipart/form-data">
+
+
+                        <!-- Hidden ID -->
+
+                        <input
+                            type="hidden"
+                            th:field="*{id}">
+
+
+
+                        <!-- =================================================
+                             CATEGORY NAME
+                        ================================================== -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="categoryName"
+                                class="form-label">
+
+                                Category Name
+
                             </label>
 
 
-                            <div class="search-box">
+                            <input
+                                type="text"
+                                id="categoryName"
+                                class="form-control"
+                                th:field="*{name}"
+                                autocomplete="off"
+                                placeholder="Enter category name"
+                                required>
 
-                                <i class="fa-solid fa-magnifying-glass"></i>
+                        </div>
 
 
-                                <input type="text" id="adminCategorySearch" name="keyword" th:value="${keyword}"
-                                    placeholder="Search category..." autocomplete="off">
+
+                        <!-- =================================================
+                             DESCRIPTION
+                        ================================================== -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="categoryDescription"
+                                class="form-label">
+
+                                Description
+
+                            </label>
+
+
+                            <textarea
+                                id="categoryDescription"
+                                class="form-control"
+                                rows="4"
+                                th:field="*{description}"
+                                placeholder="Enter category description">
+                            </textarea>
+
+                        </div>
+
+
+
+                        <!-- =================================================
+                             IMAGE UPLOAD
+                        ================================================== -->
+
+                        <div class="mb-3">
+
+                            <label
+                                for="imageFile"
+                                class="form-label">
+
+                                Category Image
+
+                            </label>
+
+
+                            <input
+                                type="file"
+                                id="imageFile"
+                                name="imageFile"
+                                class="form-control"
+                                accept="image/*">
+
+
+                            <div class="form-text">
+
+                                JPG, JPEG, PNG or WEBP recommended.
 
                             </div>
 
@@ -277,542 +627,206 @@
 
 
 
-                        <!-- SEARCH BUTTON -->
+                        <!-- =================================================
+                             CURRENT / PREVIEW IMAGE
+                        ================================================== -->
 
-                        <button type="submit" class="search-button">
-
-                            <i class="fa-solid fa-magnifying-glass"></i>
-
-                            Search
-
-                        </button>
+                        <div class="text-center mb-4">
 
 
+                            <!-- Existing Cloudinary Image -->
 
-                        <!-- CLEAR -->
-
-                        <a th:href="@{/admin/categories}" class="clear-button">
-
-                            <i class="fa-solid fa-rotate-left"></i>
-
-                            Clear
-
-                        </a>
-
-
-
-                        <!-- ADD -->
-
-                        <a th:href="@{/admin/categories/new}" class="add-button">
-
-                            <i class="fa-solid fa-plus"></i>
-
-                            Add Category
-
-                        </a>
+                            <img
+                                th:if="${category.image != null and !#strings.isEmpty(category.image)}"
+                                id="previewImage"
+                                th:src="${category.image}"
+                                width="200"
+                                height="150"
+                                class="img-thumbnail"
+                                alt="Category Preview">
 
 
-                    </div>
+                            <!-- New Category Preview -->
 
-
-
-                    <!-- =================================================
-                     STATUS FILTER
-                ================================================== -->
-
-                    <div class="status-section">
-
-
-                        <label>
-                            CATEGORY STATUS
-                        </label>
-
-
-                        <div class="status-pills">
-
-
-                            <!-- ALL -->
-
-                            <button type="submit" name="status" value="ALL" class="status-pill" th:classappend="${
-                                selectedStatus == null
-                                or selectedStatus == 'ALL'
-                                ? ' active'
-                                : ''
-                            }">
-
-                                <span class="dot all-dot"></span>
-
-                                All
-
-                            </button>
-
-
-
-                            <!-- ACTIVE -->
-
-                            <button type="submit" name="status" value="ACTIVE" class="status-pill" th:classappend="${
-                                selectedStatus == 'ACTIVE'
-                                ? ' active'
-                                : ''
-                            }">
-
-                                <span class="dot active-dot"></span>
-
-                                Active
-
-                            </button>
-
-
-
-                            <!-- INACTIVE -->
-
-                            <button type="submit" name="status" value="INACTIVE" class="status-pill" th:classappend="${
-                                selectedStatus == 'INACTIVE'
-                                ? ' active'
-                                : ''
-                            }">
-
-                                <span class="dot inactive-dot"></span>
-
-                                Inactive
-
-                            </button>
-
+                            <img
+                                th:unless="${category.image != null and !#strings.isEmpty(category.image)}"
+                                id="previewImage"
+                                src="https://placehold.co/200x150?text=Category+Preview"
+                                width="200"
+                                height="150"
+                                class="img-thumbnail"
+                                alt="Category Preview">
 
                         </div>
 
 
-                    </div>
+
+                        <!-- =================================================
+                             SAVE / UPDATE BUTTON
+                        ================================================== -->
+
+                        <button
+                            type="submit"
+                            class="btn btn-success w-100">
 
 
-                </form>
-
-            </div>
-
-
-
-            <!-- =================================================
-             CATEGORY TABLE
-        ================================================== -->
-
-            <div class="categories-card">
+                            <i
+                                th:class="${category.id == null}
+                                ? 'fa-solid fa-floppy-disk'
+                                : 'fa-solid fa-pen-to-square'">
+                            </i>
 
 
-                <!-- TABLE HEADER -->
+                            <span
+                                th:text="${category.id == null}
+                                ? 'Save Category'
+                                : 'Update Category'}">
 
-                <div class="categories-header">
+                                Save Category
 
+                            </span>
 
-                    <div>
-
-                        <h2>
-                            Product Categories
-                        </h2>
-
-                        <small>
-                            Manage your store categories
-                        </small>
-
-                    </div>
+                        </button>
 
 
-                    <div class="category-count">
-
-                        <strong th:text="${categories != null
-                            ? #lists.size(categories)
-                            : 0}">
-                            0
-                        </strong>
-
-                        categories found
-
-                    </div>
-
+                    </form>
 
                 </div>
 
-
-
-                <!-- =================================================
-                 TABLE
-            ================================================== -->
-
-                <div class="table-wrapper">
-
-
-                    <table class="categories-table">
-
-
-                        <!-- TABLE HEAD -->
-
-                        <thead>
-
-                            <tr>
-
-                                <th>
-                                    ID
-                                </th>
-
-                                <th>
-                                    CATEGORY
-                                </th>
-
-                                <th>
-                                    DESCRIPTION
-                                </th>
-
-                                <th>
-                                    CREATED
-                                </th>
-
-                                <th>
-                                    STATUS
-                                </th>
-
-                                <th>
-                                    ACTION
-                                </th>
-
-                            </tr>
-
-                        </thead>
-
-
-
-                        <!-- TABLE BODY -->
-
-                        <tbody id="categoryTableBody">
-
-
-                            <!-- =================================================
-                         EACH CATEGORY
-                    ================================================== -->
-
-                            <tr th:each="category : ${categories}" data-category-row>
-
-
-                                <!-- =================================================
-                             ID
-                        ================================================== -->
-
-                                <td>
-
-                                    <span class="category-id">
-
-                                        #
-
-                                        <span th:text="${category.id}">
-                                            1
-                                        </span>
-
-                                    </span>
-
-                                </td>
-
-
-
-                                <!-- =================================================
-                             CATEGORY IMAGE + NAME
-                        ================================================== -->
-
-                                <td>
-
-
-                                    <div class="category-name">
-
-
-                                        <!-- IMAGE CONTAINER -->
-
-                                        <div class="category-icon">
-
-
-                                            <!-- ================================
-                                         SHOW IMAGE
-                                    ================================= -->
-
-                                            <img th:if="${category.image != null and category.image != ''}"
-                                                th:src="@{'/category-images/' + ${category.image}}"
-                                                th:alt="${category.name}" alt="Category Image">
-
-
-                                            <!-- ================================
-                                         FALLBACK ICON
-                                    ================================= -->
-
-                                            <i th:if="${category.image == null or category.image == ''}"
-                                                class="fa-solid fa-layer-group">
-                                            </i>
-
-
-                                        </div>
-
-
-                                        <!-- CATEGORY NAME -->
-
-                                        <div>
-
-                                            <strong th:text="${category.name}">
-                                                Sarees
-                                            </strong>
-
-                                        </div>
-
-
-                                    </div>
-
-
-                                </td>
-
-
-
-                                <!-- =================================================
-                             DESCRIPTION
-                        ================================================== -->
-
-                                <td>
-
-                                    <span class="description-text" th:text="${
-                                    category.description != null
-                                    and category.description != ''
-                                    ? category.description
-                                    : 'No description'
-                                }">
-
-                                        No description
-
-                                    </span>
-
-                                </td>
-
-
-
-                                <!-- =================================================
-                             CREATED DATE
-                        ================================================== -->
-
-                                <td>
-
-                                    <div class="created-date">
-
-
-                                        <span th:if="${category.createdAt != null}" th:text="${#temporals.format(
-                                        category.createdAt,
-                                        'dd MMM yyyy'
-                                    )}">
-
-                                            18 Aug 2026
-
-                                        </span>
-
-
-                                        <small th:if="${category.createdAt != null}" th:text="${#temporals.format(
-                                        category.createdAt,
-                                        'hh:mm a'
-                                    )}">
-
-                                            10:30 AM
-
-                                        </small>
-
-
-                                        <span th:if="${category.createdAt == null}">
-
-                                            N/A
-
-                                        </span>
-
-
-                                    </div>
-
-                                </td>
-
-
-
-                                <!-- =================================================
-                             STATUS
-                        ================================================== -->
-
-                                <td>
-
-
-                                    <span class="category-status" th:classappend="${
-                                    category.status == true
-                                    ? ' status-active'
-                                    : ' status-inactive'
-                                }" th:text="${
-                                    category.status == true
-                                    ? 'ACTIVE'
-                                    : 'INACTIVE'
-                                }">
-
-                                        ACTIVE
-
-                                    </span>
-
-
-                                </td>
-
-
-
-                                <!-- =================================================
-                             ACTIONS
-                        ================================================== -->
-
-                                <td>
-
-
-                                    <div class="action-buttons">
-
-
-                                        <!-- VIEW -->
-
-                                        <a th:href="@{/admin/categories/{id}(id=${category.id})}"
-                                            class="table-action view-action" title="View">
-
-                                            <i class="fa-solid fa-eye"></i>
-
-                                        </a>
-
-
-
-                                        <!-- EDIT -->
-
-                                        <a th:href="@{/admin/categories/edit/{id}(id=${category.id})}"
-                                            class="table-action edit-action" title="Edit">
-
-                                            <i class="fa-solid fa-pen"></i>
-
-                                        </a>
-
-
-
-                                        <!-- DEACTIVATE -->
-
-                                        <form th:if="${category.status == true}"
-                                            th:action="@{/admin/categories/{id}/deactivate(id=${category.id})}"
-                                            method="post">
-
-
-                                            <button type="submit" class="table-action deactivate-action"
-                                                title="Deactivate">
-
-                                                <i class="fa-solid fa-toggle-off"></i>
-
-                                            </button>
-
-
-                                        </form>
-
-
-
-                                        <!-- ACTIVATE -->
-
-                                        <form th:if="${category.status == false}"
-                                            th:action="@{/admin/categories/{id}/activate(id=${category.id})}"
-                                            method="post">
-
-
-                                            <button type="submit" class="table-action activate-action" title="Activate">
-
-                                                <i class="fa-solid fa-toggle-on"></i>
-
-                                            </button>
-
-
-                                        </form>
-
-
-
-                                        <!-- DELETE -->
-
-                                        <form th:action="@{/admin/categories/{id}/delete(id=${category.id})}"
-                                            method="post">
-
-
-                                            <button type="submit" class="table-action delete-action" title="Delete"
-                                                onclick="return confirm('Delete this category permanently?');">
-
-                                                <i class="fa-solid fa-trash"></i>
-
-                                            </button>
-
-
-                                        </form>
-
-
-                                    </div>
-
-
-                                </td>
-
-
-                            </tr>
-
-
-
-                            <!-- =================================================
-                         EMPTY
-                    ================================================== -->
-
-                            <tr th:if="${categories == null or categories.isEmpty()}">
-
-
-                                <td colspan="6" class="empty-cell">
-
-
-                                    <div class="empty-categories">
-
-
-                                        <i class="fa-solid fa-layer-group"></i>
-
-
-                                        <h3>
-                                            No Categories Found
-                                        </h3>
-
-
-                                        <p>
-                                            Create your first product category.
-                                        </p>
-
-
-                                        <a th:href="@{/admin/categories/new}" class="empty-button">
-
-                                            <i class="fa-solid fa-plus"></i>
-
-                                            Add Category
-
-                                        </a>
-
-
-                                    </div>
-
-
-                                </td>
-
-
-                            </tr>
-
-
-                        </tbody>
-
-
-                    </table>
-
-
-                </div>
-
-
             </div>
-
 
         </div>
 
-    </main>
+    </div>
 
 
-    <script th:src="@{/js/admin-category.js}"></script>
-    <script th:src="@{/js/admin-back.js}"></script>
+
+    <!-- =====================================================
+         BOOTSTRAP JS
+    ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+
+
+    <!-- =====================================================
+         SWEETALERT
+    ===================================================== -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+    </script>
+
+
+
+    <!-- =====================================================
+         ADMIN CATEGORY JS
+    ===================================================== -->
+
+    <script
+        th:src="@{/js/admin-category.js}">
+    </script>
+
+
+
+    <!-- =====================================================
+         DELETE CONFIRMATION
+    ===================================================== -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            document.querySelectorAll(".deleteCategory")
+                .forEach(function (button) {
+
+                    button.addEventListener("click", function (event) {
+
+                        event.preventDefault();
+
+                        const deleteUrl =
+                            this.getAttribute("href");
+
+
+                        Swal.fire({
+
+                            title: "Delete Category?",
+
+                            text: "This action cannot be undone.",
+
+                            icon: "warning",
+
+                            showCancelButton: true,
+
+                            confirmButtonText: "Yes, Delete",
+
+                            cancelButtonText: "Cancel",
+
+                            confirmButtonColor: "#c9a227",
+
+                            cancelButtonColor: "#111111"
+
+                        }).then(function (result) {
+
+                            if (result.isConfirmed) {
+
+                                window.location.href =
+                                    deleteUrl;
+
+                            }
+
+                        });
+
+                    });
+
+                });
+
+        });
+
+    </script>
+
+
+
+    <!-- =====================================================
+         AUTO OPEN MODAL WHEN EDITING
+    ===================================================== -->
+
+    <script th:inline="javascript">
+
+        /*<![CDATA[*/
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const categoryId =
+                /*[[${category.id}]]*/ null;
+
+
+            if (categoryId !== null) {
+
+                const modalElement =
+                    document.getElementById("categoryModal");
+
+
+                if (modalElement) {
+
+                    const modal =
+                        new bootstrap.Modal(modalElement);
+
+                    modal.show();
+
+                }
+
+            }
+
+        });
+
+        /*]]>*/
+
+    </script>
+
+
 </body>
 
 </html>

@@ -1,25 +1,21 @@
 package com.example.srikrishna.Controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.UUID;
-
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.example.srikrishna.Entity.Category;
 import com.example.srikrishna.Service.CategoryService;
 
@@ -27,17 +23,16 @@ import com.example.srikrishna.Service.CategoryService;
 @RequestMapping("/admin/categories")
 public class AdminCategoryController {
 
-
     private final CategoryService categoryService;
-
+    private final Cloudinary cloudinary;
 
     public AdminCategoryController(
-            CategoryService categoryService) {
+            CategoryService categoryService,
+            Cloudinary cloudinary) {
 
-        this.categoryService =
-                categoryService;
+        this.categoryService = categoryService;
+        this.cloudinary = cloudinary;
     }
-
 
     // =====================================================
     // CATEGORY LIST
@@ -61,7 +56,6 @@ public class AdminCategoryController {
 
             Model model) {
 
-
         List<Category> categories =
                 categoryService
                         .searchAndFilterCategories(
@@ -69,24 +63,20 @@ public class AdminCategoryController {
                                 status
                         );
 
-
         model.addAttribute(
                 "categories",
                 categories
         );
-
 
         model.addAttribute(
                 "keyword",
                 keyword
         );
 
-
         model.addAttribute(
                 "selectedStatus",
                 status
         );
-
 
         model.addAttribute(
                 "totalCategories",
@@ -94,13 +84,11 @@ public class AdminCategoryController {
                         .getTotalCategories()
         );
 
-
         model.addAttribute(
                 "activeCategories",
                 categoryService
                         .getActiveCategories()
         );
-
 
         model.addAttribute(
                 "inactiveCategories",
@@ -108,10 +96,8 @@ public class AdminCategoryController {
                         .getInactiveCategories()
         );
 
-
         return "admin/categories";
     }
-
 
     // =====================================================
     // ADD FORM
@@ -134,179 +120,149 @@ public class AdminCategoryController {
         return "admin/category-form";
     }
 
-
     // =====================================================
-    // SAVE
+    // SAVE / UPDATE
     // =====================================================
 
     @PostMapping("/save")
-public String saveCategory(
+    public String saveCategory(
 
-        Category category,
+            Category category,
 
-        @RequestParam("imageFile")
-        MultipartFile imageFile,
+            @RequestParam(
+                    value = "imageFile",
+                    required = false
+            )
+            MultipartFile imageFile,
 
-        RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes) {
 
-    try {
+        try {
 
-        // ================================
-        // CHECK DUPLICATE NAME
-        // ================================
+            // ================================
+            // CHECK DUPLICATE NAME
+            // ================================
 
-        if (categoryService.categoryNameExists(
-                category.getName(),
-                category.getId())) {
+            if (categoryService.categoryNameExists(
+                    category.getName(),
+                    category.getId())) {
+
+                redirectAttributes.addFlashAttribute(
+                        "error",
+                        "Category name already exists."
+                );
+
+                if (category.getId() == null) {
+                    return "redirect:/admin/categories/new";
+                }
+
+                return "redirect:/admin/categories/edit/"
+                        + category.getId();
+            }
+
+            // ================================
+            // DEFAULT STATUS
+            // ================================
+
+            if (category.getStatus() == null) {
+                category.setStatus(true);
+            }
+
+            // ================================
+            // CLOUDINARY IMAGE UPLOAD
+            // ================================
+
+            if (imageFile != null && !imageFile.isEmpty()) {
+
+                Map uploadResult =
+                        cloudinary.uploader().upload(
+                                imageFile.getBytes(),
+                                ObjectUtils.asMap(
+                                        "folder",
+                                        "srikrishna/categories"
+                                )
+                        );
+
+                String imageUrl =
+                        uploadResult
+                                .get("secure_url")
+                                .toString();
+
+                category.setImage(imageUrl);
+            }
+
+            // ================================
+            // SAVE / UPDATE
+            // ================================
+
+            if (category.getId() == null) {
+
+                // NEW CATEGORY
+
+                categoryService.saveCategory(category);
+
+                redirectAttributes.addFlashAttribute(
+                        "success",
+                        "Category added successfully."
+                );
+
+            } else {
+
+                // UPDATE CATEGORY
+
+                Category existingCategory =
+                        categoryService.getCategoryById(
+                                category.getId()
+                        );
+
+                if (existingCategory == null) {
+
+                    redirectAttributes.addFlashAttribute(
+                            "error",
+                            "Category not found."
+                    );
+
+                    return "redirect:/admin/categories";
+                }
+
+                // No new image:
+                // keep existing Cloudinary URL
+
+                if (imageFile == null ||
+                        imageFile.isEmpty()) {
+
+                    category.setImage(
+                            existingCategory.getImage()
+                    );
+                }
+
+                categoryService.updateCategory(category);
+
+                redirectAttributes.addFlashAttribute(
+                        "success",
+                        "Category updated successfully."
+                );
+            }
+
+        } catch (IOException e) {
 
             redirectAttributes.addFlashAttribute(
                     "error",
-                    "Category name already exists."
+                    "Image upload failed: "
+                            + e.getMessage()
             );
 
-            if (category.getId() == null) {
-                return "redirect:/admin/categories/new";
-            }
+        } catch (Exception e) {
 
-            return "redirect:/admin/categories/edit/"
-                    + category.getId();
-        }
-
-
-        // ================================
-        // DEFAULT STATUS
-        // ================================
-
-        if (category.getStatus() == null) {
-            category.setStatus(true);
-        }
-
-
-        // ================================
-        // IMAGE UPLOAD
-        // ================================
-
-        if (imageFile != null &&
-                !imageFile.isEmpty()) {
-
-            String uploadDirectory =
-                    "uploads/categories/";
-
-            Path uploadPath =
-                    Paths.get(uploadDirectory);
-
-            if (!Files.exists(uploadPath)) {
-
-                Files.createDirectories(uploadPath);
-            }
-
-
-            String originalName =
-                    imageFile.getOriginalFilename();
-
-            String extension = "";
-
-            if (originalName != null &&
-                    originalName.contains(".")) {
-
-                extension =
-                        originalName.substring(
-                                originalName.lastIndexOf(".")
-                        );
-            }
-
-
-            String fileName =
-                    UUID.randomUUID()
-                            + extension;
-
-
-            Path filePath =
-                    uploadPath.resolve(fileName);
-
-
-            Files.copy(
-                    imageFile.getInputStream(),
-                    filePath,
-                    StandardCopyOption.REPLACE_EXISTING
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "Unable to save category: "
+                            + e.getMessage()
             );
-
-
-            category.setImage(fileName);
         }
-
-
-        // ================================
-        // SAVE
-        // ================================
-
-       // ================================
-// SAVE / UPDATE
-// ================================
-
-if (category.getId() == null) {
-
-    // NEW CATEGORY
-
-    categoryService.saveCategory(category);
-
-    redirectAttributes.addFlashAttribute(
-            "success",
-            "Category added successfully.");
-
-} else {
-
-    // UPDATE CATEGORY
-
-    Category existingCategory =
-            categoryService.getCategoryById(
-                    category.getId());
-
-    if (existingCategory == null) {
-
-        redirectAttributes.addFlashAttribute(
-                "error",
-                "Category not found.");
 
         return "redirect:/admin/categories";
     }
-
-    // If no new image is uploaded,
-    // keep the old image
-    if (imageFile == null || imageFile.isEmpty()) {
-
-        category.setImage(
-                existingCategory.getImage());
-    }
-
-    categoryService.updateCategory(category);
-
-    redirectAttributes.addFlashAttribute(
-            "success",
-            "Category updated successfully.");
-}
-
-
-    } catch (IOException e) {
-
-        redirectAttributes.addFlashAttribute(
-                "error",
-                "Image upload failed: "
-                        + e.getMessage()
-        );
-
-    } catch (Exception e) {
-
-        redirectAttributes.addFlashAttribute(
-                "error",
-                "Unable to save category: "
-                        + e.getMessage()
-        );
-    }
-
-
-    return "redirect:/admin/categories";
-}
 
     // =====================================================
     // EDIT FORM
@@ -321,11 +277,9 @@ if (category.getId() == null) {
 
             RedirectAttributes redirectAttributes) {
 
-
         Category category =
                 categoryService
                         .getCategoryById(id);
-
 
         if (category == null) {
 
@@ -338,22 +292,18 @@ if (category.getId() == null) {
             return "redirect:/admin/categories";
         }
 
-
         model.addAttribute(
                 "category",
                 category
         );
-
 
         model.addAttribute(
                 "pageTitle",
                 "Edit Category"
         );
 
-
         return "admin/category-form";
     }
-
 
     // =====================================================
     // DETAILS
@@ -368,11 +318,9 @@ if (category.getId() == null) {
 
             RedirectAttributes redirectAttributes) {
 
-
         Category category =
                 categoryService
                         .getCategoryById(id);
-
 
         if (category == null) {
 
@@ -385,16 +333,13 @@ if (category.getId() == null) {
             return "redirect:/admin/categories";
         }
 
-
         model.addAttribute(
                 "category",
                 category
         );
 
-
         return "admin/category-details";
     }
-
 
     // =====================================================
     // ACTIVATE
@@ -407,12 +352,10 @@ if (category.getId() == null) {
 
             RedirectAttributes redirectAttributes) {
 
-
         try {
 
             categoryService
                     .activateCategory(id);
-
 
             redirectAttributes
                     .addFlashAttribute(
@@ -429,10 +372,8 @@ if (category.getId() == null) {
                     );
         }
 
-
         return "redirect:/admin/categories";
     }
-
 
     // =====================================================
     // DEACTIVATE
@@ -445,12 +386,10 @@ if (category.getId() == null) {
 
             RedirectAttributes redirectAttributes) {
 
-
         try {
 
             categoryService
                     .deactivateCategory(id);
-
 
             redirectAttributes
                     .addFlashAttribute(
@@ -467,10 +406,8 @@ if (category.getId() == null) {
                     );
         }
 
-
         return "redirect:/admin/categories";
     }
-
 
     // =====================================================
     // DELETE
@@ -483,12 +420,10 @@ if (category.getId() == null) {
 
             RedirectAttributes redirectAttributes) {
 
-
         try {
 
             categoryService
                     .deleteCategory(id);
-
 
             redirectAttributes
                     .addFlashAttribute(
@@ -506,8 +441,6 @@ if (category.getId() == null) {
                     );
         }
 
-
         return "redirect:/admin/categories";
     }
-
 }
