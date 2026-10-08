@@ -545,8 +545,9 @@
                                 <div class="category-image-wrapper"
                                     th:if="${category.image != null and !#strings.isEmpty(category.image)}">
 
-                                    <img th:src="@{'/category-images/' + ${category.image}}" th:alt="${category.name}"
-                                        class="category-image">
+                                    <img th:src="${category.image}"
+     th:alt="${category.name}"
+     class="category-image">
 
                                 </div>
 
