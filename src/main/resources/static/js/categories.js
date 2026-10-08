@@ -1,113 +1,257 @@
-/* =========================================================
-   SRI KRISHNA COLLECTION
-   CUSTOMER CATEGORIES
-   JAVASCRIPT
-========================================================= */
+/*
+=========================================================
+    SRI KRISHNA COLLECTION
+    ADMIN CATEGORY MANAGEMENT
+    JAVASCRIPT
+=========================================================
+*/
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("Sri Krishna Collection - Categories Loaded");
+    console.log("Sri Krishna Collection - Admin Categories Loaded");
 
 
     /* =====================================================
-       CATEGORY CARDS
+       ELEMENTS
     ===================================================== */
 
-    const cards =
-        document.querySelectorAll(".category-card");
+    const modal =
+        document.getElementById("categoryModal");
+
+    const addButton =
+        document.getElementById("addCategoryBtn");
+
+    const closeButton =
+        document.getElementById("closeCategoryModal");
+
+    const cancelButton =
+        document.getElementById("cancelCategoryBtn");
+
+    const form =
+        document.getElementById("categoryForm");
+
+    const imageInput =
+        document.getElementById("imageFile");
+
+    const previewImage =
+        document.getElementById("previewImage");
+
+    const modalTitle =
+        document.getElementById("categoryModalTitle");
+
+    const submitButton =
+        form
+            ? form.querySelector("button[type='submit']")
+            : null;
 
 
     /* =====================================================
-       REVEAL ANIMATION
+       OPEN MODAL
     ===================================================== */
 
-    if ("IntersectionObserver" in window) {
+    function openCategoryModal() {
 
-        const observer =
-            new IntersectionObserver(
-                function (entries, observer) {
+        if (!modal) {
+            return;
+        }
 
-                    entries.forEach(function (entry) {
+        modal.classList.add("show");
 
-                        if (entry.isIntersecting) {
+        modal.style.display = "flex";
 
-                            entry.target.classList.add(
-                                "revealed"
-                            );
-
-                            observer.unobserve(
-                                entry.target
-                            );
-
-                        }
-
-                    });
-
-                },
-                {
-                    threshold: 0.12
-                }
-            );
-
-
-        cards.forEach(function (card) {
-
-            observer.observe(card);
-
-        });
-
-    } else {
-
-        cards.forEach(function (card) {
-
-            card.classList.add("revealed");
-
-        });
+        document.body.classList.add("modal-open");
 
     }
 
 
     /* =====================================================
-       VIEW PRODUCTS
+       CLOSE MODAL
     ===================================================== */
 
-    const buttons =
-        document.querySelectorAll(".category-button");
+    function closeCategoryModal() {
+
+        if (!modal) {
+            return;
+        }
+
+        modal.classList.remove("show");
+
+        modal.style.display = "none";
+
+        document.body.classList.remove("modal-open");
+
+    }
 
 
-    buttons.forEach(function (button) {
+    /* =====================================================
+       ADD CATEGORY
+    ===================================================== */
 
-        button.addEventListener(
+    if (addButton) {
+
+        addButton.addEventListener(
             "click",
             function () {
 
-                const card =
-                    this.closest(".category-card");
+                resetForm();
+
+                if (modalTitle) {
+                    modalTitle.textContent = "Add Category";
+                }
+
+                openCategoryModal();
+
+            }
+        );
+
+    }
 
 
-                if (!card) {
+    /* =====================================================
+       CLOSE BUTTON
+    ===================================================== */
 
-                    return;
+    if (closeButton) {
+
+        closeButton.addEventListener(
+            "click",
+            closeCategoryModal
+        );
+
+    }
+
+
+    /* =====================================================
+       CANCEL BUTTON
+    ===================================================== */
+
+    if (cancelButton) {
+
+        cancelButton.addEventListener(
+            "click",
+            closeCategoryModal
+        );
+
+    }
+
+
+    /* =====================================================
+       CLICK OUTSIDE MODAL
+    ===================================================== */
+
+    if (modal) {
+
+        modal.addEventListener(
+            "click",
+            function (event) {
+
+                if (event.target === modal) {
+                    closeCategoryModal();
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       ESCAPE KEY
+    ===================================================== */
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (event.key === "Escape") {
+
+                if (
+                    modal &&
+                    modal.classList.contains("show")
+                ) {
+
+                    closeCategoryModal();
 
                 }
 
+            }
 
-                const title =
-                    card.querySelector("h3");
+        }
+    );
 
 
-                if (!title) {
+    /* =====================================================
+       RESET FORM
+    ===================================================== */
 
+    function resetForm() {
+
+        if (!form) {
+            return;
+        }
+
+
+        form.reset();
+
+
+        /*
+        IMPORTANT:
+        Keep hidden category ID empty
+        so controller treats it as ADD.
+        */
+
+        const idInput =
+            form.querySelector("input[name='id']");
+
+        if (idInput) {
+            idInput.value = "";
+        }
+
+
+        /*
+        Reset image preview
+        */
+
+        if (previewImage) {
+
+            previewImage.src =
+                "https://placehold.co/150x150?text=Preview";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       IMAGE PREVIEW
+    ===================================================== */
+
+    if (imageInput) {
+
+        imageInput.addEventListener(
+            "change",
+            function () {
+
+                const file =
+                    this.files && this.files[0];
+
+
+                if (!file) {
                     return;
-
                 }
 
 
-                const categoryName =
-                    title.textContent.trim();
+                /* =========================================
+                   FILE TYPE
+                ========================================= */
 
+                if (!file.type.startsWith("image/")) {
 
-                if (!categoryName) {
+                    alert(
+                        "Please select a valid image file."
+                    );
+
+                    this.value = "";
 
                     return;
 
@@ -115,42 +259,105 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 /* =========================================
-                   SWEET ALERT
+                   MAX FILE SIZE = 5MB
                 ========================================= */
 
-                if (typeof Swal !== "undefined") {
+                const maxSize =
+                    5 * 1024 * 1024;
 
-                    Swal.fire({
 
-                        icon: "success",
+                if (file.size > maxSize) {
 
-                        title: categoryName,
-
-                        text: "Opening Products...",
-
-                        timer: 1100,
-
-                        showConfirmButton: false,
-
-                        background: "#faf7ef",
-
-                        color: "#111111",
-
-                        iconColor: "#c9a227"
-
-                    }).then(function () {
-
-                        openProducts(
-                            categoryName
-                        );
-
-                    });
-
-                } else {
-
-                    openProducts(
-                        categoryName
+                    alert(
+                        "Image size must be less than 5MB."
                     );
+
+                    this.value = "";
+
+                    return;
+
+                }
+
+
+                /* =========================================
+                   PREVIEW
+                ========================================= */
+
+                if (previewImage) {
+
+                    const reader =
+                        new FileReader();
+
+
+                    reader.onload =
+                        function (event) {
+
+                            previewImage.src =
+                                event.target.result;
+
+                        };
+
+
+                    reader.readAsDataURL(file);
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       FORM SUBMIT
+    ===================================================== */
+
+    if (form) {
+
+        form.addEventListener(
+            "submit",
+            function () {
+
+                if (submitButton) {
+
+                    submitButton.disabled = true;
+
+                    submitButton.innerHTML =
+                        '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       DELETE CATEGORY CONFIRMATION
+    ===================================================== */
+
+    const deleteForms =
+        document.querySelectorAll(
+            ".delete-category-form"
+        );
+
+
+    deleteForms.forEach(function (deleteForm) {
+
+        deleteForm.addEventListener(
+            "submit",
+            function (event) {
+
+                const confirmed =
+                    confirm(
+                        "Are you sure you want to delete this category?"
+                    );
+
+
+                if (!confirmed) {
+
+                    event.preventDefault();
 
                 }
 
@@ -161,221 +368,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       OPEN PRODUCTS
-    ===================================================== */
-
-function openProducts(categoryName) {
-
-    window.location.href =
-        "/Krishna/product?category="
-        + encodeURIComponent(categoryName);
-
-}
-
-
-
-    /* =====================================================
-       CATEGORY SEARCH
+       ADMIN CATEGORY SEARCH
     ===================================================== */
 
     const searchInput =
         document.getElementById(
-            "categorySearch"
+            "adminCategorySearch"
         );
-
-
-    const searchButton =
-        document.getElementById(
-            "searchButton"
-        );
-
-
-    const noSearchResults =
-        document.getElementById(
-            "noSearchResults"
-        );
-
-
-    const clearSearch =
-        document.getElementById(
-            "clearSearch"
-        );
-
-
-    function performSearch() {
-
-        if (!searchInput) {
-
-            return;
-
-        }
-
-
-        const searchValue =
-            searchInput.value
-                .trim()
-                .toLowerCase();
-
-
-        let visibleCount = 0;
-
-
-        cards.forEach(function (card) {
-
-            const title =
-                card.querySelector("h3");
-
-
-            const description =
-                card.querySelector("p");
-
-
-            const categoryName =
-                title
-                    ? title.textContent
-                        .trim()
-                        .toLowerCase()
-                    : "";
-
-
-            const categoryDescription =
-                description
-                    ? description.textContent
-                        .trim()
-                        .toLowerCase()
-                    : "";
-
-
-            const matches =
-                searchValue === ""
-                ||
-                categoryName.includes(
-                    searchValue
-                )
-                ||
-                categoryDescription.includes(
-                    searchValue
-                );
-
-
-            if (matches) {
-
-                card.classList.remove(
-                    "search-hidden"
-                );
-
-                visibleCount++;
-
-            } else {
-
-                card.classList.add(
-                    "search-hidden"
-                );
-
-            }
-
-        });
-
-
-        if (
-            noSearchResults
-            &&
-            searchValue !== ""
-            &&
-            visibleCount === 0
-        ) {
-
-            noSearchResults.classList.remove(
-                "d-none"
-            );
-
-        } else if (noSearchResults) {
-
-            noSearchResults.classList.add(
-                "d-none"
-            );
-
-        }
-
-    }
 
 
     if (searchInput) {
 
         searchInput.addEventListener(
             "input",
-            performSearch
-        );
-
-
-        searchInput.addEventListener(
-            "keydown",
-            function (event) {
-
-                if (event.key === "Enter") {
-
-                    event.preventDefault();
-
-                    performSearch();
-
-                }
-
-            }
-        );
-
-    }
-
-
-    if (searchButton) {
-
-        searchButton.addEventListener(
-            "click",
-            performSearch
-        );
-
-    }
-
-
-    /* =====================================================
-       CLEAR SEARCH
-    ===================================================== */
-
-    if (clearSearch) {
-
-        clearSearch.addEventListener(
-            "click",
             function () {
 
-                if (searchInput) {
+                const value =
+                    this.value
+                        .toLowerCase()
+                        .trim();
 
-                    searchInput.value = "";
 
-                }
+                document
+                    .querySelectorAll(
+                        ".category-table-row"
+                    )
+                    .forEach(
+                        function (row) {
+
+                            const rowText =
+                                row.innerText
+                                    .toLowerCase();
 
 
-                cards.forEach(function (card) {
+                            row.style.display =
+                                rowText.includes(value)
+                                    ? ""
+                                    : "none";
 
-                    card.classList.remove(
-                        "search-hidden"
+                        }
                     );
-
-                });
-
-
-                if (noSearchResults) {
-
-                    noSearchResults.classList.add(
-                        "d-none"
-                    );
-
-                }
-
-
-                if (searchInput) {
-
-                    searchInput.focus();
-
-                }
 
             }
         );
@@ -384,143 +416,35 @@ function openProducts(categoryName) {
 
 
     /* =====================================================
-       SCROLL TO TOP
+       AUTO HIDE ALERT
     ===================================================== */
 
-    const topButton =
-        document.getElementById(
-            "scrollTop"
-        );
-
-
-    function updateScrollButton() {
-
-        if (!topButton) {
-
-            return;
-
-        }
-
-
-        if (window.scrollY > 300) {
-
-            topButton.classList.add(
-                "show"
-            );
-
-        } else {
-
-            topButton.classList.remove(
-                "show"
-            );
-
-        }
-
-    }
-
-
-    window.addEventListener(
-        "scroll",
-        updateScrollButton,
-        {
-            passive: true
-        }
-    );
-
-
-    updateScrollButton();
-
-
-    if (topButton) {
-
-        topButton.addEventListener(
-            "click",
-            function () {
-
-                window.scrollTo({
-
-                    top: 0,
-
-                    behavior: "smooth"
-
-                });
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       IMAGE ERROR HANDLING
-    ===================================================== */
-
-    const images =
+    const alerts =
         document.querySelectorAll(
-            ".category-image"
+            ".alert"
         );
 
 
-    images.forEach(function (image) {
+    alerts.forEach(function (alert) {
 
-        image.addEventListener(
-            "error",
+        setTimeout(
             function () {
 
-                this.classList.add(
-                    "image-error"
+                alert.style.opacity = "0";
+
+                setTimeout(
+                    function () {
+
+                        alert.remove();
+
+                    },
+                    500
                 );
 
-                this.alt =
-                    "Category image unavailable";
-
-            }
+            },
+            4000
         );
 
     });
 
-
-    /* =====================================================
-       SEARCH BOX SHORTCUT
-       CTRL + K
-    ===================================================== */
-
-    document.addEventListener(
-        "keydown",
-        function (event) {
-
-            if (
-                (event.ctrlKey || event.metaKey)
-                &&
-                event.key.toLowerCase() === "k"
-            ) {
-
-                event.preventDefault();
-
-                if (searchInput) {
-
-                    searchInput.focus();
-
-                }
-
-            }
-
-        }
-    );
-
-});
-
-// =====================================================
-// ADMIN CATEGORY TABLE - INSTANT SEARCH
-// =====================================================
-document.addEventListener("DOMContentLoaded", function () {
-    const input = document.getElementById("adminCategorySearch");
-    if (!input) return;
-
-    input.addEventListener("input", function () {
-        const value = this.value.toLowerCase().trim();
-        document.querySelectorAll(".category-table-row").forEach(function (row) {
-            row.style.display = row.innerText.toLowerCase().includes(value) ? "" : "none";
-        });
-    });
 });

@@ -34,13 +34,13 @@ public class AdminCategoryController {
         this.cloudinary = cloudinary;
     }
 
+
     // =====================================================
     // CATEGORY LIST
     // =====================================================
 
     @GetMapping
     public String categories(
-
             @RequestParam(
                     value = "keyword",
                     required = false
@@ -57,11 +57,10 @@ public class AdminCategoryController {
             Model model) {
 
         List<Category> categories =
-                categoryService
-                        .searchAndFilterCategories(
-                                keyword,
-                                status
-                        );
+                categoryService.searchAndFilterCategories(
+                        keyword,
+                        status
+                );
 
         model.addAttribute(
                 "categories",
@@ -80,32 +79,37 @@ public class AdminCategoryController {
 
         model.addAttribute(
                 "totalCategories",
-                categoryService
-                        .getTotalCategories()
+                categoryService.getTotalCategories()
         );
 
         model.addAttribute(
                 "activeCategories",
-                categoryService
-                        .getActiveCategories()
+                categoryService.getActiveCategories()
         );
 
         model.addAttribute(
                 "inactiveCategories",
-                categoryService
-                        .getInactiveCategories()
+                categoryService.getInactiveCategories()
         );
+
+        // Important for Add/Edit modal/form
+        if (!model.containsAttribute("category")) {
+            model.addAttribute(
+                    "category",
+                    new Category()
+            );
+        }
 
         return "admin/categories";
     }
 
+
     // =====================================================
-    // ADD FORM
+    // ADD CATEGORY PAGE
     // =====================================================
 
     @GetMapping("/new")
-    public String newCategory(
-            Model model) {
+    public String newCategory(Model model) {
 
         model.addAttribute(
                 "category",
@@ -120,8 +124,19 @@ public class AdminCategoryController {
         return "admin/category-form";
     }
 
+
     // =====================================================
-    // SAVE / UPDATE
+    // SAVE / UPDATE CATEGORY
+    // =====================================================
+    //
+    // SAME URL handles both:
+    //
+    // NEW:
+    // POST /admin/categories/save
+    //
+    // UPDATE:
+    // POST /admin/categories/save
+    //
     // =====================================================
 
     @PostMapping("/save")
@@ -139,9 +154,9 @@ public class AdminCategoryController {
 
         try {
 
-            // ================================
-            // CHECK DUPLICATE NAME
-            // ================================
+            // =================================================
+            // DUPLICATE CATEGORY NAME
+            // =================================================
 
             if (categoryService.categoryNameExists(
                     category.getName(),
@@ -153,6 +168,7 @@ public class AdminCategoryController {
                 );
 
                 if (category.getId() == null) {
+
                     return "redirect:/admin/categories/new";
                 }
 
@@ -160,60 +176,79 @@ public class AdminCategoryController {
                         + category.getId();
             }
 
-            // ================================
+
+            // =================================================
             // DEFAULT STATUS
-            // ================================
+            // =================================================
 
             if (category.getStatus() == null) {
+
                 category.setStatus(true);
             }
 
-            // ================================
-            // CLOUDINARY IMAGE UPLOAD
-            // ================================
 
-            if (imageFile != null && !imageFile.isEmpty()) {
+            // =================================================
+            // CLOUDINARY IMAGE UPLOAD
+            // =================================================
+
+            if (
+                imageFile != null &&
+                !imageFile.isEmpty()
+            ) {
 
                 Map uploadResult =
                         cloudinary.uploader().upload(
                                 imageFile.getBytes(),
+
                                 ObjectUtils.asMap(
                                         "folder",
                                         "srikrishna/categories"
                                 )
                         );
 
+
                 String imageUrl =
                         uploadResult
                                 .get("secure_url")
                                 .toString();
 
+
+                // Store Cloudinary URL
+                // directly in category.image
+
                 category.setImage(imageUrl);
             }
 
-            // ================================
-            // SAVE / UPDATE
-            // ================================
+
+            // =================================================
+            // ADD CATEGORY
+            // =================================================
 
             if (category.getId() == null) {
 
-                // NEW CATEGORY
-
-                categoryService.saveCategory(category);
+                categoryService.saveCategory(
+                        category
+                );
 
                 redirectAttributes.addFlashAttribute(
                         "success",
                         "Category added successfully."
                 );
 
-            } else {
+            }
 
-                // UPDATE CATEGORY
+
+            // =================================================
+            // UPDATE CATEGORY
+            // =================================================
+
+            else {
 
                 Category existingCategory =
                         categoryService.getCategoryById(
                                 category.getId()
                         );
+
 
                 if (existingCategory == null) {
 
@@ -225,24 +260,32 @@ public class AdminCategoryController {
                     return "redirect:/admin/categories";
                 }
 
-                // No new image:
-                // keep existing Cloudinary URL
 
-                if (imageFile == null ||
-                        imageFile.isEmpty()) {
+                // If user didn't select a new image,
+                // keep the existing Cloudinary URL
+
+                if (
+                    imageFile == null ||
+                    imageFile.isEmpty()
+                ) {
 
                     category.setImage(
                             existingCategory.getImage()
                     );
                 }
 
-                categoryService.updateCategory(category);
+
+                categoryService.updateCategory(
+                        category
+                );
+
 
                 redirectAttributes.addFlashAttribute(
                         "success",
                         "Category updated successfully."
                 );
             }
+
 
         } catch (IOException e) {
 
@@ -261,11 +304,13 @@ public class AdminCategoryController {
             );
         }
 
+
         return "redirect:/admin/categories";
     }
 
+
     // =====================================================
-    // EDIT FORM
+    // EDIT CATEGORY
     // =====================================================
 
     @GetMapping("/edit/{id}")
@@ -278,19 +323,19 @@ public class AdminCategoryController {
             RedirectAttributes redirectAttributes) {
 
         Category category =
-                categoryService
-                        .getCategoryById(id);
+                categoryService.getCategoryById(id);
+
 
         if (category == null) {
 
-            redirectAttributes
-                    .addFlashAttribute(
-                            "error",
-                            "Category not found."
-                    );
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "Category not found."
+            );
 
             return "redirect:/admin/categories";
         }
+
 
         model.addAttribute(
                 "category",
@@ -305,8 +350,9 @@ public class AdminCategoryController {
         return "admin/category-form";
     }
 
+
     // =====================================================
-    // DETAILS
+    // CATEGORY DETAILS
     // =====================================================
 
     @GetMapping("/{id}")
@@ -319,19 +365,19 @@ public class AdminCategoryController {
             RedirectAttributes redirectAttributes) {
 
         Category category =
-                categoryService
-                        .getCategoryById(id);
+                categoryService.getCategoryById(id);
+
 
         if (category == null) {
 
-            redirectAttributes
-                    .addFlashAttribute(
-                            "error",
-                            "Category not found."
-                    );
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "Category not found."
+            );
 
             return "redirect:/admin/categories";
         }
+
 
         model.addAttribute(
                 "category",
@@ -340,6 +386,7 @@ public class AdminCategoryController {
 
         return "admin/category-details";
     }
+
 
     // =====================================================
     // ACTIVATE
@@ -354,26 +401,24 @@ public class AdminCategoryController {
 
         try {
 
-            categoryService
-                    .activateCategory(id);
+            categoryService.activateCategory(id);
 
-            redirectAttributes
-                    .addFlashAttribute(
-                            "success",
-                            "Category activated successfully."
-                    );
+            redirectAttributes.addFlashAttribute(
+                    "success",
+                    "Category activated successfully."
+            );
 
         } catch (Exception e) {
 
-            redirectAttributes
-                    .addFlashAttribute(
-                            "error",
-                            e.getMessage()
-                    );
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    e.getMessage()
+            );
         }
 
         return "redirect:/admin/categories";
     }
+
 
     // =====================================================
     // DEACTIVATE
@@ -388,26 +433,24 @@ public class AdminCategoryController {
 
         try {
 
-            categoryService
-                    .deactivateCategory(id);
+            categoryService.deactivateCategory(id);
 
-            redirectAttributes
-                    .addFlashAttribute(
-                            "success",
-                            "Category deactivated successfully."
-                    );
+            redirectAttributes.addFlashAttribute(
+                    "success",
+                    "Category deactivated successfully."
+            );
 
         } catch (Exception e) {
 
-            redirectAttributes
-                    .addFlashAttribute(
-                            "error",
-                            e.getMessage()
-                    );
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    e.getMessage()
+            );
         }
 
         return "redirect:/admin/categories";
     }
+
 
     // =====================================================
     // DELETE
@@ -422,23 +465,20 @@ public class AdminCategoryController {
 
         try {
 
-            categoryService
-                    .deleteCategory(id);
+            categoryService.deleteCategory(id);
 
-            redirectAttributes
-                    .addFlashAttribute(
-                            "success",
-                            "Category deleted successfully."
-                    );
+            redirectAttributes.addFlashAttribute(
+                    "success",
+                    "Category deleted successfully."
+            );
 
         } catch (Exception e) {
 
-            redirectAttributes
-                    .addFlashAttribute(
-                            "error",
-                            "Unable to delete category: "
-                                    + e.getMessage()
-                    );
+            redirectAttributes.addFlashAttribute(
+                    "error",
+                    "Unable to delete category: "
+                            + e.getMessage()
+            );
         }
 
         return "redirect:/admin/categories";
