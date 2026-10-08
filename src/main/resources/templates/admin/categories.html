@@ -26,7 +26,6 @@
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Jost:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
 
-
     <!-- =====================================================
          BOOTSTRAP
     ====================================================== -->
@@ -50,19 +49,15 @@
     ====================================================== -->
 
     <link
-        rel="stylesheet"
-        th:href="@{/css/admin-categories.css}">
-
+        rel="stylesheet" th:href="@{/css/admin-categories.css}">
 
 </head>
 
-
 <body>
 
-
-<!-- =====================================================
-     ADMIN NAVBAR
-====================================================== -->
+            <!-- =====================================================
+                ADMIN NAVBAR
+            ====================================================== -->
 
 <nav class="navbar admin-navbar">
 
@@ -142,7 +137,6 @@
 
         </div>
 
-
         <!-- =================================================
              ADD CATEGORY BUTTON
         ================================================== -->
@@ -159,8 +153,6 @@
         </button>
 
     </div>
-
-
 
     <!-- =================================================
          SUCCESS MESSAGE
@@ -396,8 +388,6 @@
 
                                 </a>
 
-
-
                                 <!-- DELETE -->
 
                                 <a
@@ -416,8 +406,6 @@
 
 
                     </tr>
-
-
 
                     <!-- =================================================
                          EMPTY STATE
@@ -476,30 +464,23 @@
 
 </div>
 
-
-
 <!-- =====================================================
      CATEGORY MODAL
 ====================================================== -->
 
 <div
-    class="modal fade"
-    id="categoryModal"
-    tabindex="-1"
-    aria-labelledby="categoryModalTitle"
-    aria-hidden="true">
+    class="category-modal-overlay"
+    id="categoryModal">
 
 
-    <div class="modal-dialog modal-dialog-centered">
-
-        <div class="modal-content">
+    <div class="category-modal-box">
 
 
             <!-- =================================================
                  MODAL HEADER
             ================================================== -->
 
-            <div class="modal-header">
+           <div class="category-modal-header">
 
                 <h5
                     class="modal-title"
@@ -528,7 +509,7 @@
                  MODAL BODY
             ================================================== -->
 
-            <div class="modal-body">
+            <div class="category-modal-body">
 
 
                 <form
@@ -704,8 +685,6 @@
 
 </div>
 
-
-
 <!-- =====================================================
      BOOTSTRAP JS
 ====================================================== -->
@@ -744,11 +723,11 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("Category page loaded");
+    console.log("ADMIN CATEGORY PAGE LOADED");
 
 
     /* =====================================================
-       GET ELEMENTS
+       ELEMENTS
     ===================================================== */
 
     const addCategoryBtn =
@@ -763,97 +742,69 @@ document.addEventListener("DOMContentLoaded", function () {
     const closeCategoryModalBtn =
         document.getElementById("closeCategoryModalBtn");
 
+    const searchInput =
+        document.getElementById("searchCategory");
+
+    const tableBody =
+        document.getElementById("categoryTableBody");
+
+    const imageInput =
+        document.getElementById("imageFile");
+
+    const previewImage =
+        document.getElementById("previewImage");
 
 
-    /* =====================================================
-       CHECK BOOTSTRAP
-    ===================================================== */
+    console.log("Add button:", addCategoryBtn);
 
-    console.log(
-        "Bootstrap:",
-        typeof bootstrap
-    );
-
-
-    console.log(
-        "Add button:",
-        addCategoryBtn
-    );
-
-
-    console.log(
-        "Category modal:",
-        categoryModalElement
-    );
+    console.log("Modal:", categoryModalElement);
 
 
 
     /* =====================================================
-       CREATE BOOTSTRAP MODAL
-    ===================================================== */
-
-    let categoryModal = null;
-
-
-    if (
-        categoryModalElement &&
-        typeof bootstrap !== "undefined"
-    ) {
-
-        categoryModal =
-            bootstrap.Modal.getOrCreateInstance(
-                categoryModalElement
-            );
-
-    }
-
-
-
-    /* =====================================================
-       OPEN MODAL FUNCTION
+       OPEN MODAL
     ===================================================== */
 
     function openCategoryModal() {
 
-        console.log(
-            "Opening category modal..."
-        );
+        console.log("OPEN CATEGORY MODAL");
 
 
         if (!categoryModalElement) {
 
             console.error(
-                "ERROR: #categoryModal not found!"
+                "categoryModal not found"
             );
 
             return;
-
         }
 
 
-        if (typeof bootstrap === "undefined") {
+        categoryModalElement.classList.add("show");
 
-            console.error(
-                "ERROR: Bootstrap JavaScript not loaded!"
-            );
+        categoryModalElement.style.display = "flex";
 
+        document.body.style.overflow = "hidden";
+    }
+
+
+
+    /* =====================================================
+       CLOSE MODAL
+    ===================================================== */
+
+    function closeCategoryModal() {
+
+        if (!categoryModalElement) {
             return;
-
         }
 
 
-        if (!categoryModal) {
+        categoryModalElement.classList.remove("show");
 
-            categoryModal =
-                bootstrap.Modal.getOrCreateInstance(
-                    categoryModalElement
-                );
+        categoryModalElement.style.display = "none";
 
-        }
-
-
-        categoryModal.show();
-
+        document.body.style.overflow = "";
     }
 
 
@@ -873,6 +824,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 openCategoryModal();
 
             }
+        );
+
+    } else {
+
+        console.error(
+            "Add Category button not found"
         );
 
     }
@@ -901,7 +858,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       CLOSE MODAL
+       CLOSE BUTTON
     ===================================================== */
 
     if (closeCategoryModalBtn) {
@@ -910,9 +867,31 @@ document.addEventListener("DOMContentLoaded", function () {
             "click",
             function () {
 
-                if (categoryModal) {
+                closeCategoryModal();
 
-                    categoryModal.hide();
+            }
+        );
+
+    }
+
+
+
+    /* =====================================================
+       CLICK OUTSIDE MODAL
+    ===================================================== */
+
+    if (categoryModalElement) {
+
+        categoryModalElement.addEventListener(
+            "click",
+            function (event) {
+
+                if (
+                    event.target ===
+                    categoryModalElement
+                ) {
+
+                    closeCategoryModal();
 
                 }
 
@@ -924,15 +903,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /* =====================================================
-       SEARCH
+       ESC KEY
     ===================================================== */
 
-    const searchInput =
-        document.getElementById("searchCategory");
+    document.addEventListener(
+        "keydown",
+        function (event) {
 
-    const tableBody =
-        document.getElementById("categoryTableBody");
+            if (event.key === "Escape") {
 
+                closeCategoryModal();
+
+            }
+
+        }
+    );
+
+
+
+    /* =====================================================
+       SEARCH
+    ===================================================== */
 
     if (searchInput && tableBody) {
 
@@ -942,8 +933,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 const searchValue =
                     this.value
-                    .toLowerCase()
-                    .trim();
+                        .toLowerCase()
+                        .trim();
 
 
                 const rows =
@@ -955,11 +946,14 @@ document.addEventListener("DOMContentLoaded", function () {
                 rows.forEach(function (row) {
 
                     const rowText =
-                        row.innerText.toLowerCase();
+                        row.innerText
+                            .toLowerCase();
 
 
                     if (
-                        rowText.includes(searchValue)
+                        rowText.includes(
+                            searchValue
+                        )
                     ) {
 
                         row.style.display = "";
@@ -983,13 +977,6 @@ document.addEventListener("DOMContentLoaded", function () {
        IMAGE PREVIEW
     ===================================================== */
 
-    const imageInput =
-        document.getElementById("imageFile");
-
-    const previewImage =
-        document.getElementById("previewImage");
-
-
     if (imageInput && previewImage) {
 
         imageInput.addEventListener(
@@ -1001,9 +988,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
                 if (!file) {
-
                     return;
-
                 }
 
 
@@ -1012,13 +997,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 ) {
 
                     alert(
-                        "Please select a valid image file."
+                        "Please select a valid image."
                     );
 
                     this.value = "";
 
                     return;
-
                 }
 
 
@@ -1054,66 +1038,27 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
 
-    deleteButtons.forEach(function (button) {
+    deleteButtons.forEach(
+        function (button) {
 
-        button.addEventListener(
-            "click",
-            function (event) {
+            button.addEventListener(
+                "click",
+                function (event) {
 
-                event.preventDefault();
-
-
-                const deleteUrl =
-                    this.getAttribute("href");
+                    event.preventDefault();
 
 
-                if (
-                    typeof Swal !== "undefined"
-                ) {
+                    const deleteUrl =
+                        this.getAttribute("href");
 
-                    Swal.fire({
 
-                        title: "Delete Category?",
-
-                        text:
-                            "This action cannot be undone.",
-
-                        icon: "warning",
-
-                        showCancelButton: true,
-
-                        confirmButtonText:
-                            "Yes, Delete",
-
-                        cancelButtonText:
-                            "Cancel",
-
-                        confirmButtonColor:
-                            "#c9a227",
-
-                        cancelButtonColor:
-                            "#111111"
-
-                    }).then(function (result) {
-
-                        if (
-                            result.isConfirmed
-                        ) {
-
-                            window.location.href =
-                                deleteUrl;
-
-                        }
-
-                    });
-
-                } else {
-
-                    if (
+                    const confirmDelete =
                         confirm(
                             "Delete this category?"
-                        )
-                    ) {
+                        );
+
+
+                    if (confirmDelete) {
 
                         window.location.href =
                             deleteUrl;
@@ -1121,38 +1066,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                 }
+            );
 
-            }
-        );
-
-    }
-
-
-
-    /* =====================================================
-       AUTO OPEN MODAL WHEN EDITING
-    ===================================================== */
-
-    const categoryId =
-        /*[[${category.id}]]*/ null;
-
-
-    if (
-        categoryId !== null &&
-        categoryId !== ""
-    ) {
-
-        openCategoryModal();
-
-    }
+        }
+    );
 
 
 });
 
 </script>
-
-
-
 </body>
-
 </html>
